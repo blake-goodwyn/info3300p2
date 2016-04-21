@@ -1,0 +1,608 @@
+<html>
+<head>
+	<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+	<style>
+	rect.bar { 
+		fill: #4169e1; 
+	}
+	path{
+		fill: none;
+		stroke: #000000;
+		stroke-width: 2;
+	}
+	.axis {
+		font-size: 14;
+	}
+	body{
+		font-size: 20;
+		font-family: 'Lato', sans-serif;
+		background: #dddfd4;
+	}
+	circle{
+		stroke-width: 3;
+	}
+	</style>
+<script>
+	//Reference Data
+	var pixarData = [  
+		   {"movie":"Toy Story",
+		   "data":{  
+		      "votes":{  
+		         "@infoset":"main",
+		         "@type":"int",
+		         "text":"601406"
+		      },
+		      "rating":{  
+		         "@infoset":"main",
+		         "@type":"float",
+		         "text":"8.3"
+		      },
+		      "runtimes":{  
+		         "@infoset":"main",
+		         "item":[  
+		            "81",
+		            {  
+		               "notes":"(TV version)",
+		               "text":"Turkey:74"
+		            }
+		         ]
+		      },
+		      "year":{  
+		         "@infoset":"main",
+		         "@type":"int",
+		         "text":"1995"
+		      },
+		      "director":{  
+		         "@infoset":"main",
+		         "person":{  
+		            "@id":"0005124",
+		            "name":"John Lasseter"
+		         }
+		      },
+		      "cover": {"url": "http://ia.media-imdb.com/images/M/MV5BMTgwMjI4MzU5N15BMl5BanBnXkFtZTcwMTMyNTk3OA@@._V1._SX100_SY133_.jpg",
+		      		"w": 100,
+		      		"h": 113
+		      	}
+		   }},
+
+		   {"movie":"A Bug's Life",
+		   "data":{  
+		      "votes":{  
+		         "@infoset":"main",
+		         "@type":"int",
+		         "text":"205852"
+		      },
+		      "rating":{  
+		         "@infoset":"main",
+		         "@type":"float",
+		         "text":"7.2"
+		      },
+		      "runtimes":{  
+		         "@infoset":"main",
+		         "item":"95"
+		      },
+		      "year":{  
+		         "@infoset":"main",
+		         "@type":"int",
+		         "text":"1998"
+		      },
+		      "director":{  
+		         "@infoset":"main",
+		         "person":[  
+		            {  
+		               "@id":"0005124",
+		               "name":"John Lasseter"
+		            },
+		            {  
+		               "@id":"0004056",
+		               "name":"Andrew Stanton",
+		               "notes":"(co-director)"
+		            }
+		         ]
+		      },
+		      "cover": {"url": "http://ia.media-imdb.com/images/M/MV5BMTI5NTc1NjU2NF5BMl5BanBnXkFtZTcwNzkyNDAyMQ@@._V1._SX98_SY140_.jpg",
+		      		"w": 98,
+		      		"h": 139
+		      	}
+		   }},
+
+		   {"movie":"Toy Story 2",
+		   "data":{  
+		         "votes":{  
+		            "@infoset":"main",
+		            "@type":"int",
+		            "text":"374050"
+		         },
+		         "rating":{  
+		            "@infoset":"main",
+		            "@type":"float",
+		            "text":"7.9"
+		         },
+		         "runtimes":{  
+		            "@infoset":"main",
+		            "item":[  
+		               "92",
+		               {  
+		                  "notes":"(TV version)",
+		                  "text":"Turkey:82"
+		               }
+		            ]
+		         },
+		         "year":{  
+		            "@infoset":"main",
+		            "@type":"int",
+		            "text":"1999"
+		         },
+		         "director":{  
+		            "@infoset":"main",
+		            "person":[  
+		               {  
+		                  "@id":"0005124",
+		                  "name":"John Lasseter"
+		               },
+		               {  
+		                  "@id":"0105169",
+		                  "name":"Ash Brannon",
+		                  "notes":"(co-director)"
+		               },
+		               {  
+		                  "@id":"0881279",
+		                  "name":"Lee Unkrich",
+		                  "notes":"(co-director)"
+		               }
+		            ]
+		         },
+		         "cover": {"url": "http://ia.media-imdb.com/images/M/MV5BMTQ0OTU0NTcyNl5BMl5BanBnXkFtZTcwOTk5Mjc4OA@@._V1._SX100_SY133_.jpg",
+		      		"w": 98,
+		      		"h": 139
+		      	}
+		      }},
+
+		      {"movie":"Monsters, Inc.",
+		  		"data":{
+		  			"votes": {"@infoset": "main", "@type": "int", "text": "563876"},
+		  			"rating": {"@infoset": "main", "@type": "float", "text": "8.1"},
+		  			"runtimes": {"@infoset": "main", "item": "92"},
+		  			"year": {"@infoset": "main", "@type": "int", "text": "2001"},
+		  			"director": {"@infoset": "main", "person": [{"@id": "0230032", "name": "Pete Docter"}, {"@id": "0798899", "name": "David Silverman", "notes": "(co-director)"}, {"@id": "0881279", "name": "Lee Unkrich", "notes": "(co-director)"}]},
+		  			"cover": {"url": "http://ia.media-imdb.com/images/M/MV5BMTY1NTI0ODUyOF5BMl5BanBnXkFtZTgwNTEyNjQ0MDE@._V1._SX94_SY140_.jpg",
+			      		"w": 94,
+			      		"h": 139
+			      	}
+		  		}},
+
+				{"movie":"Finding Nemo",
+				 "data":{
+				 	"votes": {"@infoset": "main", "@type": "int", "text": "663881"},
+				 	"rating": {"@infoset": "main", "@type": "float", "text": "8.1"},
+				 	"runtimes": {"@infoset": "main", "item": "100"},
+				 	"year": {"@infoset": "main", "@type": "int", "text": "2003"},
+				 	"director": {"@infoset": "main", "person": [{"@id": "0004056", "name": "Andrew Stanton"}, {"@id": "0881279", "name": "Lee Unkrich", "notes": "(co-director)"}]},
+			      "cover": {"url": "http://ia.media-imdb.com/images/M/MV5BMTY1MTg1NDAxOV5BMl5BanBnXkFtZTcwMjg1MDI5Nw@@._V1._SX95_SY140_.jpg",
+			      		"w": 94,
+			      		"h": 140
+			      	}
+				 }},
+
+				 {"movie":"The Incredibles",
+				 "data":{
+				 	"votes": {"@infoset": "main", "@type": "int", "text": "464419"},
+					"rating": {"@infoset": "main", "@type": "float", "text": "8.0"},
+					"runtimes": {"@infoset": "main", "item": "115"},
+					"year": {"@infoset": "main", "@type": "int", "text": "2004"},
+					"director": {"@infoset": "main", "person": {"@id": "0083348", "name": "Brad Bird"}},
+					"cover": {"url": "http://ia.media-imdb.com/images/M/MV5BMTY5OTU0OTc2NV5BMl5BanBnXkFtZTcwMzU4MDcyMQ@@._V1._SX95_SY140_.jpg",
+			      		"w": 94,
+			      		"h": 140
+			      	}
+
+				 }},
+
+				 {"movie":"Cars",
+				 "data":{
+				 	"votes": {"@infoset": "main", "@type": "int", "text": "253912"},
+					"rating": {"@infoset": "main", "@type": "float", "text": "7.2"},
+					"runtimes": {"@infoset": "main", "item": "117"},
+					"year": {"@infoset": "main", "@type": "int", "text": "2006"},
+					"director": {"@infoset": "main", "person": [{"@id": "0005124", "name": "John Lasseter"}, {"@id": "0710020", "name": "Joe Ranft", "notes": "(co-director)"}]},
+					"cover": {"url": "http://ia.media-imdb.com/images/M/MV5BMTg5NzY0MzA2MV5BMl5BanBnXkFtZTYwNDc3NTc2._V1._SX94_SY140_.jpg",
+			      		"w": 94,
+			      		"h": 140
+			      	}
+				 }},
+
+				 {"movie":"Ratatouille",
+				 "data":{
+				 	"votes": {"@infoset": "main", "@type": "int", "text": "459217"},
+					"rating": {"@infoset": "main", "@type": "float", "text": "8.0"},
+					"runtimes": {"@infoset": "main", "item": "111"},
+					"year": {"@infoset": "main", "@type": "int", "text": "2007"},
+					"director": {"@infoset": "main", "person": [{"@id": "0083348", "name": "Brad Bird"}, {"@id": "0684342", "name": "Jan Pinkava", "notes": "(co-director)"}]},
+					"cover": {"url": "http://ia.media-imdb.com/images/M/MV5BMTMzODU0NTkxMF5BMl5BanBnXkFtZTcwMjQ4MzMzMw@@._V1._SX94_SY140_.jpg",
+			      		"w": 94,
+			      		"h": 140
+			      	}
+				 }},
+
+				 {"movie":"WALL-E",
+				 "data":{
+				 	"votes": {"@infoset": "main", "@type": "int", "text": "693522"},
+					"rating": {"@infoset": "main", "@type": "float", "text": "8.4"},
+					"runtimes": {"@infoset": "main", "item": "98"},
+					"year": {"@infoset": "main", "@type": "int", "text": "2008"},
+					"director": {"@infoset": "main", "person": {"@id": "0004056", "name": "Andrew Stanton"}},
+					"cover": {"url": "http://ia.media-imdb.com/images/M/MV5BMTczOTA3MzY2N15BMl5BanBnXkFtZTcwOTYwNjE2MQ@@._V1._SX95_SY140_.jpg",
+			      		"w": 94,
+			      		"h": 140
+			      	}
+				 }},
+
+				 {"movie":"Up",
+				 "data":{
+				 	"votes": {"@infoset": "main", "@type": "int", "text": "640595"},
+					"rating": {"@infoset": "main", "@type": "float", "text": "8.3"},
+					"runtimes": {"@infoset": "main", "item": "96"},
+					"year": {"@infoset": "main", "@type": "int", "text": "2009"},
+					"director": {"@infoset": "main", "person": [{"@id": "0230032", "name": "Pete Docter"}, {"@id": "0677037", "name": "Bob Peterson", "notes": "(co-director)"}]},
+					"cover": {"url": "http://ia.media-imdb.com/images/M/MV5BMTk3NDE2NzI4NF5BMl5BanBnXkFtZTgwNzE1MzEyMTE@._V1._SX93_SY140_.jpg",
+			      		"w": 94,
+			      		"h": 140
+			      	}
+				 }},
+
+				 {"movie":"Toy Story 3",
+				 "data":{
+				 	"votes": {"@infoset": "main", "@type": "int", "text": "526019"},
+					"rating": {"@infoset": "main", "@type": "float", "text": "8.3"},
+					"runtimes": {"@infoset": "main", "item": "103"},
+					"year": {"@infoset": "main", "@type": "int", "text": "2010"},
+					"director": {"@infoset": "main", "person": {"@id": "0881279", "name": "Lee Unkrich"}},
+					"cover": {"url": "http://ia.media-imdb.com/images/M/MV5BMTgxOTY4Mjc0MF5BMl5BanBnXkFtZTcwNTA4MDQyMw@@._V1._SX99_SY140_.jpg",
+			      		"w": 94,
+			      		"h": 140
+			      	}
+				 }},
+
+				{"movie":"Cars 2",
+				 "data":{
+				 	"votes": {"@infoset": "main", "@type": "int", "text": "97797"},
+					"rating": {"@infoset": "main", "@type": "float", "text": "6.3"},
+					"runtimes": {"@infoset": "main", "item": "USA:106"},
+					"year": {"@infoset": "main", "@type": "int", "text": "2011"},
+					"director": {"@infoset": "main", "person": [{"@id": "0005124", "name": "John Lasseter"}, {"@id": "0506977", "name": "Brad Lewis", "notes": "(co-director)"}]},
+					"cover": {"url": "http://ia.media-imdb.com/images/M/MV5BMTUzNTc3MTU3M15BMl5BanBnXkFtZTcwMzIxNTc3NA@@._V1._SX94_SY140_.jpg",
+			      		"w": 94,
+			      		"h": 140
+			      	}
+				 }},
+
+				{"movie":"Brave",
+				 "data":{
+				 	"votes": {"@infoset": "main", "@type": "int", "text": "266304"},
+					"rating": {"@infoset": "main", "@type": "float", "text": "7.2"},
+					"runtimes": {"@infoset": "main", "item": "93"},
+					"year": {"@infoset": "main", "@type": "int", "text": "2012"},
+					"director": {"@infoset": "main", "person": [{"@id": "0028764", "name": "Mark Andrews"}, {"@id": "0152312", "name": "Brenda Chapman"}, {"@id": "0700760", "name": "Steve Purcell", "notes": "(co-director)"}]},
+					"cover": {"url": "http://ia.media-imdb.com/images/M/MV5BMzgwODk3ODA1NF5BMl5BanBnXkFtZTcwNjU3NjQ0Nw@@._V1._SX95_SY140_.jpg",
+			      		"w": 94,
+			      		"h": 140
+			      	}
+				 }},
+
+				 {"movie":"Monsters University",
+				 "data":{
+				 	"votes": {"@infoset": "main", "@type": "int", "text": "226373"},
+					"rating": {"@infoset": "main", "@type": "float", "text": "7.4"},
+					"runtimes": {"@infoset": "main", "item": "104"},
+					"year": {"@infoset": "main", "@type": "int", "text": "2013"},
+					"director": {"@infoset": "main", "person": {"@id": "0768959", "name": "Dan Scanlon"}},
+					"cover": {"url": "http://ia.media-imdb.com/images/M/MV5BMTUyODgwMDU3M15BMl5BanBnXkFtZTcwOTM4MjcxOQ@@._V1._SX94_SY140_.jpg",
+			      		"w": 94,
+			      		"h": 140
+			      	}
+				 }}					 				 
+
+		   ]
+</script>
+<script src="//d3js.org/d3.v3.min.js"></script>
+</head>
+<body>
+	<div id="test" align="center"\>
+	<script>
+
+	var circleIDArray = [];  //Relates movie IDs to studioData
+	
+	//Svg initialization
+	var l = 850,
+		speed = 850,
+		radius = l/3;
+
+	var svg = d3.select("#test").append("svg")
+		.attr("height", l)
+		.attr("width", l)
+		.attr("id","overview");
+
+	var yScale = d3.scale.linear().domain([-1,1]).range([(l/2+0.5*radius),(l/2-0.5*radius)])
+
+	//Color scheme
+	var colCenter = "#173e43",
+		colMovie = "#3fb0ac",
+		colText = "#fae596";
+
+	init(pixarData);
+
+	function init(studioData){
+
+		var cirR = radius/((6/14)*studioData.length); //data circle radius
+
+		//Sorts studio data based on rating
+		function compare(a,b){
+			if (a.data.rating.text < b.data.rating.text) { return -1 }
+			else if (a.data.rating.text > b.data.rating.text) { return 1 }
+			else {return 0};
+		}
+
+		studioData.sort(compare)
+
+		//Determines path points for startup animation
+		function circlePath(radius){
+			var points = [],
+				n = 1000;
+			for (var i = 0; i<n; i++){
+				var x = l/2 + radius*Math.cos(i*Math.PI/(n/2)),
+					y = l/2 - radius*Math.sin(i*Math.PI/(n/2));
+				points.push([x,y]);
+			};
+
+			return points
+		};
+
+		pathPoints = circlePath(radius);
+
+		//Selects points for data circles
+		var specPoints = [],
+			step = pathPoints.length/studioData.length;
+		for (var i = 0; i<studioData.length; i++){
+			specPoints.push(pathPoints[Math.floor(i*step)]);
+		};
+
+		specPoints.shift();  //eliminates first point (i.e. spawn circle)
+
+		//Create transition path
+		var path = svg.append("path")
+			.data([pathPoints])
+			.attr("d", d3.svg.line()
+			.tension(0) //Catmull-Rom
+			.interpolate("cardinal-closed"))
+			.style("opacity",0);
+
+		svg.selectAll(".point")
+			.data(pathPoints)
+			.enter().append("circle")
+			.attr("r",4)
+			.style("opacity",0)
+			.attr("transform", function(d) {return "translate(" + d + ")"});
+
+		//Initialize ID structure
+		var c = 65; //Movie ID counter
+
+		//Initialize spawn circle
+		var circle = svg.append("circle")
+			.attr("r", 0)
+			.attr("id", "spwn")
+			.style("fill",colMovie)
+			.attr("transform", "translate(" + pathPoints[0] + ")")
+			.transition()
+			.duration(0.5*speed)
+			.attr("r", cirR);
+
+		//Begin Transitions		
+		console.log("start transition")
+		circleTransition(circle);
+
+		function circleTransition(circle) {  //Transition 1 : Loading Animation
+			circle.transition() //Initialized #1
+			.duration(2.0*speed)
+			.attrTween("transform", translateAlong(path.node()))
+			.each('end', function(){  //End of Transition 1
+				svg.select("#spwn").remove();  //remove spawning circle
+				svg.selectAll(".point").remove();  //remove transition points
+				svg.append("circle")  //data circle in place of spawn
+					.attr({
+						r: cirR,
+						cx: pathPoints[0][0],
+						cy: pathPoints[0][1],
+						id: String.fromCharCode(c)
+					})
+					.style("fill",colMovie);
+
+				circleIDArray.push({"id":String.fromCharCode(c),"ref":null});
+				c++;
+				fillChange() //Init Transiton 2
+			});
+		}
+
+		function translateAlong(path) {
+			/*Translates spawn circle along specified path and initializes new data circles*/
+		  var l = path.getTotalLength();
+		  return function(d, i, a) {
+		    return function(t) {
+		      var p = path.getPointAtLength(t * l);
+		      if ((specPoints.length != 0) &&
+				((Math.abs(p.x - specPoints[0][0]) < 0.05*l) && (Math.abs(p.y - specPoints[0][1]) < 0.05*l))) { //spawn near specPoint
+						var circle = svg.append("circle")
+							.attr({
+								r: 0,
+								cx: specPoints[0][0],
+								cy: specPoints[0][1],
+								id: String.fromCharCode(c)
+							})
+							.style("fill",colMovie);
+
+						specPoints.shift();
+						circleIDArray.push({"id":String.fromCharCode(c),"ref":null});
+						c++;
+
+						circle.transition()
+						.attr("r",cirR)
+						.delay(0.1*speed)
+						.duration(0.5*speed);
+				};
+
+		      return "translate(" + p.x + "," + p.y + ")";
+		    };
+		  };
+		};
+
+		function fillChange(array){  //Transition 2 : Center Circle
+			var centerCircle = svg.append("circle")  //overview circle
+				.attr("r", 0)
+				.attr("cx", l/2)
+				.attr("cy", l/2)
+				.attr("id","center")
+				.style("fill", colCenter)
+				.transition()  //Initialize Transition Stage 2
+				.ease("elastic")
+				.duration(1.5*speed)
+				.attr("r", 0.5*radius)
+				.each('end', function(){  //Transition 3 : Fill Images
+					var defs = svg.append('svg:defs');  //container for fill images
+					for(var i = 0; i<studioData.length; i++){
+						if (!!studioData[i].data.cover){
+							var id = studioData[i].movie.replace(/['\s]/g, ''),
+								w = studioData[i].data.cover.w,
+								h = studioData[i].data.cover.h;
+
+							console.log(id)
+
+							var scale = 2*cirR/w;  //Scaling factor for images 
+
+							var curCircle = svg.select("#" + circleIDArray[i].id);
+
+							circleIDArray[i].ref = studioData[i];
+
+							defs.append("svg:pattern") //reference for specific image
+							    .attr("id", id)
+							    .attr("width", 1)
+							    .attr("height", 1)
+								.attr("x", "0")
+                        		.attr("y", "0")
+							    .append("svg:image")
+							    .attr("xlink:href", studioData[i].data.cover.url)
+							    .attr("width", w*scale)
+							    .attr("height", h*scale)
+							    .attr("x", 0)
+							    .attr("y", -h/8); //slight image centering
+
+							curCircle.transition() //Image Loading
+							.duration(750)
+							.style("opacity",0)
+							.transition()
+							.style("opacity",1)
+							.style("fill","url(#" + id +")")
+							.style("stroke",colMovie)
+							.each('end',interactivity(circleIDArray,id));
+						};
+					};
+					sortFunc();
+				});
+			};
+
+		function interactivity(array,id){
+			//Interactivity
+			array.forEach(function(obj){
+				var curCircle = svg.select("#"+obj.id);
+				curCircle.on("mouseover", function(d,i){
+
+					//Opacity Changes
+					array.forEach(function(c){
+						if (svg.select("#"+obj.id) != curCircle){
+							svg.select("#"+obj.id).style("opacity",0.5);
+						}
+					});
+
+					//Text Data
+					svg.append("text") //title
+					.attr("x",l/2)
+					.attr("y",yScale(0.5))
+					.attr("id",id+"text")
+					.style("text-anchor", "middle")
+					.style("fill",colText)
+					.text(function(d,i){
+						return obj.ref.movie;
+					});
+					
+					svg.append("text") //Rating
+					.attr("x",l/2)
+					.attr("y",yScale(0.35))
+					.attr("id",id+"text")
+					.style("text-anchor", "middle")
+					.style("fill",colText)
+					.text(function(d,i){
+						return "IMDb Rating: " + obj.ref.data.rating.text;
+					})
+
+					svg.append("text") //Rating
+					.attr("x",l/2)
+					.attr("y",yScale(0.2))
+					.attr("id",id+"text")
+					.style("text-anchor", "middle")
+					.style("fill",colText)
+					.text(function(d,i){
+						return "Release Year: " + obj.ref.data.year.text;
+					})
+				})
+				.on("mouseout", function(){
+					circleIDArray.forEach(function(c){
+						svg.select("#"+c.id).style("opacity",1.0);
+					});
+					svg.selectAll("#"+id+"text").remove();
+				});
+			});
+		};
+
+		function sortFunc(){
+			var dropdown = d3.select("#test").append("select").on("change",sortMovies),
+				sortParams = ["rating", "year"],
+				options = dropdown.selectAll('option').data(sortParams);
+
+			options.enter().append("option").text(function(d){return d;});
+
+			function sortMovies(){
+				var idx = dropdown.property('selectedIndex'),
+					selection = dropdown[0][0][idx].innerText;
+				function compare(a,b){
+					if (a.ref.data[selection].text < b.ref.data[selection].text) { return -1 }
+					else if (a.ref.data[selection].text > b.ref.data[selection].text) { return 1 }
+					else {return 0};
+				}
+				unsortedArray = circleIDArray.slice();
+				circleIDArray.sort(compare);
+				newArray = [];
+				for (var i = 0; i<unsortedArray.length; i++){
+					newArray.push({"id":unsortedArray[i].id,"ref":circleIDArray[i].ref});
+				}
+
+				var svg = d3.select("#overview");
+
+				for(var i = 0; i<circleIDArray.length; i++){
+
+					var curCircle = svg.select("#" + unsortedArray[i].id),
+						idNew = circleIDArray[i].ref.movie.replace(/['\s]/g, '');
+
+					curCircle.transition() //Image Loading
+					.duration(750)
+					.style("opacity",0)
+					.transition()
+					.style("opacity",1)
+					.style("fill","url(#" + idNew +")")
+					.style("stroke",colMovie)
+					.each('end', interactivity(newArray,idNew));
+				};
+				circleIDArray = newArray;
+			};
+		};
+	};
+	</script>
+</body>
+</html>
