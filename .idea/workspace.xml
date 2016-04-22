@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="26c76150-8953-4c46-8c76-ed60311ab87c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vis-pixar.html" afterPath="$PROJECT_DIR$/vis-pixar.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pixar-interaction-mock.html" afterPath="$PROJECT_DIR$/pixar-interaction-mock.html" />
     </list>
     <ignored path="info3300p2.iws" />
     <ignored path=".idea/workspace.xml" />
