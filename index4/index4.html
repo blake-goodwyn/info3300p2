@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<style>
+body {
+  background-color: #39414d;
+}
+text {
+  font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-anchor: middle;
+  pointer-events: none;
+}
+
+circle {
+  fill: #ccc;
+}
+h1{
+  color: #1c5aab;
+  padding-top: 1%;
+}
+.node:hover circle {
+  fill: orange;}
+
+img {z-index:100;}
+
+#header{
+  background-color: #ffdd1e;
+  height: 60px;
+  margin-top: -1.5%;
+  width: 100%;
+}
+
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+</style>
+<body>
+<div data-role="page" id="header">
+  <div data-role="header" data-position="fixed">
+    <h1 align="center">Which Zootopia Character Are You?</h1>
+  </div>
+<div id = "ques"></div>
+<div class="example_div"></div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js"></script>
+<script src="//d3js.org/queue.v1.min.js"></script>
+<script src="//labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<!--<p class="question">1. What is the answer to this question?</p>
+<ul class="answers">
+<input type="radio" name="q1" value="a" id="q1a"><label for="q1a">Answer 1</label><br/>
+<input type="radio" name="q1" value="b" id="q1b"><label for="q1b">Answer 2</label><br/>
+<input type="radio" name="q1" value="c" id="q1c"><label for="q1c">Answer 3</label><br/>
+<input type="radio" name="q1" value="d" id="q1d"><label for="q1d">Answer 4</label><br/>
+</ul> -->
+<script>
+
+var bleed = 100,
+    width = 560,
+    height = 560,
+    //count = 0,
+    height1=950,
+    width1=2000;
+
+var pack = d3.layout.pack()
+    .sort(null)
+    .size([width, height + bleed * 2])
+    .padding(2);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+  .append("g")
+    .attr("transform", "translate(0," + -bleed + ")");
+
+queue()
+  .defer(d3.json, 'README.json')
+  .defer(d3.csv, 'images.csv')
+  .await(drawCircles);
+
+function drawCircles(error, json, images) {
+  console.log(images);
+  var chars = {};
+  images.forEach(function(d) {
+    chars[d.name] = {};
+    chars[d.name].url = d.url;
+    chars[d.name].personal = d.personal;
+  });
+  console.log(chars)
+// d3.json("README.json", function(error, json) {
+  if (error) throw error;
+
+  var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-10, 0])
+  .html(function(d) {
+    return "<strong>Personality:</strong> <span style='color:red'>" + chars[d.name].personal + "</span>";
+  })
+
+  var node = svg.selectAll(".node")
+      .data(pack.nodes(flatten(json))
+        .filter(function(d) { return !d.children; }))
+    .enter().append("g")
+      //.attr("class", "node")
+      .attr("id", function(d,i) { return "circle-"+i; })
+      .attr("class", function(d) {
+        if (["Yax", "Nick Wilde", "Flash"].indexOf(d.name) != -1) {
+          return "sport";
+        }
+      })
+
+      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+
+  node.call(tip);
+  
+
+  node.append("circle")
+      .attr("r", function(d) { return d.r; }).style("opacity",0.5)
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide);
+
+  node.append("text")
+      .text(function(d) { return d.name; })
+      .style("font-size", function(d) { return Math.min(2 * d.r, (2 * d.r - 8) / this.getComputedTextLength() * 14); })
+      .attr("dy", ".35em");
+
+ // node.append("svg:image").attr("xlink:href", function(d) { console.log(d); return d.img;}).attr("height",50).attr("width",50); 
+ node.append("svg:image")
+  .attr("xlink:href", function(d) { 
+    if(chars.hasOwnProperty(d.name)) {
+      return chars[d.name].url;
+    }
+    // console.log(chars[d.name]); return chars[d.name];
+  })
+ .attr("height",50).attr("width",50).attr("y", -10);
+ // node.append("svg:image").attr("xlink:href", "http://vignette1.wikia.nocookie.net/parody/images/0/09/Judy_hopps_2.png/revision/latest?cb=20160118212035").attr("height",50).attr("width",50); 
+
+// });  
+
+};  
+    //console.log(node);
+  
+
+
+// Returns a flattened hierarchy containing all leaf nodes under the root.
+function flatten(root) {
+  var nodes = [];
+
+  function recurse(node) {
+    if (node.children) node.children.forEach(recurse);
+    else nodes.push({name: node.name, value: node.size});
+  }
+
+  recurse(root);
+  return {children: nodes};
+}
+/*d3.select("#circle-150 circle").attr("r", "100")
+d3.select("#circle-150 text").style("font-size", "30")*/
+var svg1 = d3.select("#ques").append("svg")
+    .attr("width", width1)
+    .attr("height", height1)
+    .attr("x","1000")
+    .attr("y","30");
+//Q1
+svg1.append("text").attr("class","a1").attr("x","50%").attr("y",30).style("fill","yellow").text("Question1: What's your favorite summer olympics sport");
+svg1.append("text").attr("class","a1").attr("x","50%").attr("y",50).style("fill","yellow").text("A: Track and field");
+svg1.append("text").attr("class","a1").attr("x","50%").attr("y",65).style("fill","yellow").text("B: Javelin throw");
+svg1.append("text").attr("class","a1").attr("x","50%").attr("y",80).style("fill","yellow").text("C: Weight lifting");
+svg1.append("text").attr("class","a1").attr("x","50%").attr("y",95).style("fill","yellow").text("D: Cycling");
+
+svg1.append("circle")
+  .attr("class","c1")
+  .attr("cx","55%")
+  .attr("cy",50)
+  .style("fill","white")
+  .attr("r",5)
+  // .on("click", function() { d3.selectAll(".sport circle").attr("r", function(d) { return d.r + 10; }) });
+  .on("click", function() { 
+    console.log("clicking!");
+    var currSize = d3.selectAll(".sport text").style("font-size");
+    currSize = parseInt(currSize.substring(0,currSize.length-2));
+    d3.selectAll(".sport text").style("font-size", function() { return currSize + 20; }) 
+  });
+
+
+// var c = svg1.select(".c1");
+// // c.on("click", function () { d3.select("#circle-1 circle").attr("r", "100");});
+// c.on("click", function () { console.log("Hello!"); d3.select("#circle-1 circle").attr("r", function() { console.log(this.attr("r")) });});
+
+svg1.append("circle").attr("class","c2 ").attr("cx","55%").attr("cy",65).style("fill","white").attr("r",5);
+var d = svg1.select(".c2");
+d.on("click", function () { d3.select("#circle-2 circle").attr("r", "100");});
+
+svg1.append("circle").attr("class","c3").attr("cx","55%").attr("cy",80).style("fill","white").attr("r",5);
+var d = svg1.select(".c3");
+d.on("click", function () { d3.select("#circle-3 circle").attr("r", "100");})
+
+svg1.append("circle").attr("class","c4").attr("cx","55%").attr("cy",95).style("fill","white").attr("r",5);
+var d = svg1.select(".c4");
+d.on("click", function () { d3.select("#circle-4 circle").attr("r", "100");});
+
+//Q2
+svg1.append("text").attr("class","a1").attr("x","50%").attr("y",130).style("fill","yellow").text("Question2: What's your favorite social media");
+svg1.append("text").attr("class","a1").attr("x","50%").attr("y",150).style("fill","yellow").text("A: Instagram");
+svg1.append("text").attr("class","a1").attr("x","50%").attr("y",165).style("fill","yellow").text("B: LinkedIn");
+svg1.append("text").attr("class","a1").attr("x","50%").attr("y",180).style("fill","yellow").text("C: Facebook");
+svg1.append("text").attr("class","a1").attr("x","50%").attr("y",195).style("fill","yellow").text("D: Snapchat");
+
+svg1.append("circle").attr("class","c4").attr("cx","55%").attr("cy",150).style("fill","white").attr("r",5);
+// var c = svg1.select(".c1");
+// c.on("click", function () { d3.select("#circle-1 circle").attr("r", "100");});
+
+svg1.append("circle").attr("class","c5 ").attr("cx","55%").attr("cy",165).style("fill","white").attr("r",5);
+var d = svg1.select(".c2");
+// d.on("click", function () { d3.select("#circle-2 circle").attr("r", "100");});
+// d.on("click", function () { d3.select("#circle-2 circle").attr("r", function() { console.log(this.attr("r")) });});
+
+svg1.append("circle").attr("class","c6").attr("cx","55%").attr("cy",180).style("fill","white").attr("r",5);
+var d = svg1.select(".c3");
+d.on("click", function () { d3.select("#circle-5 circle").attr("r", "100");})
+
+svg1.append("circle").attr("class","c4").attr("cx","55%").attr("cy",195).style("fill","white").attr("r",5);
+var d = svg1.select(".c4");
+d.on("click", function () { d3.select("#circle-6 circle").attr("r", "100");});
+
+//Q3
+// svg1.append("text").attr("class","a1").attr("x","50%").attr("y",230).style("fill","yellow").text("Question1: What's your favorite disney movie");
+// svg1.append("text").attr("class","a1").attr("x","50%").attr("y",250).style("fill","yellow").text("A: Finding Nemo");
+// svg1.append("text").attr("class","a1").attr("x","50%").attr("y",265).style("fill","yellow").text("B: The Lion King");
+// svg1.append("text").attr("class","a1").attr("x","50%").attr("y",280).style("fill","yellow").text("C: Mulan");
+// svg1.append("text").attr("class","a1").attr("x","50%").attr("y",295).style("fill","yellow").text("D: The Great Mouse Detective");
+
+// svg1.append("circle").attr("class","c1").attr("cx","55%").attr("cy",250).style("fill","white").attr("r",5);
+// var c = svg1.select(".c1");
+// c.on("click", function () { d3.select("#circle-1 circle").attr("r", "100");});
+
+// svg1.append("circle").attr("class","c2 ").attr("cx","55%").attr("cy",265).style("fill","white").attr("r",5);
+// var d = svg1.select(".c2");
+// d.on("click", function () { d3.select("#circle-2 circle").attr("r", "100");});
+
+// svg1.append("circle").attr("class","c3").attr("cx","55%").attr("cy",280).style("fill","white").attr("r",5);
+// var d = svg1.select(".c3");
+// d.on("click", function () { d3.select("#circle-3 circle").attr("r", "100");})
+
+// svg1.append("circle").attr("class","c4").attr("cx","55%").attr("cy",295).style("fill","white").attr("r",5);
+// var d = svg1.select(".c4");
+// d.on("click", function () { d3.select("#circle-4 circle").attr("r", "100");});
+
+
+</script>
