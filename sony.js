@@ -1,5 +1,6 @@
 var sonyData = [
-    {"movie": "Skyfall",
+    {
+        "movie": "Skyfall",
         "data": {
             "votes": {
                 "text": "510149"
@@ -23,9 +24,11 @@ var sonyData = [
                 "w": 94,
                 "h": 140
             }
-        }},
+        }
+    },
 
-    {"movie": "Spider-Man 3",
+    {
+        "movie": "Spider-Man 3",
         "data": {
             "votes": {
                 "text": "371855"
@@ -55,9 +58,11 @@ var sonyData = [
                 "w": 94,
                 "h": 140
             }
-        }},
+        }
+    },
 
-    {"movie": "Spectre",
+    {
+        "movie": "Spectre",
         "data": {
             "votes": {
                 "text": "252623"
@@ -81,9 +86,11 @@ var sonyData = [
                 "w": 94,
                 "h": 140
             }
-        }},
+        }
+    },
 
-    {"movie": "Spider-Man",
+    {
+        "movie": "Spider-Man",
         "data": {
             "votes": {
                 "text": "530769"
@@ -107,9 +114,11 @@ var sonyData = [
                 "w": 94,
                 "h": 140
             }
-        }},
+        }
+    },
 
-    {"movie": "Spider-Man 2",
+    {
+        "movie": "Spider-Man 2",
         "data": {
             "votes": {
                 "text": "397980"
@@ -139,9 +148,11 @@ var sonyData = [
                 "w": 94,
                 "h": 140
             }
-        }},
+        }
+    },
 
-    // {"movie": "2012", 
+    // {
+    // "movie": "2012",
     // "data": {
     // 	"votes": {
     // 		"text": "276130"
@@ -165,9 +176,11 @@ var sonyData = [
     // 		"w": 94,
     // 		"h": 140
     // 	}
-    // }},
+    // }
+    // },
 
-    {"movie": "The Da Vinci Code",
+    {
+        "movie": "The Da Vinci Code",
         "data": {
             "votes": {
                 "text": "307053"
@@ -197,9 +210,11 @@ var sonyData = [
                 "w": 94,
                 "h": 140
             }
-        }},
+        }
+    },
 
-    {"movie": "The Amazing Spider-Man",
+    {
+        "movie": "The Amazing Spider-Man",
         "data": {
             "votes": {
                 "text": "440293"
@@ -229,9 +244,11 @@ var sonyData = [
                 "w": 94,
                 "h": 140
             }
-        }},
+        }
+    },
 
-    {"movie": "The Amazing Spider-Man 2",
+    {
+        "movie": "The Amazing Spider-Man 2",
         "data": {
             "votes": {
                 "text": "310625"
@@ -255,9 +272,11 @@ var sonyData = [
                 "w": 94,
                 "h": 140
             }
-        }},
+        }
+    },
 
-    {"movie": "Hancock",
+    {
+        "movie": "Hancock",
         "data": {
             "votes": {
                 "text": "333677"
@@ -287,9 +306,11 @@ var sonyData = [
                 "w": 94,
                 "h": 140
             }
-        }},
+        }
+    },
 
-    {"movie": "Men in Black 3",
+    {
+        "movie": "Men in Black 3",
         "data": {
             "votes": {
                 "text": "261778"
@@ -313,9 +334,11 @@ var sonyData = [
                 "w": 94,
                 "h": 140
             }
-        }},
+        }
+    },
 
-    {"movie": "Casino Royale",
+    {
+        "movie": "Casino Royale",
         "data": {
             "votes": {
                 "text": "459248"
@@ -339,9 +362,11 @@ var sonyData = [
                 "w": 94,
                 "h": 140
             }
-        }},
+        }
+    },
 
-    {"movie": "Men in Black",
+    {
+        "movie": "Men in Black",
         "data": {
             "votes": {
                 "text": "392579"
@@ -365,9 +390,11 @@ var sonyData = [
                 "w": 94,
                 "h": 140
             }
-        }},
+        }
+    },
 
-    {"movie": "Quantum of Solace",
+    {
+        "movie": "Quantum of Solace",
         "data": {
             "votes": {
                 "text": "322703"
@@ -391,5 +418,6 @@ var sonyData = [
                 "w": 94,
                 "h": 140
             }
-        }}
+        }
+    }
 ]
