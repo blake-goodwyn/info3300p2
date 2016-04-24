@@ -40,9 +40,9 @@
 	//Svg initialization
 	var height = 650,
 		width = 1.75*height,
-		speed = 850,
+		speed = 650,
 		radius = height/3,
-		padding = 100;
+		padding = 115;
 
 	var svg = d3.select("#container").append("svg")
 		.attr("height", height)
@@ -57,12 +57,17 @@
 		colMovie = "#3fb0ac",
 		colText = "#fae596";
 
+	var data = pixarData;
+
 	// init(pixarData);
-	init(pixarData);
+	init(data);
 
 	function init(studioData){
 
-		var cirR = radius/((6/14)*studioData.length); //data circle radius
+		//scaling based off curve fit of tested circle radii
+		var cirScale = studioData.length*(0.3705 + ((661389-0.3705)/(1+Math.pow((studioData.length/0.00135),1.756))));
+
+		var cirR = radius/(cirScale); //data circle radius
 		var centerR = 0.625*radius;
 		var yScale = d3.scale.linear().domain([-1,1]).range([(yPos+centerR),(yPos-centerR)]);
 
@@ -199,39 +204,39 @@
 				.each('end', function(){  //Transition 3 : Fill Images
 					var defs = svg.append('svg:defs');  //container for fill images
 					for(var i = 0; i<studioData.length; i++){
-						if (!!studioData[i].data.cover){
-							var id = studioData[i].movie.replace(/[',-.\s]/g, ''),
-								w = studioData[i].data.cover.w,
-								h = studioData[i].data.cover.h;
+						var id = studioData[i].movie.replace(/[',-.\s]/g, ''),
+							w = studioData[i].data.cover.w,
+							h = studioData[i].data.cover.h;
 
-							var scale = 2*cirR/w;  //Scaling factor for images 
+						var scale = 2*cirR/w;  //Scaling factor for images 
 
-							var curCircle = svg.select("#" + circleIDArray[i].id);
+						var curCircle = svg.select("#" + circleIDArray[i].id);
 
-							circleIDArray[i].ref = studioData[i];
+						circleIDArray[i].ref = studioData[i];
 
-							defs.append("svg:pattern") //reference for specific image
-							    .attr("id", id)
-							    .attr("width", 1)
-							    .attr("height", 1)
-								.attr("x", "0")
-                        		.attr("y", "0")
-							    .append("svg:image")
-							    .attr("xlink:href", studioData[i].data.cover.url)
-							    .attr("width", w*scale)
-							    .attr("height", h*scale)
-							    .attr("x", 0)
-							    .attr("y", -h/8); //slight image centering
+						defs.append("svg:pattern") //reference for specific image
+						    .attr("id", id)
+						    .attr("width", 1)
+						    .attr("height", 1)
+							.attr("x", "0")
+                    		.attr("y", "0")
+						    .append("svg:image")
+						    .attr("xlink:href", studioData[i].data.cover.url)
+						    .attr("width", w*scale)
+						    .attr("height", h*scale)
+						    .attr("x", 0)
+						    .attr("y", -h/8); //slight image centering
 
-							curCircle.transition() //Image Loading
-							.duration(speed)
-							.style("opacity",0)
-							.transition()
-							.style("opacity",1)
-							.style("fill","url(#" + id +")")
-							.style("stroke",colMovie)
-							.each('end',interactivity(circleIDArray,id));
-						};
+						curCircle.transition() //Image Loading
+						.duration(0.5*speed)
+						.style("opacity",0)
+						.transition()
+						.style("fill","url(#" + id +")")
+						.transition()
+						.duration(0.5*speed)
+						.style("opacity",1)
+						.style("stroke",colMovie)
+						.each('end',interactivity(circleIDArray,id));
 					};
 					sortFunc();
 					clearButton();
@@ -322,97 +327,6 @@
 			});
 		};
 
-		function sortFunc(){
-			var dropdown = d3.select("#slider").on("change",sortMovies),
-				sortParams = ["votes","rating", "year","runtimes"],
-				options = dropdown.selectAll('option').data(sortParams);
-
-			options.enter().append("option").text(function(d){return d;});
-
-			function sortMovies(){
-
-				var idx = dropdown.property('selectedIndex'),
-					selection = dropdown[0][0][idx].innerText;
-
-				function compare(a,b){
-					if (a.ref.data[selection].text < b.ref.data[selection].text) { return -1 }
-					else if (a.ref.data[selection].text > b.ref.data[selection].text) { return 1 }
-					else {return 0};
-				};
-
-				unsortedArray = circleIDArray.slice();
-				circleIDArray.sort(compare);
-				newArray = [];
-				for (var i = 0; i<unsortedArray.length; i++){
-					newArray.push({"id":unsortedArray[i].id,"ref":circleIDArray[i].ref});
-				}
-
-				for(var i = 0; i<circleIDArray.length; i++){
-
-					//Rearranging overview circles
-					var curCircle = svg.select("#" + unsortedArray[i].id),
-						idNew = circleIDArray[i].ref.movie.replace(/[',-.\s]/g, '');
-
-					curCircle.transition() //Image Loading
-					.duration(speed)
-					.style("opacity",0)
-					.transition()
-					.style("opacity",1)
-					.style("fill","url(#" + idNew +")")
-					.style("stroke",colMovie)
-					.each('end', interactivity(newArray,idNew));
-
-					/*
-					//Rearranging data points
-					id = "#" + (circleIDArray[i].ref.movie).replace(/[',-.\s]/g, '') + "pt";
-					curCircle = svg.select(id);
-
-					curCircle.transition() //Image Loading
-					.attr("y",yScatter(circleIDArray[i].ref.data[selection].text))
-					.each('end', interactivityScatter(newArray,id));
-					*/
-			
-				};
-				circleIDArray = newArray;
-			};
-		};
-
-		function clearButton(){
-			var button = d3.select("#spacer")
-							.append("button")
-							.text("clear")
-							.on("click", function(){
-								svg.selectAll("circle")
-								.transition()
-								.duration(speed)
-								.style("opacity",0)
-								.attr("r",0);
-
-								svg.selectAll("#scatter")
-								.transition()
-								.duration(speed)
-								.style("opacity",0)
-								.each('end', function(){
-									svg.selectAll("circle").remove();
-									svg.selectAll("#scatter").remove();
-								});
-								this.remove();
-								circleIDArray = [];
-								d3.select("#slider").selectAll('option').remove();
-								resetButton();
-							});
-		};
-
-		function resetButton(){
-			var button = d3.select("#spacer")
-							.append("button")
-							.text("reset")
-							.on("click", function(){
-								init(studioData);
-								this.remove();
-							});
-		};
-
 
 	function scatter(studioData){
 
@@ -444,6 +358,8 @@
 		var xAxis = d3.svg.axis().orient("bottom").scale(xScatter).ticks(4);
 
 		var yAxis = d3.svg.axis().orient("left").scale(yScatter).ticks(5).tickFormat(d3.format(",.1e"));
+
+		d3.selectAll(".tick > text").style("font-size", 16)
 
 		var yLine = svg.append("line")
 			.attr({
@@ -490,9 +406,10 @@
 		function ticks(){
 			var xTicks = svg.append("g")
 						.attr("class", "x axis")
-						.attr("transform", "translate(3," + (height-1.5*padding) + ")")
+						.attr("transform", "translate(0," + (height-1.5*padding) + ")")
 						.attr("id","scatter")
 						.style("opacity",0)
+						.style("font-size",16)
 					.call(xAxis);
 
 			var yTicks = svg.append("g")
@@ -512,11 +429,11 @@
 				.each('end',dataPoints);
 
 			var xLabel = svg.append("text")
-					.style("text-anchor","center")
+					.style("text-anchor","middle")
 					.style("opacity",0)
 					.text("IMDb Rating")
 					.attr({
-						x: xScatter(xHigh/2) + 1.25*padding,
+						x: xScatter((xHigh+xLow)/2),
 						y: height - padding,
 						id: "scatter",
 					})
@@ -667,6 +584,90 @@
 		};
 	};
 };
+
+function sortFunc(){
+			var dropdown = d3.select("#slider").on("change",sortMovies),
+				sortParams = ["votes","rating", "year","runtimes"],
+				options = dropdown.selectAll('option').data(sortParams);
+
+			options.enter().append("option").text(function(d){return d;});
+
+			function sortMovies(){
+
+				var idx = dropdown.property('selectedIndex'),
+					selection = dropdown[0][0][idx].innerText;
+
+				function compare(a,b){
+					if (a.ref.data[selection].text < b.ref.data[selection].text) { return -1 }
+					else if (a.ref.data[selection].text > b.ref.data[selection].text) { return 1 }
+					else {return 0};
+				};
+
+				unsortedArray = circleIDArray.slice();
+				circleIDArray.sort(compare);
+				newArray = [];
+				for (var i = 0; i<unsortedArray.length; i++){
+					newArray.push({"id":unsortedArray[i].id,"ref":circleIDArray[i].ref});
+				}
+
+				for(var i = 0; i<circleIDArray.length; i++){
+
+					//Rearranging overview circles
+					var curCircle = svg.select("#" + unsortedArray[i].id),
+						idNew = circleIDArray[i].ref.movie.replace(/[',-.\s]/g, '');
+
+					curCircle.transition() //Image Loading
+					.duration(speed)
+					.style("opacity",0)
+					.transition()
+					.style("opacity",1)
+					.style("fill","url(#" + idNew +")")
+					.style("stroke",colMovie)
+					.each('end', interactivity(newArray,idNew));
+
+				}
+				circleIDArray = newArray;
+			}
+
+		};
+
+		function clearButton(){
+			var button = d3.select("#spacer")
+							.append("button")
+							.text("clear")
+							.on("click", function(){
+								svg.selectAll("circle")
+								.transition()
+								.ease("circle")
+								.duration(speed)
+								.style("opacity",0)
+								.attr("r",0);
+
+								svg.selectAll("#scatter")
+								.transition()
+								.ease("circle")
+								.duration(speed)
+								.style("opacity",0)
+								.each('end', function(){
+									svg.selectAll("circle").remove();
+									svg.selectAll("#scatter").remove();
+								});
+								this.remove();
+								circleIDArray = [];
+								d3.select("#slider").selectAll('option').remove();
+								resetButton();
+							});
+		};
+
+		function resetButton(){
+			var button = d3.select("#spacer")
+							.append("button")
+							.text("reset")
+							.on("click", function(){
+								init(data);
+								this.remove();
+							});
+		};
 
 	</script>
 </body>
