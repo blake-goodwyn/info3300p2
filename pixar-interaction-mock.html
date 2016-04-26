@@ -39,6 +39,7 @@
 	</style>
 <script src="oscars2015.js"></script>
 <script src="oscars2014.js"></script>
+<script src="oscars2013.js"></script>
 <script src="d3/d3.min.js"></script>
 </head>
 <body>
@@ -54,19 +55,16 @@
 	<script>
 
 var studios = [
+	{"name":"Oscars 2013",
+	 "data":oscars2013,
+	},
 	{"name":"Oscars 2014",
-	 "data":oscars2014,
-	 "logo":""
+	 "data": oscars2014,
 	},
 	{"name":"Oscars 2015",
-	 "data": oscars2015,
-	 "logo": ""
-	}];/*,
-	{"name":"",
-	 "data":"",
-	 "logo":""
+	 "data":oscars2015,
 	}
-	];*/
+	];
 
 function overviewVis(){
 
@@ -90,9 +88,9 @@ function overviewVis(){
 		start = (0.475)*width; //starting edge of scatterplot area;
 
 	//Color scheme
-	var colCenter = "#98dafc",
+	var colCenter = "#4d0000",
 		colBckgrd = "#dddfd4",
-		colText = "#173e43",
+		colText = "#dddfd4",
 		colMovie = "#173e43";
 
 	d3.select("body").style("background",colBckgrd); //assignments and scaling
@@ -111,12 +109,8 @@ function overviewVis(){
 	//Sorting Parameters
 	var sortParamTitles = {"Runtimes (min)":"runtimes",
 						   "Domestic Gross ($)":"grossDom",
-						   "International Gross ($)": "grossWorld",
-						   "IMDb Votes":"votes",
-							"Year of Release":"year"};
-	var sortParams = ["runtimes","grossDom","grossWorld","votes","year"];
-
-	console.log(Object.keys(sortParamTitles))
+						   "International Gross ($)": "grossWorld"};
+	var sortParams = ["runtimes","grossDom","grossWorld"];
 
 	// Intialize visualization;
 	init(curData);
@@ -175,19 +169,33 @@ function overviewVis(){
 
 		var c = 65; //Movie ID counter (65 ==> 'A')
 
-		//Initialize spawning circle
-		var circle = svg.append("circle")
-			.attr("r", 0)
-			.attr("id", "spwn")
+		//Begin Transitions
+		svg.append("circle")
+			.attr({
+				cx:xPos,
+				cy:yPos,
+				r:0,
+				class:"reel"
+			})
 			.style("fill",colMovie)
-			.attr("transform", "translate(" + pathPoints[0] + ")")
 			.transition()
-			.duration(0.5*speed)
-			.attr("r", cirR);
+			.duration(speed)
+			.attr("r",1.325*radius)
+			.each('end',function(){
 
-		//Begin Transitions		
-		circleTransition(circle);  //overview circle initialization
-		scatter(studioData);  //scatterplot initialization
+				//Initialize spawning circle
+				var circle = svg.append("circle")
+					.attr("r", 0)
+					.attr("id", "spwn")
+					.style("fill",colCenter)
+					.attr("transform", "translate(" + pathPoints[0] + ")")
+					.transition()
+					.duration(0.5*speed)
+					.attr("r", cirR);
+
+				circleTransition(circle);  //overview circle initialization
+				scatter(studioData);  //scatterplot initialization
+			});
 
 		function circleTransition(circle) {  //Transition 1 : Loading Animation
 			/*Handles animation of overview interface*/
@@ -196,6 +204,7 @@ function overviewVis(){
 			.attrTween("transform", translateAlong(path.node())) //transition function
 			.each('end', function(){  //End of Transition 1
 				svg.select("#spwn").remove();  //remove spawning circle
+				svg.select("path").remove();
 				svg.append("circle")  //data circle in place of spawn
 					.attr({
 						r: cirR,
@@ -203,7 +212,7 @@ function overviewVis(){
 						cy: pathPoints[0][1],
 						id: String.fromCharCode(c)
 					})
-					.style("fill",colMovie);
+					.style("fill",colCenter);
 
 				circleIDArray.push({"id":String.fromCharCode(c),"ref":null}); //create map of IDs to dataset
 				c++;
@@ -227,7 +236,7 @@ function overviewVis(){
 								cy: specPoints[0][1],
 								id: String.fromCharCode(c)
 							})
-							.style("fill",colMovie);
+							.style("fill",colCenter);
 
 						specPoints.shift();  //remove first specPoint
 						circleIDArray.push({"id":String.fromCharCode(c),"ref":null});
@@ -496,7 +505,6 @@ function overviewVis(){
 		.ease("circle")
 		.duration(speed)
 		.style("opacity",0)
-		.attr("r",0)
 		.each('end', function(){
 			this.remove();
 		});
@@ -545,7 +553,8 @@ function overviewVis(){
 					return studios[i].name
 				})
 				.style("text-anchor","middle")
-				.style("fill",colCenter);
+				.style("font-weight","bold")
+				.style("fill",colBckgrd);
 
 			buttons.push({"id":(studios[i].name.replace(/[^A-Z0-9]+/ig, "_") + "bttn"),
 						  "studio":studios[i]})
@@ -665,14 +674,14 @@ function overviewVis(){
 				.attr("transform", "translate(0," + (yScatter(yLow) + 5) + ")")
 				.attr("id","scatter")
 				.style("opacity",0)
-				.style("fill",colText)
+				.style("fill",colMovie)
 				.call(xAxis);
 
 			var yTicks = svg.append("g")
 				.attr("class", "y axis")
 				.attr("transform", "translate(" + (xScatter(xLow) - 5) + ", 0)")
 				.attr("id","scatterY")
-				.style("fill",colText)
+				.style("fill",colMovie)
 				.style("opacity",0)
 				.call(yAxis);
 
@@ -688,8 +697,8 @@ function overviewVis(){
 			var xLabel = svg.append("text")
 					.style("text-anchor","middle")
 					.style("opacity",0)
-					.style("fill",colText)
-					.text(((xParam == "rt") ? "RT Score" : "IMDb Rating"))
+					.style("fill",colMovie)
+					.text(((xParam == "rt") ? "RT Critic Score" : "IMDb Rating"))
 					.attr({
 						x: xScatter((xHigh+xLow)/2),
 						y: height - padding + 0.625*padding,
@@ -781,17 +790,7 @@ function overviewVis(){
 					.attr("y",yScale(p[0]))
 					.attr("id",refMovie.id+"text")
 					.style("text-anchor", "middle")
-					.style("font-size", function(d,i){
-						var title = refMovie.ref.movie,
-							strL = title.length;
-							if (strL > 30){
-								return 0.0225*height
-							}else if(strL > 15){
-								return 0.033*height - 1.1*(strL-20)
-							}else{
-								return 0.033*height
-							}
-					})
+					.style("font-size", 0.033*height)
 					.style("fill",colText)
 					.style("font-weight","bold")
 					.text(function(d,i){
@@ -977,21 +976,21 @@ function overviewVis(){
 
 			//x1 bound lower
 			if (((model.m)*(xScatter(xLow))+model.b) > (yScatter(yLow))){
-				var i1 = (yScatter(yLow) - (1/16)*(yScatter(yLow)-yScatter(yHigh)) - model.b)/model.m;
+				var i1 = (yScatter(yLow) - (1/32)*(yScatter(yLow)-yScatter(yHigh)) - model.b)/model.m;
 			}else{
 				var i1 = xScatter(xLow)+padding*0.25;
 			};
 
 			//x1 bound higher
 			if (((model.m)*(xScatter(xLow))+model.b) < (yScatter(yHigh))){
-				var i1 = (yScatter(yHigh) + (1/16)*(yScatter(yLow)-yScatter(yHigh)) - model.b)/model.m;
+				var i1 = (yScatter(yHigh) + (1/32)*(yScatter(yLow)-yScatter(yHigh)) - model.b)/model.m;
 			}else{
 				var i1 = xScatter(xLow)+padding*0.25;
 			};
 
 			//x2 bound higher
 			if (((model.m)*(xScatter(xHigh))+model.b) < (yScatter(yHigh))){
-				var i2 = (yScatter(yHigh)+(1/16)*(yScatter(yLow)-yScatter(yHigh)) - model.b)/model.m;
+				var i2 = (yScatter(yHigh)+(1/32)*(yScatter(yLow)-yScatter(yHigh)) - model.b)/model.m;
 			}else{
 				var i2 = xScatter(xHigh)-padding*0.25;
 			};
