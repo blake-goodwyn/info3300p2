@@ -28,6 +28,8 @@
 	</style>
 <script src="pixar-2.js"></script>
 <script src="oscars.js"></script>
+<script src="wesAnderson.js"></script>
+<script src="nolan.js"></script>
 <script src="d3/d3.min.js"></script>
 </head>
 <body>
@@ -38,20 +40,19 @@
 	<script>
 
 var studios = [
-	{"name":"pixar",
-	 "data":pixarData,
-	 "logo":""
+	{"name":"nolan",
+	 "data":nolan,
+	 "logo":"http://www.logospike.com/wp-content/uploads/2014/11/Pixar_logo-2.jpg"
 	},
 	{"name":"oscars",
 	 "data": oscars,
 	 "logo": ""
-	}
-	];
-	/*{"name":"sony",
-	 "data": "",
+	},
+	{"name":"anderson",
+	 "data": wesAnderson,
 	 "logo": ""
 	}
-	];*/
+	];
 
 function overviewVis(){
 
@@ -59,10 +60,10 @@ function overviewVis(){
 	var scatterPts = [];  //array of points in scatterplot
 	
 	//Svg initialization params
-	var height = 650,
+	var height = 575,
 		width = 1.5*height,
 		speed = 650,
-		radius = height/3,
+		radius = height/3.15,
 		padding = (90/550)*height;
 
 	var svg = d3.select("#container").append("svg")
@@ -71,7 +72,8 @@ function overviewVis(){
 		.attr("id","overview");
 
 	var yPos = height/2,  //for center circle
-		xPos = width/3.25
+		xPos = (0.265)*width,
+		start = (0.45)*width; //starting edge of scatterplot area;
 
 	//Color scheme
 	var colCenter = "#98dafc",
@@ -86,7 +88,9 @@ function overviewVis(){
 
 	//Interactivity function to be populated
 	var	interactivityScatter = null;  //Should be amended in the future
+	var trendlineGen = null;
 	var yScatter, xScatter, xLow, xHigh, yLow, yHigh; //scatter parameters
+	var checkbox;
 
 	//Sorting Parameters
 	var sortParams = ["runtimes","grossDom","grossWorld","rt","votes"/*,"year"*/,];
@@ -100,7 +104,7 @@ function overviewVis(){
 		var cirScale = studioData.length*(0.3705 + ((661389-0.3705)/(1+Math.pow((studioData.length/0.00135),1.756))));
 
 		var cirR = radius/(cirScale); //data circle radii
-		var centerR = 0.625*radius;  //center circle radius
+		var centerR = 0.65*radius;  //center circle radius
 		var yScale = d3.scale.linear().domain([-1,1]).range([(yPos+centerR),(yPos-centerR)]);
 
 		var sortParam = sortParams[0];  //default sorting parameter
@@ -226,7 +230,7 @@ function overviewVis(){
 				.style("fill", colCenter)
 				.transition()  //Initialize Center Circle Transition
 				.ease("elastic")
-				.duration(1.5*speed)
+				.duration(1.25*speed)
 				.attr("r", centerR)
 				.each('end', function(){  //Transition 3 : Fill Movie Images
 					var defs = svg.append('svg:defs');  //container for fill images
@@ -255,12 +259,12 @@ function overviewVis(){
 						    .attr("y", -h/8); //slight image centering
 
 						curCircle.transition() //Image Loading
-						.duration(0.5*speed)
+						.duration(0.25*speed)
 						.style("opacity",0)
 						.transition()
 						.style("fill","url(#" + id +")")
 						.transition()
-						.duration(0.5*speed)
+						.duration(0.25*speed)
 						.style("opacity",1)
 						.style("stroke",colMovie)
 						.each('end',interactivity(circleIDArray,id));
@@ -289,12 +293,27 @@ function overviewVis(){
 					var group = svg.append("g");
 
 					//Text Data
+					var p = [0.5, 0.275, 0.1, -0.075, -0.25,-0.425]; 
+					//placement array
+
 					group.append("text") //title
 					.attr("x",xPos)
-					.attr("y",yScale(0.5))
+					.attr("y",yScale(p[0]))
 					.attr("id",id+"text")
 					.style("text-anchor", "middle")
-					.style("font-size", 0.033*height)
+					.style("font-size", function(d,i){
+						/*var title = obj.ref.movie,
+							strL = title.length;
+							if (strL > 25){
+								return 0.0225*height
+							}else if(strL >= 15){
+								return 0.033*height - (strL-15)
+							}else{
+								return 0.033*height
+							}
+							*/
+							return 0.033*height
+					})
 					.style("fill",colText)
 					.style("font-weight","bold")
 					.text(function(d,i){
@@ -303,7 +322,7 @@ function overviewVis(){
 					
 					group.append("text") //Rating
 					.attr("x",xPos)
-					.attr("y",yScale(0.275))
+					.attr("y",yScale(p[4]))
 					.attr("id",id+"text")
 					.style("text-anchor", "middle")
 					.style("font-size",0.025*height)
@@ -312,31 +331,9 @@ function overviewVis(){
 						return "IMDb Rating: " + obj.ref.data.rating.text;
 					})
 
-					group.append("text") //Domestic Gross
-					.attr("x",xPos)
-					.attr("y",yScale(-0.075))
-					.attr("id",id+"text")
-					.style("text-anchor", "middle")
-					.style("font-size",0.025*height)
-					.style("fill",colText)
-					.text(function(d,i){
-						return "Domestic Gross: " + d3.format("$,")(obj.ref.data.grossDom.text);
-					});
-
-					group.append("text") //Domestic Gross
-					.attr("x",xPos)
-					.attr("y",yScale(-0.25))
-					.attr("id",id+"text")
-					.style("text-anchor", "middle")
-					.style("font-size",0.025*height)
-					.style("fill",colText)
-					.text(function(d,i){
-						return "International Gross: " + d3.format("$,")(obj.ref.data.grossWorld.text);
-					});
-
 					group.append("text") //Runtime
 					.attr("x",xPos)
-					.attr("y",yScale(0.1))
+					.attr("y",yScale(p[5]))
 					.attr("id",id+"text")
 					.style("text-anchor", "middle")
 					.style("font-size",0.025*height)
@@ -345,9 +342,31 @@ function overviewVis(){
 						return "Runtime: " + obj.ref.data.runtimes.text;
 					});
 
+					group.append("text") //Domestic Gross
+					.attr("x",xPos)
+					.attr("y",yScale(p[1]))
+					.attr("id",id+"text")
+					.style("text-anchor", "middle")
+					.style("font-size",0.025*height)
+					.style("fill",colText)
+					.text(function(d,i){
+						return "Domestic Gross: " + d3.format("$,")(obj.ref.data.grossDom.text);
+					});
+
+					group.append("text") //International Gross
+					.attr("x",xPos)
+					.attr("y",yScale(p[2]))
+					.attr("id",id+"text")
+					.style("text-anchor", "middle")
+					.style("font-size",0.025*height)
+					.style("fill",colText)
+					.text(function(d,i){
+						return "International Gross: " + d3.format("$,")(obj.ref.data.grossWorld.text);
+					});
+
 					group.append("text") //Rotten Tomatoes
 					.attr("x",xPos)
-					.attr("y",yScale(-0.425))
+					.attr("y",yScale(p[3]))
 					.attr("id",id+"text")
 					.style("text-anchor", "middle")
 					.style("font-size",0.025*height)
@@ -384,7 +403,23 @@ function overviewVis(){
 		group.append("text").text("Options:");
 		group.append("select").attr("id","slider");
 		group.append("text").text("Trendline:");
-		group.append("input").attr("type","checkbox").attr("id","trendlineBox");
+		checkbox = group.append("input").attr("type","checkbox").attr("id","trendlineBox");
+
+		checkbox.on("click",function(){
+			if (checkbox[0][0].checked){
+				sortScatter();
+			}else{
+				svg.select("#rSquared").remove();
+				svg.select("#trendline")
+					.transition()
+					.duration(0.5*speed)
+					.style("opacity",0)
+					.each('end',function(){
+						this.remove()
+					});
+
+			};
+		});
 
 		var dropdown = d3.select("#slider").on("change",function(){
 				sortMovies()
@@ -443,7 +478,7 @@ function overviewVis(){
 			this.remove();
 		});
 
-		svg.selectAll(["rect",".text","#scatter","#scatterY","g","#controls"])
+		svg.selectAll(["rect",".text","#scatter","#scatterY","g","#controls","#trendline","#rSquared"])
 		.transition()
 		.ease("circle")
 		.duration(speed)
@@ -469,7 +504,7 @@ function overviewVis(){
 		var buttons = [];
 		
 		for(var i = 0; i<studios.length; i++){
-			var button = svg.append("g").attr("id",(studios[i].name + "bttn"));
+			var button = svg.append("g").attr("id",(studios[i].name.replace(/[^A-Z0-9]+/ig, "_") + "bttn"));
 
 			button.append("rect")
 				.attr({
@@ -489,7 +524,7 @@ function overviewVis(){
 				.style("text-anchor","middle")
 				.style("fill",colCenter);
 
-			buttons.push({"id":(studios[i].name + "bttn"),
+			buttons.push({"id":(studios[i].name.replace(/[^A-Z0-9]+/ig, "_") + "bttn"),
 						  "studio":studios[i]})
 		};
 
@@ -523,8 +558,7 @@ function overviewVis(){
 
 	function scatter(studioData){
 
-		var svg = d3.select("#overview"),
-			start = (0.5)*width; 
+		var svg = d3.select("#overview");
 
 		var points = [],
 			maxY = 0,
@@ -535,7 +569,7 @@ function overviewVis(){
 		var selection = sortParams[0]
 
 		studioData.forEach(function(obj){
-			points.push({"x":obj.data.rating.text, "y":obj.data[selection].text, "id":obj.movie});
+			points.push({"x":+obj.data.rating.text, "y":+obj.data[selection].text, "id":obj.movie});
 
 			if (+points[points.length-1].y > maxY) {maxY = points[points.length-1].y;};
 			if (+points[points.length-1].x > maxX) {maxX = points[points.length-1].x;};
@@ -543,12 +577,12 @@ function overviewVis(){
 			if (+points[points.length-1].x < minX) {minX = points[points.length-1].x;};
 		});
 
-		xLow = 0.75*minX,
-		xHigh = Math.min(10,1.25*maxX),
-		yLow = 0.8*minY,
-		yHigh = 1.2*maxY,
+		xLow = 0.95*minX,
+		xHigh = Math.min(10,1.05*maxX),
+		yLow = 0.95*minY,
+		yHigh = 1.05*maxY,
 		xScatter = d3.scale.linear().domain([xLow,xHigh]).range([start+1.25*padding,width-padding]),
-		yScatter = d3.scale.linear().domain([yLow,yHigh]).range([(0.5*padding)+(height-1.75*padding) + 1,0.375*padding]);
+		yScatter = d3.scale.linear().domain([yLow,yHigh]).range([(0.85*padding)+(height-1.75*padding) + 1,0.375*padding]);
 
 		var xAxis = d3.svg.axis().orient("bottom").scale(xScatter).ticks(6);
 
@@ -633,7 +667,7 @@ function overviewVis(){
 					.text("IMDb Rating")
 					.attr({
 						x: xScatter((xHigh+xLow)/2),
-						y: height - padding + 22.5,
+						y: height - padding + 0.625*padding,
 						id: "scatter",
 					})
 					.transition()
@@ -653,7 +687,9 @@ function overviewVis(){
 						id: (pt.id).replace(/[^A-Z0-9]+/ig, "_") + "pt"
 					})
 					.style({
-						fill:colText
+						fill:colCenter,
+						stroke:colText,
+						"stroke-width":1
 					});
 
 				var dataPt = {"data":{"x":xScatter(pt.x), "y":yScatter(pt.y)}, "id":((pt.id).replace(/[^A-Z0-9]+/ig, "_") + "pt_data"), "graphic":svgPt};
@@ -664,7 +700,7 @@ function overviewVis(){
 			dataPtArray.forEach(function(dataPt){
 				var svgPt = dataPt.graphic;
 				svgPt.transition()
-					.duration(speed)
+					.duration(0.25*speed)
 					.ease("exp")
 					.attr("r",5)
 					.each('end', interactivityScatter(dataPtArray,dataPt.id));
@@ -710,15 +746,27 @@ function overviewVis(){
 					.style("opacity",1.0);
 					
 					//Text Data
+					var p = [0.5, 0.275, 0.1, -0.075, -0.25,-0.425]; 
+					//placement array
 
 					var group = svg.append("g");
 
 					group.append("text") //title
 					.attr("x",xPos)
-					.attr("y",yScale(0.5))
+					.attr("y",yScale(p[0]))
 					.attr("id",refMovie.id+"text")
 					.style("text-anchor", "middle")
-					.style("font-size", 0.033*height)
+					.style("font-size", function(d,i){
+						var title = refMovie.ref.movie,
+							strL = title.length;
+							if (strL > 30){
+								return 0.0225*height
+							}else if(strL > 15){
+								return 0.033*height - 1.1*(strL-20)
+							}else{
+								return 0.033*height
+							}
+					})
 					.style("fill",colText)
 					.style("font-weight","bold")
 					.text(function(d,i){
@@ -727,7 +775,7 @@ function overviewVis(){
 					
 					group.append("text") //Rating
 					.attr("x",xPos)
-					.attr("y",yScale(0.275))
+					.attr("y",yScale(p[4]))
 					.attr("id",refMovie.id+"text")
 					.style("text-anchor", "middle")
 					.style("font-size",0.025*height)
@@ -738,7 +786,7 @@ function overviewVis(){
 
 					group.append("text") //Domestic Gross
 					.attr("x",xPos)
-					.attr("y",yScale(-0.075))
+					.attr("y",yScale(p[1]))
 					.attr("id",refMovie.id+"text")
 					.style("text-anchor", "middle")
 					.style("font-size",0.025*height)
@@ -749,7 +797,7 @@ function overviewVis(){
 
 					group.append("text") //Domestic Gross
 					.attr("x",xPos)
-					.attr("y",yScale(-0.25))
+					.attr("y",yScale(p[2]))
 					.attr("id",refMovie.id+"text")
 					.style("text-anchor", "middle")
 					.style("font-size",0.025*height)
@@ -760,7 +808,7 @@ function overviewVis(){
 
 					group.append("text") //Runtime
 					.attr("x",xPos)
-					.attr("y",yScale(0.1))
+					.attr("y",yScale(p[5]))
 					.attr("id",refMovie.id+"text")
 					.style("text-anchor", "middle")
 					.style("font-size",0.025*height)
@@ -771,7 +819,7 @@ function overviewVis(){
 
 					group.append("text") //Rotten Tomatoes
 					.attr("x",xPos)
-					.attr("y",yScale(-0.425))
+					.attr("y",yScale(p[3]))
 					.attr("id",refMovie.id+"text")
 					.style("text-anchor", "middle")
 					.style("font-size",0.025*height)
@@ -827,10 +875,10 @@ function overviewVis(){
 			if (+obj.ref.data[selection].text < minY) {minY = +obj.ref.data[selection].text};
 		});
 
-		var yLow = 0.8*minY,
-			yHigh = 1.2*maxY;
+		var yLow = 0.95*minY,
+			yHigh = 1.05*maxY;
 			
-		yScatter = d3.scale.linear().domain([yLow,yHigh]).range([(0.5*padding)+(height-1.75*padding) + 1,0.375*padding]);
+		yScatter = d3.scale.linear().domain([yLow,yHigh]).range([(0.85*padding)+(height-1.75*padding) + 1,0.375*padding]);
 
 		var newAxis = d3.svg.axis().orient("left").scale(yScatter);
 
@@ -841,9 +889,10 @@ function overviewVis(){
 
 		var yTicks = svg.append("g")
 			.attr("class", "y axis")
-			.attr("transform", "translate(" + (width/2+1.25*padding - 5) + ", 0)")
+			.attr("transform", "translate(" + (xScatter(xLow)) + ", 0)")
 			.attr("id","scatterY")
 			.style("opacity",0)
+			.style("text-anchor","end")
 			.call(newAxis);
 
 		yTicks.transition()
@@ -859,7 +908,7 @@ function overviewVis(){
 
 			curCircle.transition()
 			.ease("sin")
-			.duration(1.5*speed)
+			.duration(0.5*speed)
 			.attr("cy",yScatter(circleIDArray[i].ref.data[selection].text))
 			.each('end', function(){
 				interactivityScatter(scatterPts,id)
@@ -869,12 +918,15 @@ function overviewVis(){
 			scatterPts.forEach(function(pt){
 				if ((pt.id).replace(/[^A-Z0-9]+/ig, "_") == (circleIDArray[i].ref.movie.replace(/[^A-Z0-9]+/ig, "_")+"pt_data")) {
 					pt.data.y = yScatter(circleIDArray[i].ref.data[selection].text);
-					console.log("change")
 				};
 			});
 		};
 
-		trendlineGen();
+		if (checkbox[0][0].checked){
+			trendlineGen();
+		}else{
+			svg.select("#rSquared").remove();
+		}
 
 		function trendlineGen(){
 
@@ -896,27 +948,49 @@ function overviewVis(){
 				var i1 = (yScatter(yLow) - (1/16)*(yScatter(yLow)-yScatter(yHigh)) - model.b)/model.m;
 			}else{
 				var i1 = xScatter(xLow)+padding*0.25;
-			}
+			};
 
 			if (((model.m)*(xScatter(xHigh))+model.b) < (yScatter(yHigh))){
 				var i2 = (yScatter(yHigh)+(1/16)*(yScatter(yLow)-yScatter(yHigh)) - model.b)/model.m;
 			}else{
 				var i2 = xScatter(xHigh)-padding*0.25;
-			}
+			};
 
 			svg.append("line")
 				.attr({
 					x1:i1,
 					y1:((model.m)*(i1)+model.b),
-					x2:i2,
-					y2:((model.m)*(i2)+model.b),
+					x2:i1,
+					y2:((model.m)*(i1)+model.b),
 					id:"trendline"
 				})
 				.style({
-					"stroke":colCenter,
-					"stroke-width": 3,
+					"stroke":colMovie,
+					"stroke-width": 7.5,
 					"opacity":0.5
 				});
+
+			svg.select("#trendline").transition()
+			.duration(0.5*speed)
+			.ease("linear")
+			.attr({
+				x2:i2,
+				y2:((model.m)*(i2)+model.b),
+			});
+
+			if (model.rSquared > 0.1){
+				svg.select("#rSquared").remove();
+				svg.append("text")
+					.attr({
+						x: width-padding,
+						y: yScatter(yHigh),
+						id: "rSquared"
+					})
+					.text("Correlation: " + d3.format(".3f")(model.rSquared))
+					.style("text-anchor","end")
+			}else{
+				svg.select("#rSquared").remove();
+			}
 
 			function linReg(array){
 				/*Generates linear regression model from data*/
