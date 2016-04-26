@@ -23,6 +23,15 @@ var sonyData = [
                 "url": "http://ia.media-imdb.com/images/M/MV5BMjAyODkzNDgzMF5BMl5BanBnXkFtZTcwMDMxMDI4Nw@@._V1._SX94_SY140_.jpg",
                 "w": 94,
                 "h": 140
+            },
+            "grossDom":{
+                "text":324684400
+            },
+            "grossWorld":{
+                "text":1182586870
+            },
+            "rt":{
+                "text":93
             }
         }
     },
@@ -57,6 +66,15 @@ var sonyData = [
                 "url": "http://ia.media-imdb.com/images/M/MV5BODUwMDc5Mzc5M15BMl5BanBnXkFtZTcwNDgzOTY0MQ@@._V1._SX94_SY140_.jpg",
                 "w": 94,
                 "h": 140
+            },
+            "grossDom":{
+                "text":419684600
+            },
+            "grossWorld":{
+                "text":1110999808
+            },
+            "rt":{
+                "text":63
             }
         }
     },
@@ -85,6 +103,15 @@ var sonyData = [
                 "url": "http://ia.media-imdb.com/images/M/MV5BMjM2Nzg4MzkwOF5BMl5BanBnXkFtZTgwNzA0OTE3NjE@._V1._SX94_SY140_.jpg",
                 "w": 94,
                 "h": 140
+            },
+            "grossDom":{
+                "text":200074609
+            },
+            "grossWorld":{
+                "text":880674609
+            },
+            "rt":{
+                "text":64
             }
         }
     },
@@ -113,6 +140,15 @@ var sonyData = [
                 "url": "http://ia.media-imdb.com/images/M/MV5BMzk3MTE5MDU5NV5BMl5BanBnXkFtZTYwMjY3NTY3._V1._SX95_SY140_.jpg",
                 "w": 94,
                 "h": 140
+            },
+            "grossDom":{
+                "text":596179100
+            },
+            "grossWorld":{
+                "text":1172761499
+            },
+            "rt":{
+                "text":89
             }
         }
     },
@@ -147,6 +183,15 @@ var sonyData = [
                 "url": "http://ia.media-imdb.com/images/M/MV5BMjE0Njc1NDYzN15BMl5BanBnXkFtZTcwNjAxMzYyMQ@@._V1._SX94_SY140_.jpg",
                 "w": 94,
                 "h": 140
+            },
+            "grossDom":{
+                "text":516162100
+            },
+            "grossWorld":{
+                "text":1082884985
+            },
+            "rt":{
+                "text":93
             }
         }
     },
@@ -209,6 +254,15 @@ var sonyData = [
                 "url": "http://ia.media-imdb.com/images/M/MV5BMjIxMjQyMTc3Nl5BMl5BanBnXkFtZTcwMTA1MDUzMw@@._V1._SX94_SY140_.jpg",
                 "w": 94,
                 "h": 140
+            },
+            "grossDom":{
+                "text":284955800
+            },
+            "grossWorld":{
+                "text":993236551
+            },
+            "rt":{
+                "text":25
             }
         }
     },
@@ -243,6 +297,15 @@ var sonyData = [
                 "url": "http://ia.media-imdb.com/images/M/MV5BMjMyOTM4MDMxNV5BMl5BanBnXkFtZTcwNjIyNzExOA@@._V1._SX94_SY140_.jpg",
                 "w": 94,
                 "h": 140
+            },
+            "grossDom":{
+                "text":288956700
+            },
+            "grossWorld":{
+                "text":835814941
+            },
+            "rt":{
+                "text":73
             }
         }
     },
@@ -271,6 +334,15 @@ var sonyData = [
                 "url": "http://ia.media-imdb.com/images/M/MV5BOTA5NDYxNTg0OV5BMl5BanBnXkFtZTgwODE5NzU1MTE@._V1._SX94_SY140_.jpg",
                 "w": 94,
                 "h": 140
+            },
+            "grossDom":{
+                "text":209037300
+            },
+            "grossWorld":{
+                "text":730593429
+            },
+            "rt":{
+                "text":53
             }
         }
     },
@@ -305,6 +377,15 @@ var sonyData = [
                 "url": "http://ia.media-imdb.com/images/M/MV5BMTgyMzc4ODU3NV5BMl5BanBnXkFtZTcwNjk5Mzc1MQ@@._V1._SX94_SY140_.jpg",
                 "w": 94,
                 "h": 140
+            },
+            "grossDom":{
+                "text":272392600
+            },
+            "grossWorld":{
+                "text":746136149
+            },
+            "rt":{
+                "text":41
             }
         }
     },
@@ -333,6 +414,15 @@ var sonyData = [
                 "url": "http://ia.media-imdb.com/images/M/MV5BMTU2NTYxODcwMF5BMl5BanBnXkFtZTcwNDk1NDY0Nw@@._V1._SX94_SY140_.jpg",
                 "w": 94,
                 "h": 140
+            },
+            "grossDom":{
+                "text":189729500
+            },
+            "grossWorld":{
+                "text":661354728
+            },
+            "rt":{
+                "text":69
             }
         }
     },
@@ -361,6 +451,15 @@ var sonyData = [
                 "url": "http://ia.media-imdb.com/images/M/MV5BMTM5MjI4NDExNF5BMl5BanBnXkFtZTcwMDM1MjMzMQ@@._V1._SX94_SY140_.jpg",
                 "w": 94,
                 "h": 140
+            },
+            "grossDom":{
+                "text":218178100
+            },
+            "grossWorld":{
+                "text":780542626
+            },
+            "rt":{
+                "text":95
             }
         }
     },
@@ -389,6 +488,15 @@ var sonyData = [
                 "url": "http://ia.media-imdb.com/images/M/MV5BNzA2MzI5Nzc0N15BMl5BanBnXkFtZTcwODE2NDU2MQ@@._V1._SX96_SY140_.jpg",
                 "w": 94,
                 "h": 140
+            },
+            "grossDom":{
+                "text":468611100
+            },
+            "grossWorld":{
+                "text":1101736627
+            },
+            "rt":{
+                "text":92
             }
         }
     },
@@ -417,6 +525,15 @@ var sonyData = [
                 "url": "http://ia.media-imdb.com/images/M/MV5BMTY0MjI4MDI5MF5BMl5BanBnXkFtZTcwODkwNjk3MQ@@._V1._SX95_SY140_.jpg",
                 "w": 94,
                 "h": 140
+            },
+            "grossDom":{
+                "text":201197900
+            },
+            "grossWorld":{
+                "text":700370168
+            },
+            "rt":{
+                "text":65
             }
         }
     }
