@@ -1,4 +1,4 @@
-var oscars = [
+var oscars2015 = [
     {
         "movie":"The Big Short",
         "data":{

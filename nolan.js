@@ -24,7 +24,16 @@ var nolan = [
          },
          "year":{
             "text":"2014"
-         }
+         },
+        "grossDom":{
+            "text":188020017
+        },
+        "grossWorld":{
+            "text":675120017
+        },
+        "rt":{
+            "text":71
+        },
       }
    },
    {
@@ -52,7 +61,16 @@ var nolan = [
          },
          "year":{
             "text":"2012"
-         }
+         },
+        "grossDom":{
+            "text":448139099
+        },
+        "grossWorld":{
+            "text":1084939099
+        },
+        "rt":{
+            "text":87
+        },
       }
    },
    {
@@ -80,7 +98,16 @@ var nolan = [
          },
          "year":{
             "text":"2010"
-         }
+         },
+        "grossDom":{
+            "text":292576195
+        },
+        "grossWorld":{
+            "text":825532764
+        },
+        "rt":{
+            "text":86
+        },
       }
    },
    {
@@ -108,7 +135,16 @@ var nolan = [
          },
          "year":{
             "text":"2008"
-         }
+         },
+        "grossDom":{
+            "text":534858444
+        },
+        "grossWorld":{
+            "text":1004558444
+        },
+        "rt":{
+            "text":94
+        },
       }
    },
    {
@@ -136,7 +172,16 @@ var nolan = [
          },
          "year":{
             "text":"2006"
-         }
+         },
+        "grossDom":{
+            "text":53089891
+        },
+        "grossWorld":{
+            "text":109676311
+        },
+        "rt":{
+            "text":76
+        },
       }
    },
    {
@@ -164,7 +209,16 @@ var nolan = [
          },
          "year":{
             "text":"2005"
-         }
+         },
+        "grossDom":{
+            "text":206852432
+        },
+        "grossWorld":{
+            "text":374218673
+        },
+        "rt":{
+            "text":85
+        },
       }
    },
    {
@@ -192,7 +246,16 @@ var nolan = [
          },
          "year":{
             "text":"2002"
-         }
+         },
+        "grossDom":{
+            "text":67355513
+        },
+        "grossWorld":{
+            "text":113714830
+        },
+        "rt":{
+            "text":92
+        },
       }
    },
    {
@@ -220,7 +283,16 @@ var nolan = [
          },
          "year":{
             "text":"2000"
-         }
+         },
+        "grossDom":{
+            "text":25544867
+        },
+        "grossWorld":{
+            "text":39723096
+        },
+        "rt":{
+            "text":92
+        },
       }
    },
    {
@@ -248,7 +320,16 @@ var nolan = [
          },
          "year":{
             "text":"1998"
-         }
+         },
+        "grossDom":{
+            "text":48482
+        },
+        "grossWorld":{
+            "text":48482
+        },
+        "rt":{
+            "text":78
+        },
       }
    },
 ];

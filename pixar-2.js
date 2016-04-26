@@ -1,4 +1,4 @@
-var pixarData = [
+var pixar = [
 	   {
 	      "movie":"Toy Story",
 	      "data":{
