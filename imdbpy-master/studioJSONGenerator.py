@@ -2,14 +2,13 @@ from imdb import IMDb
 import xmltodict,json
 ia = IMDb(accessSystem='http')
 
-oscars2015 = ["The Big Short", "Bridge of Spies", "Brooklyn","Mad Max: Fury Road", "The Martian", "The Revenant", "Room", "Spotlight"]
-#anderson = ["The Grand Budapest Hotel", "Moonrise Kingdom", "The Royal Tenenbaums", "The Life Aquatic with Steve Zissou", "Fantastic Mr. Fox", "Rushmore", "The Darjeeling Limited", "Bottle Rocket", "Hotel Chevalier", "Castello Cavalcanti", "The Squid and The Whale"]
-#nolan = ["Interstellar","The Dark Knight Rises","Inception","The Dark Knight","The Prestige","Batman Begins","Insomnia","Memento","Following","Doodlebug"]
-#dreamworks = ["How To Train Your Dragon","How To Train Your Dragon 2","Kung Fu Panda","Kung Fu Panda 2","Kung Fu Panda 3", "Shrek","Shrek 2","Shrek the Third", "Madagascar","Shark Tale","Over the Hedge"]
+oscars2016 = ["The Big Short", "Bridge of Spies", "Brooklyn","Mad Max: Fury Road", "The Martian", "The Revenant", "Room", "Spotlight"]
+oscars2015 = ["Whiplash","American Sniper","Birdman","The Grand Budapest Hotel","The Imitation Game","Selma","The Theory of Everything","Boyhood"]
 oscars2014 = ["Philomena","Nebraska","Captain Phillips","The Wolf of Wall Street","12 Years a Slave","Her","Gravity","American Hustle","Dallas Buyers Club"]
 oscars2013 = ["Silver Linings Playbook","Amour","Django Unchained","Zero Dark Thirty","Lincoln","Life of Pi","Argo","Les Miserables","Beasts of the Southern Wild"]
+oscars2012 = ["The Descendants","The Artist","Extremely Loud and Incredibly Close","Moneyball","Midnight in Paris","War Horse","The Tree of Life","Hugo","The Help"]
 output = []
-for i in oscars2013:
+for i in oscars2012:
     if i == "Following":
         curMovieID = (ia.search_movie(i))[1].getID()
     else:

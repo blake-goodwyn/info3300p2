@@ -37,9 +37,11 @@
 		vertical-align: middle;
 	}
 	</style>
+<script src="oscars2016.js"></script>
 <script src="oscars2015.js"></script>
 <script src="oscars2014.js"></script>
 <script src="oscars2013.js"></script>
+<script src="oscars2012.js"></script>
 <script src="d3/d3.min.js"></script>
 </head>
 <body>
@@ -55,15 +57,21 @@
 	<script>
 
 var studios = [
-	{"name":"Oscars 2013",
-	 "data":oscars2013,
+	{"name":"Oscars 2016",
+	 "data":oscars2016,
+	},
+	{"name":"Oscars 2015",
+	 "data": oscars2015,
 	},
 	{"name":"Oscars 2014",
 	 "data": oscars2014,
 	},
-	{"name":"Oscars 2015",
-	 "data":oscars2015,
-	}
+	{"name":"Oscars 2013",
+	 "data":oscars2013,
+	},
+	{"name":"Oscars 2012",
+	 "data":oscars2012,
+	},
 	];
 
 function overviewVis(){
@@ -539,20 +547,21 @@ function overviewVis(){
 
 			button.append("rect")
 				.attr({
-					x:(xPos*(2+i)/3 - width/16 + 60*(i+1) - 120), //position + padding + spacing
+					x:(xPos*(Math.floor(studios.length/2)+i+1)/studios.length - width/12 + 30*(i+1) - 55), //position + padding + spacing
 					y:0,
 					height:height/16,
-					width:width/8,
+					width:width/12,
 				})
 				.style("fill",colMovie);
 
 			button.append("text")
-				.attr("x",(xPos*(2+i)/3 - width/16 + 60*(i+1) - 120)+width/16)
+				.attr("x",(xPos*(Math.floor(studios.length/2)+i+1)/studios.length - width/12 + 30*(i+1) - 55)+width/24)
 				.attr("y",height/32 + 5)
 				.text(function(d){
 					return studios[i].name
 				})
 				.style("text-anchor","middle")
+				.style("font-size",11)
 				.style("font-weight","bold")
 				.style("fill",colBckgrd);
 
@@ -582,9 +591,6 @@ function overviewVis(){
 				});
 			};
 		});
-
-
-
 	};
 
 
@@ -600,7 +606,7 @@ function overviewVis(){
 
 		var selection = sortParams[0]
 
-		var xParam = "rt";
+		var xParam = "rating";
 
 		studioData.forEach(function(obj){
 			points.push({"x":+obj.data[xParam].text, "y":+obj.data[selection].text, "id":obj.movie});
@@ -926,7 +932,7 @@ function overviewVis(){
 
 		yTicks.transition()
 			.duration(0.3*speed)
-			.style("fill",colText)
+			.style("fill",colMovie)
 			.style("opacity",1);
 
 		for(var i = 0; i<circleIDArray.length; i++){
@@ -966,24 +972,15 @@ function overviewVis(){
 			var trendPts = [];
 			scatterPts.forEach(function(pt){
 				trendPts.push({"x":pt.data.x, "y":pt.data.y});
-			})
-
-			console.log(circleIDArray)
+			});
 
 			var model = linReg(trendPts);
 
-			//Input values spaced away from axes
+			//Input values spaced away from axes//
 
 			//x1 bound lower
 			if (((model.m)*(xScatter(xLow))+model.b) > (yScatter(yLow))){
 				var i1 = (yScatter(yLow) - (1/32)*(yScatter(yLow)-yScatter(yHigh)) - model.b)/model.m;
-			}else{
-				var i1 = xScatter(xLow)+padding*0.25;
-			};
-
-			//x1 bound higher
-			if (((model.m)*(xScatter(xLow))+model.b) < (yScatter(yHigh))){
-				var i1 = (yScatter(yHigh) + (1/32)*(yScatter(yLow)-yScatter(yHigh)) - model.b)/model.m;
 			}else{
 				var i1 = xScatter(xLow)+padding*0.25;
 			};
@@ -1025,6 +1022,7 @@ function overviewVis(){
 					id: "rSquared"
 				})
 				.text("Correlation: " + d3.format(".3f")(model.rSquared))
+				.style("font-size",12)
 				.style("text-anchor","end")
 
 			function linReg(array){
