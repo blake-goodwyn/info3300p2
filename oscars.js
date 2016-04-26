@@ -3,16 +3,16 @@ var oscars = [
         "movie":"The Big Short",
         "data":{
             "votes":{
-                "text":"142852"
+                "text":142852
             },
             "rating":{
-                "text":"7.8"
+                "text":7.8
             },
             "runtimes":{
-                "text":"130"
+                "text":130
             },
             "year":{
-                "text":"2015"
+                "text":2015
             },
             "director":{
                 "person":{
@@ -23,7 +23,16 @@ var oscars = [
                 "url":"http://ia.media-imdb.com/images/M/MV5BMjM2MTQ2MzcxOF5BMl5BanBnXkFtZTgwNzE4NTUyNzE@._V1._SX90_SY140_.jpg",
                 "w":89,
                 "h":140
-            }
+            },
+            "grossDom":{
+                "text":70259870
+            },
+            "grossWorld":{
+                "text":132950761
+            },
+            "rt":{
+                "text":88
+            },
         }
     },
 
@@ -51,7 +60,16 @@ var oscars = [
                 "url":"http://ia.media-imdb.com/images/M/MV5BMjIxOTI0MjU5NV5BMl5BanBnXkFtZTgwNzM4OTk4NTE@._V1._SX94_SY140_.jpg",
                 "w":89,
                 "h":140
-            }
+            },
+            "grossDom":{
+                "text":72313754
+            },
+            "grossWorld":{
+                "text":165478348
+            },
+            "rt":{
+                "text":91
+            },
         }
     },
 
@@ -79,7 +97,16 @@ var oscars = [
                 "url":"http://ia.media-imdb.com/images/M/MV5BMzE4MDk5NzEyOV5BMl5BanBnXkFtZTgwNDM4NDA3NjE@._V1._SX94_SY140_.jpg",
                 "w":89,
                 "h":140
-            }
+            },
+            "grossDom":{
+                "text":38240418
+            },
+            "grossWorld":{
+                "text":61993816
+            },
+            "rt":{
+                "text":97
+            },
         },
     },
 
@@ -107,7 +134,16 @@ var oscars = [
                 "url":"http://ia.media-imdb.com/images/M/MV5BMTUyMTE0ODcxNF5BMl5BanBnXkFtZTgwODE4NDQzNTE@._V1._SX96_SY140_.jpg",
                 "w":89,
                 "h":140
-            }
+            },
+            "grossDom":{
+                "text":153636354
+            },
+            "grossWorld":{
+                "text":378436354
+            },
+            "rt":{
+                "text":97
+            },
         }
     },
 
@@ -135,7 +171,16 @@ var oscars = [
                 "url":"http://ia.media-imdb.com/images/M/MV5BMTc2MTQ3MDA1Nl5BMl5BanBnXkFtZTgwODA3OTI4NjE@._V1._SX95_SY140_.jpg",
                 "w":89,
                 "h":140
-            }
+            },
+            "grossDom":{
+                "text":228433663
+            },
+            "grossWorld":{
+                "text":630161890
+            },
+            "rt":{
+                "text":92
+            },
         }
     },
 
@@ -163,7 +208,16 @@ var oscars = [
                 "url":"http://ia.media-imdb.com/images/M/MV5BMjU4NDExNDM1NF5BMl5BanBnXkFtZTgwMDIyMTgxNzE@._V1._SX94_SY140_.jpg",
                 "w":89,
                 "h":140
-            }
+            },
+            "grossDom":{
+                "text":183407381
+            },
+            "grossWorld":{
+                "text":522837095
+            },
+            "rt":{
+                "text":82
+            },
         }
     },
 
@@ -191,7 +245,16 @@ var oscars = [
                 "url":"http://ia.media-imdb.com/images/M/MV5BMjE4NzgzNzEwMl5BMl5BanBnXkFtZTgwMTMzMDE0NjE@._V1._SX94_SY140_.jpg",
                 "w":89,
                 "h":140
-            }
+            },
+            "grossDom":{
+                "text":14676564
+            },
+            "grossWorld":{
+                "text":35400668
+            },
+            "rt":{
+                "text":93
+            },
         }
     },
 
@@ -219,7 +282,16 @@ var oscars = [
                 "url":"http://ia.media-imdb.com/images/M/MV5BMjIyOTM5OTIzNV5BMl5BanBnXkFtZTgwMDkzODE2NjE@._V1._SX95_SY140_.jpg",
                 "w":89,
                 "h":140
-            }
+            },
+            "grossDom":{
+                "text":44871255
+            },
+            "grossWorld":{
+                "text":88161952
+            },
+            "rt":{
+                "text":96
+            },
         }
     }
 ];

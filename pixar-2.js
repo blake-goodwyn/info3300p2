@@ -3,26 +3,21 @@ var pixarData = [
 	      "movie":"Toy Story",
 	      "data":{
 	         "votes":{
-	            "@infoset":"main",
 	            "@type":"int",
 	            "text":"601406"
 	         },
 	         "rating":{
-	            "@infoset":"main",
 	            "@type":"float",
 	            "text":"8.3"
 	         },
 	         "runtimes":{
-	            "@infoset":"main",
 	            "text":"81"
 	         },
 	         "year":{
-	            "@infoset":"main",
 	            "@type":"int",
 	            "text":"1995"
 	         },
 	         "director":{
-	            "@infoset":"main",
 	            "person":{
 	               "@id":"0005124",
 	               "name":"John Lasseter"
@@ -32,33 +27,37 @@ var pixarData = [
 	            "url":"pixarImg/ToyStory.jpg",
 	            "w":100,
 	            "h":113
-	         }
+	         },
+            "grossDom":{
+                "text":191796233
+            },
+            "grossWorld":{
+                "text":361958736
+            },
+            "rt":{
+                "text":100
+            },
 	      }
 	   },
 	   {
 	      "movie":"A Bug's Life",
 	      "data":{
 	         "votes":{
-	            "@infoset":"main",
 	            "@type":"int",
 	            "text":"205852"
 	         },
 	         "rating":{
-	            "@infoset":"main",
 	            "@type":"float",
 	            "text":"7.2"
 	         },
 	         "runtimes":{
-	            "@infoset":"main",
 	            "text":"95"
 	         },
 	         "year":{
-	            "@infoset":"main",
 	            "@type":"int",
 	            "text":"1998"
 	         },
 	         "director":{
-	            "@infoset":"main",
 	            "person":[
 	               {
 	                  "@id":"0005124",
@@ -75,33 +74,37 @@ var pixarData = [
 	            "url":"pixarImg/ABugsLife.jpg",
 	            "w":98,
 	            "h":139
-	         }
+	         },
+            "grossDom":{
+                "text":162798565
+            },
+            "grossWorld":{
+                "text":363398565
+            },
+            "rt":{
+                "text":92
+            },
 	      }
 	   },
 	   {
 	      "movie":"Toy Story 2",
 	      "data":{
 	         "votes":{
-	            "@infoset":"main",
 	            "@type":"int",
 	            "text":"374050"
 	         },
 	         "rating":{
-	            "@infoset":"main",
 	            "@type":"float",
 	            "text":"7.9"
 	         },
 	         "runtimes":{
-	            "@infoset":"main",
 	            "text":"92"
 	         },
 	         "year":{
-	            "@infoset":"main",
 	            "@type":"int",
 	            "text":"1999"
 	         },
 	         "director":{
-	            "@infoset":"main",
 	            "person":[
 	               {
 	                  "@id":"0005124",
@@ -123,33 +126,37 @@ var pixarData = [
 	            "url":"pixarImg/ToyStory2.jpg",
 	            "w":98,
 	            "h":139
-	         }
+	         },
+            "grossDom":{
+                "text":245852179
+            },
+            "grossWorld":{
+                "text":485015179
+            },
+            "rt":{
+                "text":100
+            },
 	      }
 	   },
 	   {
 	      "movie":"Monsters, Inc.",
 	      "data":{
 	         "votes":{
-	            "@infoset":"main",
 	            "@type":"int",
 	            "text":"563876"
 	         },
 	         "rating":{
-	            "@infoset":"main",
 	            "@type":"float",
 	            "text":"8.1"
 	         },
 	         "runtimes":{
-	            "@infoset":"main",
 	            "text":"92"
 	         },
 	         "year":{
-	            "@infoset":"main",
 	            "@type":"int",
 	            "text":"2001"
 	         },
 	         "director":{
-	            "@infoset":"main",
 	            "person":[
 	               {
 	                  "@id":"0230032",
@@ -171,33 +178,37 @@ var pixarData = [
 	            "url":"pixarImg/MonstersInc.jpg",
 	            "w":94,
 	            "h":139
-	         }
+	         },
+            "grossDom":{
+                "text":289916256
+            },
+            "grossWorld":{
+                "text":562816256
+            },
+            "rt":{
+                "text":96
+            },
 	      }
 	   },
 	   {
 	      "movie":"Finding Nemo",
 	      "data":{
 	         "votes":{
-	            "@infoset":"main",
 	            "@type":"int",
 	            "text":"663881"
 	         },
 	         "rating":{
-	            "@infoset":"main",
 	            "@type":"float",
 	            "text":"8.1"
 	         },
 	         "runtimes":{
-	            "@infoset":"main",
 	            "text":"100"
 	         },
 	         "year":{
-	            "@infoset":"main",
 	            "@type":"int",
 	            "text":"2003"
 	         },
 	         "director":{
-	            "@infoset":"main",
 	            "person":[
 	               {
 	                  "@id":"0004056",
@@ -214,33 +225,37 @@ var pixarData = [
 	            "url":"pixarImg/FindingNemo.jpg",
 	            "w":94,
 	            "h":140
-	         }
+	         },
+            "grossDom":{
+                "text":380843261
+            },
+            "grossWorld":{
+                "text":936743261
+            },
+            "rt":{
+                "text":99
+            },
 	      }
 	   },
 	   {
 	      "movie":"The Incredibles",
 	      "data":{
 	         "votes":{
-	            "@infoset":"main",
 	            "@type":"int",
 	            "text":"464419"
 	         },
 	         "rating":{
-	            "@infoset":"main",
 	            "@type":"float",
 	            "text":"8.0"
 	         },
 	         "runtimes":{
-	            "@infoset":"main",
 	            "text":"115"
 	         },
 	         "year":{
-	            "@infoset":"main",
 	            "@type":"int",
 	            "text":"2004"
 	         },
 	         "director":{
-	            "@infoset":"main",
 	            "person":{
 	               "@id":"0083348",
 	               "name":"Brad Bird"
@@ -250,33 +265,37 @@ var pixarData = [
 	            "url":"pixarImg/TheIncredibles.jpg",
 	            "w":94,
 	            "h":140
-	         }
+	         },
+            "grossDom":{
+                "text":261441092
+            },
+            "grossWorld":{
+                "text":631442092
+            },
+            "rt":{
+                "text":97
+            },
 	      }
 	   },
 	   {
 	      "movie":"Cars",
 	      "data":{
 	         "votes":{
-	            "@infoset":"main",
 	            "@type":"int",
 	            "text":"253912"
 	         },
 	         "rating":{
-	            "@infoset":"main",
 	            "@type":"float",
 	            "text":"7.2"
 	         },
 	         "runtimes":{
-	            "@infoset":"main",
 	            "text":"117"
 	         },
 	         "year":{
-	            "@infoset":"main",
 	            "@type":"int",
 	            "text":"2006"
 	         },
 	         "director":{
-	            "@infoset":"main",
 	            "person":[
 	               {
 	                  "@id":"0005124",
@@ -293,33 +312,37 @@ var pixarData = [
 	            "url":"pixarImg/Cars.jpg",
 	            "w":94,
 	            "h":140
-	         }
+	         },
+            "grossDom":{
+                "text":244082982
+            },
+            "grossWorld":{
+                "text":461983149
+            },
+            "rt":{
+                "text":74
+            },
 	      }
 	   },
 	   {
 	      "movie":"Ratatouille",
 	      "data":{
 	         "votes":{
-	            "@infoset":"main",
 	            "@type":"int",
 	            "text":"459217"
 	         },
 	         "rating":{
-	            "@infoset":"main",
 	            "@type":"float",
 	            "text":"8.0"
 	         },
 	         "runtimes":{
-	            "@infoset":"main",
 	            "text":"111"
 	         },
 	         "year":{
-	            "@infoset":"main",
 	            "@type":"int",
 	            "text":"2007"
 	         },
 	         "director":{
-	            "@infoset":"main",
 	            "person":[
 	               {
 	                  "@id":"0083348",
@@ -336,33 +359,37 @@ var pixarData = [
 	            "url":"pixarImg/Ratatouille.jpg",
 	            "w":94,
 	            "h":140
-	         }
+	         },
+            "grossDom":{
+                "text":206445654
+            },
+            "grossWorld":{
+                "text":623722818
+            },
+            "rt":{
+                "text":96
+            },
 	      }
 	   },
 	   {
 	      "movie":"WALL-E",
 	      "data":{
 	         "votes":{
-	            "@infoset":"main",
 	            "@type":"int",
 	            "text":"693522"
 	         },
 	         "rating":{
-	            "@infoset":"main",
 	            "@type":"float",
 	            "text":"8.4"
 	         },
 	         "runtimes":{
-	            "@infoset":"main",
 	            "text":"98"
 	         },
 	         "year":{
-	            "@infoset":"main",
 	            "@type":"int",
 	            "text":"2008"
 	         },
 	         "director":{
-	            "@infoset":"main",
 	            "person":{
 	               "@id":"0004056",
 	               "name":"Andrew Stanton"
@@ -372,33 +399,37 @@ var pixarData = [
 	            "url":"pixarImg/WallE.jpg",
 	            "w":94,
 	            "h":140
-	         }
+	         },
+            "grossDom":{
+                "text":223808164
+            },
+            "grossWorld":{
+                "text":521311860
+            },
+            "rt":{
+                "text":96
+            },
 	      }
 	   },
 	   {
 	      "movie":"Up",
 	      "data":{
 	         "votes":{
-	            "@infoset":"main",
 	            "@type":"int",
 	            "text":"640595"
 	         },
 	         "rating":{
-	            "@infoset":"main",
 	            "@type":"float",
 	            "text":"8.3"
 	         },
 	         "runtimes":{
-	            "@infoset":"main",
 	            "text":"96"
 	         },
 	         "year":{
-	            "@infoset":"main",
 	            "@type":"int",
 	            "text":"2009"
 	         },
 	         "director":{
-	            "@infoset":"main",
 	            "person":[
 	               {
 	                  "@id":"0230032",
@@ -415,33 +446,37 @@ var pixarData = [
 	            "url":"pixarImg/Up.jpg",
 	            "w":94,
 	            "h":140
-	         }
+	         },
+            "grossDom":{
+                "text":293004164
+            },
+            "grossWorld":{
+                "text":731342744
+            },
+            "rt":{
+                "text":98
+            },
 	      }
 	   },
 	   {
 	      "movie":"Toy Story 3",
 	      "data":{
 	         "votes":{
-	            "@infoset":"main",
 	            "@type":"int",
 	            "text":"526019"
 	         },
 	         "rating":{
-	            "@infoset":"main",
 	            "@type":"float",
 	            "text":"8.3"
 	         },
 	         "runtimes":{
-	            "@infoset":"main",
 	            "text":"103"
 	         },
 	         "year":{
-	            "@infoset":"main",
 	            "@type":"int",
 	            "text":"2010"
 	         },
 	         "director":{
-	            "@infoset":"main",
 	            "person":{
 	               "@id":"0881279",
 	               "name":"Lee Unkrich"
@@ -451,33 +486,37 @@ var pixarData = [
 	            "url":"pixarImg/ToyStory3.jpg",
 	            "w":94,
 	            "h":140
-	         }
+	         },
+            "grossDom":{
+                "text":415044880
+            },
+            "grossWorld":{
+                "text":1063171911
+            },
+            "rt":{
+                "text":99
+            },
 	      }
 	   },
 	   {
 	      "movie":"Cars 2",
 	      "data":{
 	         "votes":{
-	            "@infoset":"main",
 	            "@type":"int",
 	            "text":"97797"
 	         },
 	         "rating":{
-	            "@infoset":"main",
 	            "@type":"float",
 	            "text":"6.3"
 	         },
 	         "runtimes":{
-	            "@infoset":"main",
 	            "text":"106"
 	         },
 	         "year":{
-	            "@infoset":"main",
 	            "@type":"int",
 	            "text":"2011"
 	         },
 	         "director":{
-	            "@infoset":"main",
 	            "person":[
 	               {
 	                  "@id":"0005124",
@@ -494,33 +533,37 @@ var pixarData = [
 	            "url":"pixarImg/Cars2.jpg",
 	            "w":94,
 	            "h":140
-	         }
+	         },
+            "grossDom":{
+                "text":191452396
+            },
+            "grossWorld":{
+                "text":559852396
+            },
+            "rt":{
+                "text":39
+            },
 	      }
 	   },
 	   {
 	      "movie":"Brave",
 	      "data":{
 	         "votes":{
-	            "@infoset":"main",
 	            "@type":"int",
 	            "text":"266304"
 	         },
 	         "rating":{
-	            "@infoset":"main",
 	            "@type":"float",
 	            "text":"7.2"
 	         },
 	         "runtimes":{
-	            "@infoset":"main",
 	            "text":"93"
 	         },
 	         "year":{
-	            "@infoset":"main",
 	            "@type":"int",
 	            "text":"2012"
 	         },
 	         "director":{
-	            "@infoset":"main",
 	            "person":[
 	               {
 	                  "@id":"0028764",
@@ -541,33 +584,37 @@ var pixarData = [
 	            "url":"pixarImg/Brave.jpg",
 	            "w":94,
 	            "h":140
-	         }
+	         },
+            "grossDom":{
+                "text":237283207
+            },
+            "grossWorld":{
+                "text":538983207
+            },
+            "rt":{
+                "text":78
+            },
 	      }
 	   },
 	   {
 	      "movie":"Monsters University",
 	      "data":{
 	         "votes":{
-	            "@infoset":"main",
 	            "@type":"int",
 	            "text":"226373"
 	         },
 	         "rating":{
-	            "@infoset":"main",
 	            "@type":"float",
 	            "text":"7.4"
 	         },
 	         "runtimes":{
-	            "@infoset":"main",
 	            "text":"104"
 	         },
 	         "year":{
-	            "@infoset":"main",
 	            "@type":"int",
 	            "text":"2013"
 	         },
 	         "director":{
-	            "@infoset":"main",
 	            "person":{
 	               "@id":"0768959",
 	               "name":"Dan Scanlon"
@@ -577,7 +624,16 @@ var pixarData = [
 	            "url":"pixarImg/MonstersUniversity.jpg",
 	            "w":94,
 	            "h":140
-	         }
+	         },
+            "grossDom":{
+                "text":268492764
+            },
+            "grossWorld":{
+                "text":743559607
+            },
+            "rt":{
+                "text":78
+            },
 	      }
 	   }
    ];

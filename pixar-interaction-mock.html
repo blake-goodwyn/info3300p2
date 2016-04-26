@@ -16,10 +16,14 @@
 	body{
 		font-size: 20;
 		font-family: 'Lato', sans-serif;
-		background: #dddfd4;
 	}
 	circle{
 		stroke-width: 1;
+	}
+	#spacer{
+		padding-right: 7.25cm;
+		display: block;
+		height:25px;
 	}
 	</style>
 <script src="pixar-2.js"></script>
@@ -28,54 +32,75 @@
 </head>
 <body>
 	<div id="struct" align="center">
-		<h2> CS3300 - Project 2 : Movie Display Framework Test</h2>
 		<div id="container" float="left"/>
-	<div id="spacer" align="center">
-		<select id="slider"></select>
+	<div id="spacer" align="right">
 	</div>
 	<script>
 
+var studios = [
+	{"name":"pixar",
+	 "data":pixarData,
+	 "logo":""
+	},
+	{"name":"oscars",
+	 "data": oscars,
+	 "logo": ""
+	}
+	];
+	/*{"name":"sony",
+	 "data": "",
+	 "logo": ""
+	}
+	];*/
+
+function overviewVis(){
+
 	var circleIDArray = [];  //Relates movie IDs to studioData
-	var scatterPts = [];
+	var scatterPts = [];  //array of points in scatterplot
 	
-	//Svg initialization
+	//Svg initialization params
 	var height = 650,
-		width = 1.75*height,
+		width = 1.5*height,
 		speed = 650,
 		radius = height/3,
-		padding = 125;
+		padding = (90/550)*height;
 
 	var svg = d3.select("#container").append("svg")
 		.attr("height", height)
 		.attr("width", width)
 		.attr("id","overview");
 
-	var yPos = height/2.25,
+	var yPos = height/2,  //for center circle
 		xPos = width/3.25
 
 	//Color scheme
-	var colCenter = "#173e43",
-		colMovie = "#3fb0ac",
-		colText = "#fae596";
+	var colCenter = "#98dafc",
+		colBckgrd = "#dddfd4",
+		colText = "#173e43",
+		colMovie = "#173e43";
 
-	var data = oscars;
+	d3.select("body").style("background",colBckgrd); //assignments and scaling
+	d3.select("body").style("font-size",0.031*height);
+
+	var curData = studios[0].data;
 
 	//Interactivity function to be populated
 	var	interactivityScatter = null;  //Should be amended in the future
+	var yScatter, xScatter, xLow, xHigh, yLow, yHigh; //scatter parameters
 
 	//Sorting Parameters
-	var sortParams = ["votes"/*,"year"*/,"runtimes"];
+	var sortParams = ["runtimes","grossDom","grossWorld","rt","votes"/*,"year"*/,];
 
-	// init(pixarData);
-	init(data);
+	// Intialize visualization;
+	init(curData);
 
 	function init(studioData){
 
 		//scaling based off curve fit of tested circle radii
 		var cirScale = studioData.length*(0.3705 + ((661389-0.3705)/(1+Math.pow((studioData.length/0.00135),1.756))));
 
-		var cirR = radius/(cirScale); //data circle radius
-		var centerR = 0.625*radius;
+		var cirR = radius/(cirScale); //data circle radii
+		var centerR = 0.625*radius;  //center circle radius
 		var yScale = d3.scale.linear().domain([-1,1]).range([(yPos+centerR),(yPos-centerR)]);
 
 		var sortParam = sortParams[0];  //default sorting parameter
@@ -89,7 +114,7 @@
 
 		studioData.sort(compare)
 
-		//Determines path points for startup animation
+		//Determines path points for startup animation of overview circle
 		function circlePath(radius){
 			var points = [],
 				n = 1000;
@@ -102,7 +127,7 @@
 			return points
 		};
 
-		pathPoints = circlePath(radius);
+		pathPoints = circlePath(radius); //scaled to radius
 
 		//Selects points for data circles
 		var specPoints = [],
@@ -117,20 +142,13 @@
 		var path = svg.append("path")
 			.data([pathPoints])
 			.attr("d", d3.svg.line()
-			.tension(0) //Catmull-Rom
+			.tension(0) //Catmull-Rom interpolation
 			.interpolate("cardinal-closed"))
 			.style("opacity",0);
 
-		svg.selectAll(".point")
-			.data(pathPoints)
-			.enter().append("circle")
-			.attr("r",4)
-			.style("opacity",0)
-			.attr("transform", function(d) {return "translate(" + d + ")"});
+		var c = 65; //Movie ID counter (65 ==> 'A')
 
-		var c = 65; //Movie ID counter
-
-		//Initialize spawn circle
+		//Initialize spawning circle
 		var circle = svg.append("circle")
 			.attr("r", 0)
 			.attr("id", "spwn")
@@ -141,13 +159,14 @@
 			.attr("r", cirR);
 
 		//Begin Transitions		
-		circleTransition(circle);
-		scatter(studioData)
+		circleTransition(circle);  //overview circle initialization
+		scatter(studioData);  //scatterplot initialization
 
 		function circleTransition(circle) {  //Transition 1 : Loading Animation
-			circle.transition() //Initialized #1
+			/*Handles animation of overview interface*/
+			circle.transition() //Initialized T#1
 			.duration(2.0*speed)
-			.attrTween("transform", translateAlong(path.node()))
+			.attrTween("transform", translateAlong(path.node())) //transition function
 			.each('end', function(){  //End of Transition 1
 				svg.select("#spwn").remove();  //remove spawning circle
 				svg.append("circle")  //data circle in place of spawn
@@ -159,9 +178,9 @@
 					})
 					.style("fill",colMovie);
 
-				circleIDArray.push({"id":String.fromCharCode(c),"ref":null});
+				circleIDArray.push({"id":String.fromCharCode(c),"ref":null}); //create map of IDs to dataset
 				c++;
-				fillChange() //Init Transiton 2
+				fillChange(); //Init Transiton 2
 			});
 		}
 
@@ -173,7 +192,7 @@
 		    return function(t) {
 		      var pt = path.getPointAtLength(t * pathL);
 		      if ((specPoints.length != 0) &&
-				((Math.abs(pt.x - specPoints[0][0]) < 0.05*pathL) && (Math.abs(pt.y - specPoints[0][1]) < 0.05*pathL))) { //spawn near specPoint
+				((Math.abs(pt.x - specPoints[0][0]) < 0.05*pathL) && (Math.abs(pt.y - specPoints[0][1]) < 0.05*pathL))) { //spawn new data circle near specPoint
 						var circle = svg.append("circle")
 							.attr({
 								r: 0,
@@ -183,7 +202,7 @@
 							})
 							.style("fill",colMovie);
 
-						specPoints.shift();
+						specPoints.shift();  //remove first specPoint
 						circleIDArray.push({"id":String.fromCharCode(c),"ref":null});
 						c++;
 
@@ -197,37 +216,38 @@
 		  };
 		};
 
-		function fillChange(array){  //Transition 2 : Center Circle
-			var centerCircle = svg.append("circle")  //overview circle
+		function fillChange(){  //Transition 2 : Center Circle
+			/*Alters fill of data circles to show respective movie posters */
+			var centerCircle = svg.append("circle")  //overview circle in center
 				.attr("r", 0)
 				.attr("cx", xPos)
 				.attr("cy", yPos)
 				.attr("id","center")
 				.style("fill", colCenter)
-				.transition()  //Initialize Transition Stage 2
+				.transition()  //Initialize Center Circle Transition
 				.ease("elastic")
 				.duration(1.5*speed)
 				.attr("r", centerR)
-				.each('end', function(){  //Transition 3 : Fill Images
+				.each('end', function(){  //Transition 3 : Fill Movie Images
 					var defs = svg.append('svg:defs');  //container for fill images
 					for(var i = 0; i<studioData.length; i++){
-						var id = studioData[i].movie.replace(/[^A-Z0-9]+/ig, "_"),
-							w = studioData[i].data.cover.w,
-							h = studioData[i].data.cover.h;
+						var id = studioData[i].movie.replace(/[^A-Z0-9]+/ig, "_"), //poster id
+							w = studioData[i].data.cover.w,  //poster width
+							h = studioData[i].data.cover.h;  //poster height
 
 						var scale = 2*cirR/w;  //Scaling factor for images 
 
-						var curCircle = svg.select("#" + circleIDArray[i].id);
+						var curCircle = svg.select("#" + circleIDArray[i].id);  //select current circle
 
-						circleIDArray[i].ref = studioData[i];
+						circleIDArray[i].ref = studioData[i];  //link reference ID of circle to dataset
 
-						defs.append("svg:pattern") //reference for specific image
+						defs.append("svg:pattern") //reference pattern for specific image
 						    .attr("id", id)
 						    .attr("width", 1)
 						    .attr("height", 1)
 							.attr("x", "0")
                     		.attr("y", "0")
-						    .append("svg:image")
+						    .append("svg:image") //reference image & sizing
 						    .attr("xlink:href", studioData[i].data.cover.url)
 						    .attr("width", w*scale)
 						    .attr("height", h*scale)
@@ -245,13 +265,13 @@
 						.style("stroke",colMovie)
 						.each('end',interactivity(circleIDArray,id));
 					};
-					sortFunc();
-					clearButton();
+					sortFunc();  //Load sorting function in dropdown menu
+					dataFilterButtons();  //Load Data filter buttons
 				});
 			};
 
 		function interactivity(array,id){
-			//Interactivity
+			/*Interactivity function for all data circles*/
 			array.forEach(function(obj){
 				var curCircle = svg.select("#"+obj.id);
 				curCircle.on("mouseover", function(d,i){
@@ -260,7 +280,7 @@
 					array.forEach(function(c){
 						svg.select("#"+c.id).transition()
 						.duration(0.1*speed)
-						.style("opacity",0.5);
+						.style("opacity",0.25);
 					});
 					curCircle.transition()
 					.duration(0.1*speed)
@@ -276,6 +296,7 @@
 					.style("text-anchor", "middle")
 					.style("font-size", 0.033*height)
 					.style("fill",colText)
+					.style("font-weight","bold")
 					.text(function(d,i){
 						return obj.ref.movie;
 					});
@@ -285,43 +306,54 @@
 					.attr("y",yScale(0.275))
 					.attr("id",id+"text")
 					.style("text-anchor", "middle")
-					.style("font-size",0.028*height)
+					.style("font-size",0.025*height)
 					.style("fill",colText)
 					.text(function(d,i){
 						return "IMDb Rating: " + obj.ref.data.rating.text;
 					})
 
-					group.append("text") //Release Year
-					.attr("x",xPos)
-					.attr("y",yScale(0.1))
-					.attr("id",id+"text")
-					.style("text-anchor", "middle")
-					.style("font-size",0.028*height)
-					.style("fill",colText)
-					.text(function(d,i){
-						return "Release Year: " + obj.ref.data.year.text;
-					})
-
-					group.append("text") //Runtime
+					group.append("text") //Domestic Gross
 					.attr("x",xPos)
 					.attr("y",yScale(-0.075))
 					.attr("id",id+"text")
 					.style("text-anchor", "middle")
-					.style("font-size",0.028*height)
+					.style("font-size",0.025*height)
+					.style("fill",colText)
+					.text(function(d,i){
+						return "Domestic Gross: " + d3.format("$,")(obj.ref.data.grossDom.text);
+					});
+
+					group.append("text") //Domestic Gross
+					.attr("x",xPos)
+					.attr("y",yScale(-0.25))
+					.attr("id",id+"text")
+					.style("text-anchor", "middle")
+					.style("font-size",0.025*height)
+					.style("fill",colText)
+					.text(function(d,i){
+						return "International Gross: " + d3.format("$,")(obj.ref.data.grossWorld.text);
+					});
+
+					group.append("text") //Runtime
+					.attr("x",xPos)
+					.attr("y",yScale(0.1))
+					.attr("id",id+"text")
+					.style("text-anchor", "middle")
+					.style("font-size",0.025*height)
 					.style("fill",colText)
 					.text(function(d,i){
 						return "Runtime: " + obj.ref.data.runtimes.text;
 					});
 
-					group.append("text") //IMDb Votes
+					group.append("text") //Rotten Tomatoes
 					.attr("x",xPos)
-					.attr("y",yScale(-0.25))
+					.attr("y",yScale(-0.425))
 					.attr("id",id+"text")
 					.style("text-anchor", "middle")
-					.style("font-size",0.028*height)
+					.style("font-size",0.025*height)
 					.style("fill",colText)
 					.text(function(d,i){
-						return "IMDb Votes: " + obj.ref.data.votes.text;
+						return "Rotten Tomatoes Score: " + obj.ref.data.rt.text;
 					});
 
 					group.style("opacity",0)
@@ -346,6 +378,14 @@
 		};
 
 	function sortFunc(){
+		var spacerBar = d3.select("#spacer"),
+			group = spacerBar.append("g").attr("id","controls");
+
+		group.append("text").text("Options:");
+		group.append("select").attr("id","slider");
+		group.append("text").text("Trendline:");
+		group.append("input").attr("type","checkbox").attr("id","trendlineBox");
+
 		var dropdown = d3.select("#slider").on("change",function(){
 				sortMovies()
 				sortScatter()
@@ -390,51 +430,101 @@
 			}
 			circleIDArray = newArray;
 		}
-
 	};
 
-	function clearButton(){
-		var button = d3.select("#spacer")
-						.append("button")
-						.text("clear")
-						.on("click", function(){
-							svg.selectAll("circle")
-							.transition()
-							.ease("circle")
-							.duration(speed)
-							.style("opacity",0)
-							.attr("r",0);
+	function reset(){
+		svg.selectAll("circle")
+		.transition()
+		.ease("circle")
+		.duration(speed)
+		.style("opacity",0)
+		.attr("r",0)
+		.each('end', function(){
+			this.remove();
+		});
 
-							svg.selectAll(["#scatter","#scatterY"])
-							.transition()
-							.ease("circle")
-							.duration(speed)
-							.style("opacity",0)
-							.each('end', function(){
-								svg.selectAll("circle").remove();
-								svg.selectAll("#scatter").remove();
-							});
-							this.remove();
-							circleIDArray = [];
-							d3.select("#slider").selectAll('option').remove();
-							resetButton();
-						});
+		svg.selectAll(["rect",".text","#scatter","#scatterY","g","#controls"])
+		.transition()
+		.ease("circle")
+		.duration(speed)
+		.style("opacity",0)
+		.each('end', function(){
+			this.remove();
+		});
+
+		d3.select("#spacer").selectAll('*')
+		.transition()
+		.duration(speed)
+		.style("opacity",0)
+		.each('end', function(){
+			this.remove()
+		});
+
+		circleIDArray = [];
+		setTimeout(init(curData), 4*speed);
 	};
 
-	function resetButton(){
-		var button = d3.select("#spacer")
-						.append("button")
-						.text("reset")
-						.on("click", function(){
-							init(data);
-							this.remove();
-						});
+	function dataFilterButtons(){
+		//Generate dataset buttons
+		var buttons = [];
+		
+		for(var i = 0; i<studios.length; i++){
+			var button = svg.append("g").attr("id",(studios[i].name + "bttn"));
+
+			button.append("rect")
+				.attr({
+					x:(xPos*(2+i)/3 - width/16 + 60*(i+1) - 120), //position + padding + spacing
+					y:0,
+					height:height/16,
+					width:width/8,
+				})
+				.style("fill",colMovie);
+
+			button.append("text")
+				.attr("x",(xPos*(2+i)/3 - width/16 + 60*(i+1) - 120)+width/16)
+				.attr("y",height/32 + 5)
+				.text(function(d){
+					return studios[i].name
+				})
+				.style("text-anchor","middle")
+				.style("fill",colCenter);
+
+			buttons.push({"id":(studios[i].name + "bttn"),
+						  "studio":studios[i]})
+		};
+
+		//Add low opacity to current button, interactivity to others
+		buttons.forEach(function(obj){
+			var bttn = svg.select("#"+obj.id);
+			if(obj.studio.data == curData){
+				bttn.style("opacity",0.5);
+			}else{
+				bttn.on("mouseover",function(){
+					bttn.style("opacity",0.5);
+				});
+
+				bttn.on("mouseout",function(){
+					bttn.style("opacity",1);
+				});
+
+				bttn.on("click",function(d){
+					//new dataset
+					curData = obj.studio.data;
+					//Animate out and remove
+					reset();
+				});
+			};
+		});
+
+
+
 	};
 
 
 	function scatter(studioData){
 
-		var svg = d3.select("#overview")
+		var svg = d3.select("#overview"),
+			start = (0.5)*width; 
 
 		var points = [],
 			maxY = 0,
@@ -442,8 +532,10 @@
 			minX = Infinity,
 			maxX = 0;
 
+		var selection = sortParams[0]
+
 		studioData.forEach(function(obj){
-			points.push({"x":obj.data.rating.text, "y":obj.data.votes.text, "id":obj.movie});
+			points.push({"x":obj.data.rating.text, "y":obj.data[selection].text, "id":obj.movie});
 
 			if (+points[points.length-1].y > maxY) {maxY = points[points.length-1].y;};
 			if (+points[points.length-1].x > maxX) {maxX = points[points.length-1].x;};
@@ -451,18 +543,20 @@
 			if (+points[points.length-1].x < minX) {minX = points[points.length-1].x;};
 		});
 
-		xLow = 0.75*minX;
-		xHigh = Math.min(10,1.25*maxX);
-		yLow = 0.75*minY;
-		yHigh = 1.05*maxY;
-		xScatter = d3.scale.linear().domain([xLow,xHigh]).range([width/2+padding,width-padding]);
-		yScatter = d3.scale.linear().domain([yLow,yHigh]).range([(0.5*padding)+(height-1.75*padding) + 1,0.5*padding]);
+		xLow = 0.75*minX,
+		xHigh = Math.min(10,1.25*maxX),
+		yLow = 0.8*minY,
+		yHigh = 1.2*maxY,
+		xScatter = d3.scale.linear().domain([xLow,xHigh]).range([start+1.25*padding,width-padding]),
+		yScatter = d3.scale.linear().domain([yLow,yHigh]).range([(0.5*padding)+(height-1.75*padding) + 1,0.375*padding]);
 
-		var xAxis = d3.svg.axis().orient("bottom").scale(xScatter);
+		var xAxis = d3.svg.axis().orient("bottom").scale(xScatter).ticks(6);
 
-		var yAxis = d3.svg.axis().orient("left").scale(yScatter).tickFormat(d3.format(",.1e"));
+		var yAxis = d3.svg.axis().orient("left").scale(yScatter);
 
-		d3.selectAll(".tick > text").style("font-size", 16)
+		//Parameter specific formatting
+		if (minY > 3e4) {yxis.tickFormat(d3.format(",.1e"))}
+		else if (selection == "year") {yAxis.tickFormat(d3.format("d"))};
 
 		var yLine = svg.append("line")
 			.attr({
@@ -512,13 +606,14 @@
 				.attr("transform", "translate(0," + (yScatter(yLow) + 5) + ")")
 				.attr("id","scatter")
 				.style("opacity",0)
-				.style("font-size",16)
+				.style("fill",colText)
 				.call(xAxis);
 
 			var yTicks = svg.append("g")
 				.attr("class", "y axis")
 				.attr("transform", "translate(" + (xScatter(xLow) - 5) + ", 0)")
 				.attr("id","scatterY")
+				.style("fill",colText)
 				.style("opacity",0)
 				.call(yAxis);
 
@@ -534,10 +629,11 @@
 			var xLabel = svg.append("text")
 					.style("text-anchor","middle")
 					.style("opacity",0)
+					.style("fill",colText)
 					.text("IMDb Rating")
 					.attr({
 						x: xScatter((xHigh+xLow)/2),
-						y: height - padding + 20,
+						y: height - padding + 22.5,
 						id: "scatter",
 					})
 					.transition()
@@ -549,7 +645,7 @@
 		function dataPoints(){
 			var dataPtArray = [];
 			points.forEach(function(pt){
-				var dataPt = svg.append("circle")
+				var svgPt = svg.append("circle")
 					.attr({
 						r:0,
 						cx:xScatter(pt.x),
@@ -557,14 +653,17 @@
 						id: (pt.id).replace(/[^A-Z0-9]+/ig, "_") + "pt"
 					})
 					.style({
-						fill:colCenter
+						fill:colText
 					});
+
+				var dataPt = {"data":{"x":xScatter(pt.x), "y":yScatter(pt.y)}, "id":((pt.id).replace(/[^A-Z0-9]+/ig, "_") + "pt_data"), "graphic":svgPt};
 
 				dataPtArray.push(dataPt);
 			});
 
 			dataPtArray.forEach(function(dataPt){
-				dataPt.transition()
+				var svgPt = dataPt.graphic;
+				svgPt.transition()
 					.duration(speed)
 					.ease("exp")
 					.attr("r",5)
@@ -578,7 +677,7 @@
 			//Interactivity
 			array.forEach(function(obj){
 
-				var id = obj[0][0].id;
+				var id = obj.graphic[0][0].id;
 				var curCircle = svg.select("#"+id);
 				var refMovie = null;  //relevant movie data
 
@@ -586,9 +685,9 @@
 
 					//Opacity Changes
 					array.forEach(function(c){
-						svg.select("#"+c[0][0].id).transition()
+						svg.select("#"+c.graphic[0][0].id).transition()
 						.duration(0.2*speed)
-						.style("opacity",0.5);
+						.style("opacity",0.25);
 					});
 					curCircle.transition()
 					.duration(0.2*speed)
@@ -603,7 +702,7 @@
 					circleIDArray.forEach(function(c){
 						svg.select("#"+c.id).transition()
 						.duration(0.2*speed)
-						.style("opacity",0.5);
+						.style("opacity",0.25);
 					});
 
 					svg.select("#"+refMovie.id).transition()
@@ -621,6 +720,7 @@
 					.style("text-anchor", "middle")
 					.style("font-size", 0.033*height)
 					.style("fill",colText)
+					.style("font-weight","bold")
 					.text(function(d,i){
 						return refMovie.ref.movie;
 					});
@@ -630,43 +730,54 @@
 					.attr("y",yScale(0.275))
 					.attr("id",refMovie.id+"text")
 					.style("text-anchor", "middle")
-					.style("font-size",0.028*height)
+					.style("font-size",0.025*height)
 					.style("fill",colText)
 					.text(function(d,i){
 						return "IMDb Rating: " + refMovie.ref.data.rating.text;
 					})
 
-					group.append("text") //Release Year
-					.attr("x",xPos)
-					.attr("y",yScale(0.1))
-					.attr("id",refMovie.id+"text")
-					.style("text-anchor", "middle")
-					.style("font-size",0.028*height)
-					.style("fill",colText)
-					.text(function(d,i){
-						return "Release Year: " + refMovie.ref.data.year.text;
-					})
-
-					group.append("text") //Runtimes
+					group.append("text") //Domestic Gross
 					.attr("x",xPos)
 					.attr("y",yScale(-0.075))
 					.attr("id",refMovie.id+"text")
 					.style("text-anchor", "middle")
-					.style("font-size",0.028*height)
+					.style("font-size",0.025*height)
+					.style("fill",colText)
+					.text(function(d,i){
+						return "Domestic Gross: " + d3.format("$,")(refMovie.ref.data.grossDom.text);
+					});
+
+					group.append("text") //Domestic Gross
+					.attr("x",xPos)
+					.attr("y",yScale(-0.25))
+					.attr("id",refMovie.id+"text")
+					.style("text-anchor", "middle")
+					.style("font-size",0.025*height)
+					.style("fill",colText)
+					.text(function(d,i){
+						return "International Gross: " + d3.format("$,")(refMovie.ref.data.grossWorld.text);
+					});
+
+					group.append("text") //Runtime
+					.attr("x",xPos)
+					.attr("y",yScale(0.1))
+					.attr("id",refMovie.id+"text")
+					.style("text-anchor", "middle")
+					.style("font-size",0.025*height)
 					.style("fill",colText)
 					.text(function(d,i){
 						return "Runtime: " + refMovie.ref.data.runtimes.text;
 					});
 
-					group.append("text") //IMDb Votes
+					group.append("text") //Rotten Tomatoes
 					.attr("x",xPos)
-					.attr("y",yScale(-0.25))
+					.attr("y",yScale(-0.425))
 					.attr("id",refMovie.id+"text")
 					.style("text-anchor", "middle")
-					.style("font-size",0.028*height)
+					.style("font-size",0.025*height)
 					.style("fill",colText)
 					.text(function(d,i){
-						return "IMDb Votes: " + refMovie.ref.data.votes.text;
+						return "Rotten Tomatoes Score: " + refMovie.ref.data.rt.text;
 					});
 
 					group.style("opacity",0)
@@ -677,7 +788,7 @@
 				})
 				.on("mouseout", function(){
 					array.forEach(function(c){
-						svg.select("#"+c[0][0].id).transition()
+						svg.select("#"+c.graphic[0][0].id).transition()
 						.duration(0.2*speed)
 						.style("opacity",1.0);
 					});
@@ -700,58 +811,144 @@
 
 	function sortScatter(){
 
-			//Obtain new sort selection
-			var idx = d3.select("#slider").property('selectedIndex'),
-				selection = d3.select("#slider")[0][0][idx].innerText;
+		//Obtain new sort selection
+		var idx = d3.select("#slider").property('selectedIndex'),
+			selection = d3.select("#slider")[0][0][idx].innerText;
 
-			//Reformat yScale based on new parameter
-			var yAxis = d3.selectAll("#scatterY");
-			yAxis.transition().style("opacity",0);
-			yAxis.remove();
+		//Reformat yScale based on new parameter
+		var yAxis = d3.selectAll("#scatterY");
+		yAxis.transition().style("opacity",0);
+		yAxis.remove();
 
-			var minY = Infinity,
-				maxY = null;
-			circleIDArray.forEach(function(obj){
-				if (+obj.ref.data[selection].text > maxY) {maxY = +obj.ref.data[selection].text};
-				if (+obj.ref.data[selection].text < minY) {minY = +obj.ref.data[selection].text};
+		var minY = Infinity,
+			maxY = null;
+		circleIDArray.forEach(function(obj){
+			if (+obj.ref.data[selection].text > maxY) {maxY = +obj.ref.data[selection].text};
+			if (+obj.ref.data[selection].text < minY) {minY = +obj.ref.data[selection].text};
+		});
+
+		var yLow = 0.8*minY,
+			yHigh = 1.2*maxY;
+			
+		yScatter = d3.scale.linear().domain([yLow,yHigh]).range([(0.5*padding)+(height-1.75*padding) + 1,0.375*padding]);
+
+		var newAxis = d3.svg.axis().orient("left").scale(yScatter);
+
+		if (selection == "grossDom" || selection == "grossWorld") {
+			newAxis.tickFormat(d3.format("$2e"))}
+		else if (minY > 3e4) {newAxis.tickFormat(d3.format(",.1e"))}
+		else if (selection == "year") {newAxis.tickFormat(d3.format("d"))};
+
+		var yTicks = svg.append("g")
+			.attr("class", "y axis")
+			.attr("transform", "translate(" + (width/2+1.25*padding - 5) + ", 0)")
+			.attr("id","scatterY")
+			.style("opacity",0)
+			.call(newAxis);
+
+		yTicks.transition()
+			.duration(0.3*speed)
+			.style("fill",colText)
+			.style("opacity",1);
+
+		for(var i = 0; i<circleIDArray.length; i++){
+
+			//Rearranging scatter data points
+			var id = "#" + circleIDArray[i].ref.movie.replace(/[^A-Z0-9]+/ig, "_") + "pt",
+				curCircle = svg.select(id);
+
+			curCircle.transition()
+			.ease("sin")
+			.duration(1.5*speed)
+			.attr("cy",yScatter(circleIDArray[i].ref.data[selection].text))
+			.each('end', function(){
+				interactivityScatter(scatterPts,id)
 			});
 
-			var yLow = minY,
-				yHigh = maxY,
-				yScatter = d3.scale.linear().domain([yLow,yHigh]).range([(0.5*padding)+(height-2*padding) + 1,0.5*padding]);
+			//Change data in scatterPts to reflect change
+			scatterPts.forEach(function(pt){
+				if ((pt.id).replace(/[^A-Z0-9]+/ig, "_") == (circleIDArray[i].ref.movie.replace(/[^A-Z0-9]+/ig, "_")+"pt_data")) {
+					pt.data.y = yScatter(circleIDArray[i].ref.data[selection].text);
+					console.log("change")
+				};
+			});
+		};
 
-			var newAxis = d3.svg.axis().orient("left").scale(yScatter);
+		trendlineGen();
 
-			if (selection == "votes") {newAxis.tickFormat(d3.format(",.1e"))}
-			else if (selection == "year") {newAxis.tickFormat(d3.format("d"))};
+		function trendlineGen(){
 
-			var yTicks = svg.append("g")
-				.attr("class", "y axis")
-				.attr("transform", "translate(" + (width/2+padding) + ", 0)")
-				.attr("id","scatterY")
-				.style("opacity",0)
-				.call(newAxis);
+			//Remove current trendline
+			d3.select("#trendline").remove();
 
-			yTicks.transition()
-				.duration(0.3*speed)
-				.style("opacity",1);
+			//Extract relevant scatter data from dataset
+			var trendPts = [];
+			scatterPts.forEach(function(pt){
+				trendPts.push({"x":pt.data.x, "y":pt.data.y});
+			})
 
-			for(var i = 0; i<circleIDArray.length; i++){
+			console.log(circleIDArray)
 
-				//Rearranging scatter data points
-				var id = "#" + circleIDArray[i].ref.movie.replace(/[^A-Z0-9]+/ig, "_") + "pt",
-					curCircle = svg.select(id);
+			var model = linReg(trendPts);
 
-				curCircle.transition() //Image Loading
-				.ease("circle")
-				.duration(speed)
-				.attr("cy",yScatter(circleIDArray[i].ref.data[selection].text))
-				.each('end', interactivityScatter(scatterPts,id));
-
+			//Input values spaced away from axes
+			if (((model.m)*(xScatter(xLow))+model.b) > (yScatter(yLow))){
+				var i1 = (yScatter(yLow) - (1/16)*(yScatter(yLow)-yScatter(yHigh)) - model.b)/model.m;
+			}else{
+				var i1 = xScatter(xLow)+padding*0.25;
 			}
-		}
+
+			if (((model.m)*(xScatter(xHigh))+model.b) < (yScatter(yHigh))){
+				var i2 = (yScatter(yHigh)+(1/16)*(yScatter(yLow)-yScatter(yHigh)) - model.b)/model.m;
+			}else{
+				var i2 = xScatter(xHigh)-padding*0.25;
+			}
+
+			svg.append("line")
+				.attr({
+					x1:i1,
+					y1:((model.m)*(i1)+model.b),
+					x2:i2,
+					y2:((model.m)*(i2)+model.b),
+					id:"trendline"
+				})
+				.style({
+					"stroke":colCenter,
+					"stroke-width": 3,
+					"opacity":0.5
+				});
+
+			function linReg(array){
+				/*Generates linear regression model from data*/
+				var lineModel = {"m":null, "b":null, "rSquared":null};
+				var l = array.length;
+				var xSum = 0,
+					ySum = 0, 
+					xySum = 0, 
+					xxSum = 0, 
+					yySum = 0;
+				array.forEach(function(pt){
+					xSum += +pt.x;
+					ySum += +pt.y;
+					xySum += +(+pt.x*+pt.y);
+					xxSum += +(+pt.x*+pt.x);
+					yySum += +(+pt.y*+pt.y);
+
+				});
+
+				lineModel.m = (l*xySum-xSum*ySum)/(l*xxSum-xSum*xSum);
+				lineModel.b = (ySum-lineModel.m*xSum)/l;
+				lineModel.rSquared = Math.pow((l*xySum-xSum*ySum)/Math.sqrt((l*xxSum-xSum*xSum)*(l*yySum-ySum*ySum)),2);
+
+				return lineModel
+			};
+		};
+	};
+};
 };
 
-	</script>
+overviewVis()
+
+</script>
 </body>
 </html>
