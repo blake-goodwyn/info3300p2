@@ -38,6 +38,7 @@
 	}
 	</style>
 <script src="oscars2015.js"></script>
+<script src="oscars2014.js"></script>
 <script src="d3/d3.min.js"></script>
 </head>
 <body>
@@ -53,19 +54,19 @@
 	<script>
 
 var studios = [
-	{"name":"Oscars 2015",
-	 "data":oscars2015,
+	{"name":"Oscars 2014",
+	 "data":oscars2014,
 	 "logo":""
 	},
-	{"name":"",
-	 "data": "",
+	{"name":"Oscars 2015",
+	 "data": oscars2015,
 	 "logo": ""
-	},
+	}];/*,
 	{"name":"",
 	 "data":"",
 	 "logo":""
 	}
-	];
+	];*/
 
 function overviewVis(){
 
@@ -981,9 +982,9 @@ function overviewVis(){
 				var i1 = xScatter(xLow)+padding*0.25;
 			};
 
-			//
-			if (((model.m)*(xScatter(xLow))+model.b) > (yScatter(yLow))){
-				var i1 = (yScatter(yLow) - (1/16)*(yScatter(yLow)-yScatter(yHigh)) - model.b)/model.m;
+			//x1 bound higher
+			if (((model.m)*(xScatter(xLow))+model.b) < (yScatter(yHigh))){
+				var i1 = (yScatter(yHigh) + (1/16)*(yScatter(yLow)-yScatter(yHigh)) - model.b)/model.m;
 			}else{
 				var i1 = xScatter(xLow)+padding*0.25;
 			};
