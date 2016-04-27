@@ -74,7 +74,7 @@ var oscars2015 = [
       }
    },
    {
-      "movie":"Birdman or (The Unexpected Virtue of Ignorance)",
+      "movie":"Birdman",
       "data":{
          "grossDom":{
             "text":42340598

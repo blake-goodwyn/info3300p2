@@ -1,21 +1,15 @@
 <html>
 <head>
-	<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
 	<style>
-	rect.bar { 
-		fill: #4169e1; 
-	}
 	path{
 		fill: none;
 		stroke: #000000;
 		stroke-width: 0;
 	}
-	.axis {
-		font-size: 14;
-	}
 	body{
 		font-size: 20;
-		font-family: 'Lato', sans-serif;
+		font-family: 'Dosis', sans-serif;
 	}
 	circle{
 		stroke-width: 1;
@@ -25,12 +19,14 @@
 		display: block;
 		height:25px;
 		padding-top: 10px;
+
 	}
 	#header{
 	  height: 60px;
 	  margin-top: -1.5%;
 	  width: 100%;
 	  display: table;
+	  overflow: scroll;
 	}
 	#headerText{
 		display: table-cell;
@@ -42,7 +38,8 @@
 <script src="oscars2014.js"></script>
 <script src="oscars2013.js"></script>
 <script src="oscars2012.js"></script>
-<script src="d3/d3.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="comparativeVis.js"></script>
 </head>
 <body>
 	<div align="center">
@@ -51,12 +48,14 @@
 	  	</div>
 	</div>
 	<div id="struct" align="center">
-		<div id="container" float="left"/>
-	<div id="spacer" align="right">
+		<div id="spacer" align="right">
+		</div>
+		<div id="container" float="center"/>
 	</div>
+	<div id="comparative" float="center"/>
 	<script>
 
-var studios = [
+var allOscars = [
 	{"name":"Oscars 2016",
 	 "data":oscars2016,
 	},
@@ -74,13 +73,20 @@ var studios = [
 	},
 	];
 
+var winners = ["Spotlight",
+				   "Birdman or (The Unexpected Virtue of Ignorance)", 
+				   "Twelve Years a Slave", 
+				   "Argo",
+				   "The Artist"
+			   ];
+
 function overviewVis(){
 
 	var circleIDArray = [];  //Relates movie IDs to studioData
 	var scatterPts = [];  //array of points in scatterplot
 	
-	//Svg initialization params
-	var height = 500,
+	//Svg initialization
+	var height = 500,  //params
 		width = 1.75*height,
 		speed = 650,
 		radius = height/3.15,
@@ -106,7 +112,7 @@ function overviewVis(){
 	d3.select("#header").style("background",colMovie);
 	d3.select("#headerText").style("color",colBckgrd);
 
-	var curData = studios[0].data;
+	var curData = allOscars[0].data;
 
 	//Interactivity function to be populated
 	var	interactivityScatter = null;  //Should be amended in the future
@@ -117,8 +123,9 @@ function overviewVis(){
 	//Sorting Parameters
 	var sortParamTitles = {"Runtimes (min)":"runtimes",
 						   "Domestic Gross ($)":"grossDom",
-						   "International Gross ($)": "grossWorld"};
-	var sortParams = ["runtimes","grossDom","grossWorld"];
+						   "International Gross ($)": "grossWorld",
+							"Rotten Tomatoes Score":"rt"};
+	var sortParams = ["runtimes","grossDom","grossWorld","rt"];
 
 	// Intialize visualization;
 	init(curData);
@@ -187,7 +194,8 @@ function overviewVis(){
 			})
 			.style("fill",colMovie)
 			.transition()
-			.duration(speed)
+			.ease("bounce")
+			.duration(1.25*speed)
 			.attr("r",1.325*radius)
 			.each('end',function(){
 
@@ -442,7 +450,7 @@ function overviewVis(){
 
 		group.append("text").text("Parameters: ");
 		group.append("select").attr("id","slider");
-		group.append("text").text("Trendline:");
+		group.append("text").text(" Trendline:");
 		checkbox = group.append("input").attr("type","checkbox").attr("id","trendlineBox");
 
 		checkbox.on("click",function(){
@@ -542,12 +550,12 @@ function overviewVis(){
 		//Generate dataset buttons
 		var buttons = [];
 		
-		for(var i = 0; i<studios.length; i++){
-			var button = svg.append("g").attr("id",(studios[i].name.replace(/[^A-Z0-9]+/ig, "_") + "bttn"));
+		for(var i = 0; i<allOscars.length; i++){
+			var button = svg.append("g").attr("id",(allOscars[i].name.replace(/[^A-Z0-9]+/ig, "_") + "bttn"));
 
 			button.append("rect")
 				.attr({
-					x:(xPos*(Math.floor(studios.length/2)+i+1)/studios.length - width/12 + 30*(i+1) - 55), //position + padding + spacing
+					x:(xPos*(Math.floor(allOscars.length/2)+i+1)/allOscars.length - width/12 + 30*(i+1) - 55), //position + padding + spacing
 					y:0,
 					height:height/16,
 					width:width/12,
@@ -555,18 +563,18 @@ function overviewVis(){
 				.style("fill",colMovie);
 
 			button.append("text")
-				.attr("x",(xPos*(Math.floor(studios.length/2)+i+1)/studios.length - width/12 + 30*(i+1) - 55)+width/24)
+				.attr("x",(xPos*(Math.floor(allOscars.length/2)+i+1)/allOscars.length - width/12 + 30*(i+1) - 55)+width/24)
 				.attr("y",height/32 + 5)
 				.text(function(d){
-					return studios[i].name
+					return allOscars[i].name
 				})
 				.style("text-anchor","middle")
 				.style("font-size",11)
 				.style("font-weight","bold")
 				.style("fill",colBckgrd);
 
-			buttons.push({"id":(studios[i].name.replace(/[^A-Z0-9]+/ig, "_") + "bttn"),
-						  "studio":studios[i]})
+			buttons.push({"id":(allOscars[i].name.replace(/[^A-Z0-9]+/ig, "_") + "bttn"),
+						  "studio":allOscars[i]})
 		};
 
 		//Add low opacity to current button, interactivity to others
@@ -577,10 +585,12 @@ function overviewVis(){
 			}else{
 				bttn.on("mouseover",function(){
 					bttn.style("opacity",0.5);
+					d3.select('body').style('cursor','pointer');
 				});
 
 				bttn.on("mouseout",function(){
 					bttn.style("opacity",1);
+					d3.select('body').style('cursor','default');
 				});
 
 				bttn.on("click",function(d){
@@ -888,16 +898,18 @@ function overviewVis(){
 	};
 
 	function sortScatter(){
+		/*Assigns sorting functionality to dropdown menu when change is detected*/
 
 		//Obtain new sort selection
 		var idx = d3.select("#slider").property('selectedIndex'),
 			selection = sortParamTitles[d3.select("#slider")[0][0][idx].innerText];
 
-		//Reformat yScale based on new parameter
+		//Remove old yAxis
 		var yAxis = d3.selectAll("#scatterY");
 		yAxis.transition().style("opacity",0);
 		yAxis.remove();
 
+		//Reformat yScale based on new parameter
 		var minY = Infinity,
 			maxY = null;
 		circleIDArray.forEach(function(obj){
@@ -922,6 +934,7 @@ function overviewVis(){
 		else if (minY > 3e4) {newAxis.tickFormat(d3.format(",.1e"))}
 		else if (selection == "year") {newAxis.tickFormat(d3.format("d"))};
 
+		//Initialize new yAxis
 		var yTicks = svg.append("g")
 			.attr("class", "y axis")
 			.attr("transform", "translate(" + (xScatter(xLow)) + ", 0)")
@@ -935,9 +948,10 @@ function overviewVis(){
 			.style("fill",colMovie)
 			.style("opacity",1);
 
+		//Reorganize scatter points and generate trendline
 		for(var i = 0; i<circleIDArray.length; i++){
 
-			//Rearranging scatter data points
+			//Rearrange scatter points
 			var id = "#" + circleIDArray[i].ref.movie.replace(/[^A-Z0-9]+/ig, "_") + "pt",
 				curCircle = svg.select(id);
 
@@ -949,7 +963,7 @@ function overviewVis(){
 				interactivityScatter(scatterPts,id)
 			});
 
-			//Change data in scatterPts to reflect change
+			//Change data in scatterPts array to reflect change
 			scatterPts.forEach(function(pt){
 				if ((pt.id).replace(/[^A-Z0-9]+/ig, "_") == (circleIDArray[i].ref.movie.replace(/[^A-Z0-9]+/ig, "_")+"pt_data")) {
 					pt.data.y = yScatter(circleIDArray[i].ref.data[selection].text);
@@ -957,6 +971,7 @@ function overviewVis(){
 			});
 		};
 
+		//Optional trendline generation
 		if (checkbox[0][0].checked){
 			trendlineGen();
 		}else{
@@ -1022,7 +1037,7 @@ function overviewVis(){
 					id: "rSquared"
 				})
 				.text("Correlation: " + d3.format(".3f")(model.rSquared))
-				.style("font-size",12)
+				.style("font-size",16)
 				.style("text-anchor","end")
 
 			function linReg(array){
@@ -1055,6 +1070,7 @@ function overviewVis(){
 };
 
 overviewVis()
+comparativeVis("#comparative");
 
 </script>
 </body>
