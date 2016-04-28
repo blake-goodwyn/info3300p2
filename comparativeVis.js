@@ -3,7 +3,7 @@ var comparativeVis = function comparativeVis(svgID) {
       Dynamically displays trends between IMDb and RT ratings per year */
 
     //Svg parameters
-    var width = 1.75 * height,
+    var width = 2 * height,
         padding = 75;
 
     //Color Scheme
@@ -110,7 +110,7 @@ var comparativeVis = function comparativeVis(svgID) {
     // Init svg, scales, labels, scatter pts //
     var xScale = d3.scale.linear().domain([minX, maxX]).range([2 * padding, width - 2 * padding]);
 
-    var yScale = d3.scale.linear().domain([minY, maxY]).range([height - padding, padding]);
+    var yScale = d3.scale.linear().domain([minY, maxY]).range([height - padding, 1.5*padding]);
 
     var xAxis = d3.svg.axis().orient("bottom").scale(xScale).ticks(5);
     if (paramX == "year") {xAxis.tickFormat(d3.format("d"))}
@@ -122,6 +122,19 @@ var comparativeVis = function comparativeVis(svgID) {
             height: height,
             width: width
         });
+
+    var title = svg.append("text")
+        .style({
+            "font-size":24,
+            "text-anchor":"middle",
+            "fill":colText,
+            "font-weight":"bold"
+        })
+        .attr({
+            x:xScale((minX+maxX)/2),
+            y:padding*1.05
+        })
+        .text("IMDB Rating v. Year of Release");
 
     var xTicks = svg.append("g")
         .attr("class", "x axis")
@@ -142,18 +155,40 @@ var comparativeVis = function comparativeVis(svgID) {
         .attr("y", height - padding / 2)
         .text(paramX);
 
-    var yLabel = svg.append("text")
+    var yLabel_IMDb = svg.append("text")
         .style("text-anchor", "middle")
         .style("font-size", 20)
-        .attr("transform", "translate(" + padding / 2 + ", " + yScale((minY + maxY) / 2) + ")rotate(-90)")
-        .text(paramY);
+        .attr("transform", "translate(" + padding / 2 + ", " + yScale(minY + (maxY - minY) / 2) + ")rotate(-90)")
+        .text("IMDb");
+
+    /*var yLabel_RT = svg.append("text")
+        .style("text-anchor", "middle")
+        .style("font-size", 20)
+        .style("opacity",0.5)
+        .attr("transform", "translate(" + padding / 2 + ", " + yScale(minY + 3*(maxY - minY) / 4) + ")rotate(-90)")
+        .text("RT");
+    */
+
+    var explainTxt1 = svg.append("text")
+        .style("text-anchor", "end")
+        .style("font-size", 12)
+        .style("font-style","italic")
+        .attr("transform", "translate(" +  (width - 1.5 * padding) + ", " + (yScale(minY + (maxY - minY) / 12)+12.5) + ")")
+        .text("Blue line indicates trendline of avg. nominee IMDb rating");
+
+    var explainTxt2 = svg.append("text")
+        .style("text-anchor", "end")
+        .style("font-size", 12)
+        .style("font-style","italic")
+        .attr("transform", "translate(" +  (width - 1.5 * padding) + ", " + (yScale(minY + (maxY - minY) / 12)) + ")")
+        .text("Beige line indicates mean IMDb rating of all winners");
 
     //Add nominee movie scatter points
     movieArray.forEach(function(film) {
         var circle = svg.append("circle")
             .attr("cx", xScale(film[paramX]))
             .attr("cy", yScale(film[paramY]))
-            .attr("r", 5)
+            .attr("r", 7)
             .style("fill", colPoint);
 
         //Create ptObj encoded with raw data and graphic pointer
@@ -251,7 +286,7 @@ var comparativeVis = function comparativeVis(svgID) {
         var circle = svg.append("circle")
             .attr("cx", xScale(film[paramX]))
             .attr("cy", yScale(film[paramY]))
-            .attr("r", 5)
+            .attr("r", 7)
             .style("fill", colPoint)
             .style("stroke", colHighlight)
             .style("stroke-width", 3);
@@ -416,7 +451,7 @@ var comparativeVis = function comparativeVis(svgID) {
     //Generate linear regression of all points
     var model = linReg(scatterPts);
 
-    var trendline = svg.append("line")
+    var trendline1 = svg.append("line")
         .attr({
             x1: xScale(minX),
             y1: yScale(model.m * minX + model.b),
@@ -428,18 +463,41 @@ var comparativeVis = function comparativeVis(svgID) {
         .style("opacity", 0.33);
 
     //Create linear regression of just winners
-    var model = linReg(winnerPts);
+    var winMean = 0;
+    winnerArray.forEach(function(winner){
+        winMean += +winner[paramY];
+    });
+    winMean /= winnerArray.length;
 
-    var trendline = svg.append("line")
+    var trendline2 = svg.append("line")
         .attr({
             x1: xScale(minX),
-            y1: yScale(model.m * minX + model.b),
+            y1: yScale(winMean),
             x2: xScale(maxX),
-            y2: yScale(model.m * maxX + model.b)
+            y2: yScale(winMean)
         })
         .style("stroke", colHighlight)
         .style("stroke-width", 3)
         .style("opacity", 0.75);
+
+    trendline2.on("mouseover", function(){
+        svg.append("text")
+        .style("text-anchor", "middle")
+        .style("font-size", 12)
+        .style("font-weight","bold")
+        .style("font-style","italic")
+        .style("opacity",0)
+        .attr("transform", "translate(" +  xScale(2012.5) + ", " + (yScale(winMean) -5) + ")")
+        .attr("id","trendline2txt")
+        .text("Average  =  " + d3.format(".3f")(winMean))
+        .transition()
+        .duration(150)
+        .style("opacity",1);
+    });
+
+    trendline2.on("mouseout", function(){
+        svg.select("#trendline2txt").remove();
+    })
 
     function linReg(array) {
         /*Generates linear regression model from data*/

@@ -8,7 +8,7 @@ var overviewVis = function overviewVis() {
         radius = height / 3.15,
         padding = (90 / 550) * height;
 
-    var stdDur = 250;
+    var stdDur = 450;
 
     var svg = d3.select("#container").append("svg")
         .attr("height", height)
@@ -20,15 +20,14 @@ var overviewVis = function overviewVis() {
         start = (0.475) * width; //starting edge of scatterplot area;
 
     //Color scheme
-    var colCenter = "#4d0000",
-        colBckgrd = "#dddfd4",
-        colText = "#dddfd4",
-        colMovie = "#173e43";
+    var col1 = "#4d0000",
+        col2 = "#dddfd4",
+        col3 = "#173e43";
 
-    d3.select("body").style("background", colBckgrd); //assignments and scaling
+    d3.select("body").style("background", col2); //assignments and scaling
     d3.select("body").style("font-size", 0.031 * height);
-    d3.select("#header").style("background", colMovie);
-    d3.select("#headerText").style("color", colBckgrd);
+    d3.select("#header").style("background", col3);
+    d3.select("#headerText").style("color", col2);
 
     var curData = allOscars[0].data;
 
@@ -43,9 +42,10 @@ var overviewVis = function overviewVis() {
         "Runtimes (min)": "runtimes",
         "Domestic Gross ($)": "grossDom",
         "International Gross ($)": "grossWorld",
-        "Rotten Tomatoes Score": "rt"
+        "Rotten Tomatoes Score": "rt",
+        "Number of IMDb Votes" : "votes",
     };
-    var sortParams = ["runtimes", "grossDom", "grossWorld", "rt"];
+    var sortParams = ["runtimes", "grossDom", "grossWorld", "rt", "votes"];
 
     // Intialize visualization;
     init(curData);
@@ -119,7 +119,7 @@ var overviewVis = function overviewVis() {
                 r: 0,
                 class: "reel"
             })
-            .style("fill", colMovie)
+            .style("fill", col3)
             .style("stroke", "black")
             .style("stroke-width", 5)
             .transition()
@@ -132,7 +132,7 @@ var overviewVis = function overviewVis() {
                 var circle = svg.append("circle")
                     .attr("r", 0)
                     .attr("id", "spwn")
-                    .style("fill", colCenter)
+                    .style("fill", col1)
                     .attr("transform", "translate(" + pathPoints[0] + ")")
                     .transition()
                     .duration(0.5 * stdDur)
@@ -159,7 +159,7 @@ var overviewVis = function overviewVis() {
                                 cy: extraPts[i][1],
                                 id: String.fromCharCode(c)
                             })
-                            .style("fill", colCenter);
+                            .style("fill", col1);
 
                         circleIDArray.push({
                             "id": String.fromCharCode(c),
@@ -188,7 +188,7 @@ var overviewVis = function overviewVis() {
                                 cy: specPoints[0][1],
                                 id: "tmp"
                             })
-                            .style("fill", colCenter);
+                            .style("fill", col1);
 
                         specPoints.shift(); //remove first specPoint
 
@@ -209,7 +209,7 @@ var overviewVis = function overviewVis() {
                 .attr("cx", xPos)
                 .attr("cy", yPos)
                 .attr("id", "center")
-                .style("fill", colCenter)
+                .style("fill", col1)
                 .style("stroke", "black")
                 .style("stroke-width", 5)
                 .transition() //Initialize Center Circle Transition
@@ -256,8 +256,8 @@ var overviewVis = function overviewVis() {
                         winners.forEach(function(winner) { //winner array in global scope
                             if (curYear[i].movie == winner) {
                                 curCircle.transition()
-                                    .delay(500)
-                                    .duration(1000)
+                                    .delay(2*stdDur)
+                                    .duration(0.5*stdDur)
                                     .style({
                                         stroke: "yellow",
                                         "stroke-width": 3
@@ -267,6 +267,18 @@ var overviewVis = function overviewVis() {
                     };
 
                     };
+
+                    //Explanatory Label
+                    svg.append("text")
+                        .style("text-anchor","middle")
+                        .style("fill",col3)
+                        .attr({
+                            x:xPos,
+                            y:yPos+1.5*radius,
+                        })
+                        .text("*Yellow outline indicates winner");
+
+
                     sortFunc(); //Load sorting function in dropdown menu
                     dataFilterButtons(); //Load Data filter buttons
                 });
@@ -297,7 +309,6 @@ var overviewVis = function overviewVis() {
 
                         circleIDArray.forEach(function(film) { //find film reference for point
                             if (film.ref.movie == obj.ref.movie) {
-                                console.log(id)
                                 svg.select("#" + film.ref.movie.replace(/[^A-Z0-9]+/ig, "_") + "pt").transition() //current point maintain
                                     .duration(250)
                                     .style("opacity", 1.0);
@@ -315,7 +326,7 @@ var overviewVis = function overviewVis() {
                             .attr("id", id + "text")
                             .style("text-anchor", "middle")
                             .style("font-size", 0.025 * height)
-                            .style("fill", colText)
+                            .style("fill", col2)
                             .style("font-weight", "bold")
                             .text(function(d, i) {
                                 return obj.ref.movie;
@@ -327,7 +338,7 @@ var overviewVis = function overviewVis() {
                             .attr("id", id + "text")
                             .style("text-anchor", "middle")
                             .style("font-size", 0.025 * height)
-                            .style("fill", colText)
+                            .style("fill", col2)
                             .text(function(d, i) {
                                 return "IMDb Rating: " + obj.ref.data.rating.text;
                             })
@@ -338,7 +349,7 @@ var overviewVis = function overviewVis() {
                             .attr("id", id + "text")
                             .style("text-anchor", "middle")
                             .style("font-size", 0.025 * height)
-                            .style("fill", colText)
+                            .style("fill", col2)
                             .text(function(d, i) {
                                 return "Runtime: " + obj.ref.data.runtimes.text;
                             });
@@ -349,7 +360,7 @@ var overviewVis = function overviewVis() {
                             .attr("id", id + "text")
                             .style("text-anchor", "middle")
                             .style("font-size", 0.025 * height)
-                            .style("fill", colText)
+                            .style("fill", col2)
                             .text(function(d, i) {
                                 return "Domestic Gross: " + d3.format("$,")(obj.ref.data.grossDom.text);
                             });
@@ -360,7 +371,7 @@ var overviewVis = function overviewVis() {
                             .attr("id", id + "text")
                             .style("text-anchor", "middle")
                             .style("font-size", 0.025 * height)
-                            .style("fill", colText)
+                            .style("fill", col2)
                             .text(function(d, i) {
                                 return "International Gross: " + d3.format("$,")(obj.ref.data.grossWorld.text);
                             });
@@ -371,7 +382,7 @@ var overviewVis = function overviewVis() {
                             .attr("id", id + "text")
                             .style("text-anchor", "middle")
                             .style("font-size", 0.025 * height)
-                            .style("fill", colText)
+                            .style("fill", col2)
                             .text(function(d, i) {
                                 return "Rotten Tomatoes Score: " + obj.ref.data.rt.text;
                             });
@@ -463,6 +474,8 @@ var overviewVis = function overviewVis() {
                     });
                 }
 
+                circleIDArray = newArray;
+
                 for (var i = 0; i < circleIDArray.length; i++) {
 
                     //Rearranging overview circles
@@ -475,11 +488,24 @@ var overviewVis = function overviewVis() {
                         .transition()
                         .style("opacity", 1)
                         .style("fill", "url(#" + idNew + ")")
-                        .style("stroke", colMovie)
+                        .style("stroke", col3)
                         .each('end', interactivity(idNew));
 
+                    if (!!winners) {
+                        winners.forEach(function(winner) { //winner array in global scope
+                            if (circleIDArray[i].ref.movie == winner) {
+                                curCircle.transition()
+                                    .delay(2 * stdDur)
+                                    .duration(stdDur)
+                                    .style({
+                                        stroke: "yellow",
+                                        "stroke-width": 3
+                                    })
+                            };
+                        });
+                    };
+
                 }
-                circleIDArray = newArray;
             }
         };
 
@@ -493,7 +519,7 @@ var overviewVis = function overviewVis() {
                     this.remove();
                 });
 
-            svg.selectAll(["rect", ".text", "#scatter", "#scatterY", "g", "#controls", "#trendline"])
+            svg.selectAll(["rect", "text", "#scatter", "#scatterY", "g", "#controls", "#trendline"])
                 .transition()
                 .ease("circle")
                 .duration(stdDur)
@@ -528,7 +554,7 @@ var overviewVis = function overviewVis() {
                         height: height / 16,
                         width: width / 12,
                     })
-                    .style("fill", colMovie);
+                    .style("fill", col3);
 
                 button.append("text")
                     .attr("x", (xPos * (Math.floor(allOscars.length / 2) + i + 1) / allOscars.length - width / 12 + 30 * (i + 1) - 55) + width / 24)
@@ -539,7 +565,7 @@ var overviewVis = function overviewVis() {
                     .style("text-anchor", "middle")
                     .style("font-size", 11)
                     .style("font-weight", "bold")
-                    .style("fill", colBckgrd);
+                    .style("fill", col2);
 
                 buttons.push({
                     "id": (allOscars[i].name.replace(/[^A-Z0-9]+/ig, "_") + "bttn"),
@@ -564,9 +590,11 @@ var overviewVis = function overviewVis() {
                     });
 
                     bttn.on("click", function(d) {
+                        d3.select('body').style('cursor', 'default');
                         //new dataset
                         curData = obj.studio.data;
                         //Animate out and remove
+                        stdDur = 250;
                         reset();
                     });
                 };
@@ -636,7 +664,7 @@ var overviewVis = function overviewVis() {
                     id: "scatter"
                 })
                 .style({
-                    "stroke": colMovie,
+                    "stroke": col3,
                     "stroke-width": 3,
                 });
 
@@ -656,7 +684,7 @@ var overviewVis = function overviewVis() {
                             id: "scatter"
                         })
                         .style({
-                            "stroke": colMovie,
+                            "stroke": col3,
                             "stroke-width": 3,
                         });
 
@@ -675,14 +703,14 @@ var overviewVis = function overviewVis() {
                     .attr("transform", "translate(0," + (yScatter(yLow) + 5) + ")")
                     .attr("id", "scatter")
                     .style("opacity", 0)
-                    .style("fill", colMovie)
+                    .style("fill", col3)
                     .call(xAxis);
 
                 var yTicks = svg.append("g")
                     .attr("class", "y axis")
                     .attr("transform", "translate(" + (xScatter(xLow) - 5) + ", 0)")
                     .attr("id", "scatterY")
-                    .style("fill", colMovie)
+                    .style("fill", col3)
                     .style("opacity", 0)
                     .call(yAxis);
 
@@ -698,12 +726,25 @@ var overviewVis = function overviewVis() {
                 var xLabel = svg.append("text")
                     .style("text-anchor", "middle")
                     .style("opacity", 0)
-                    .style("fill", colMovie)
-                    .text(((xParam == "rt") ? "RT Critic Score" : "IMDb Rating"))
+                    .style("fill", col3)
+                    .text("IMDb Rating")
                     .attr({
                         x: xScatter((xHigh + xLow) / 2),
                         y: height - padding + 0.625 * padding,
                         id: "scatter",
+                    })
+                    .transition()
+                    .duration(0.3 * stdDur)
+                    .style("opacity", 1);
+
+                var yLabel = svg.append("text")
+                    .style("text-anchor", "middle")
+                    .style("opacity", 0)
+                    .style("fill", col3)
+                    .text(Object.keys(sortParamTitles)[0])
+                    .attr({
+                        transform: ("translate(" + (xScatter(xLow) - 0.5*padding) + ", " + yScatter((yLow+yHigh)/2) + ")rotate(-90)"),
+                        id: "scatterYLabel",
                     })
                     .transition()
                     .duration(0.3 * stdDur)
@@ -722,8 +763,8 @@ var overviewVis = function overviewVis() {
                             id: (pt.id).replace(/[^A-Z0-9]+/ig, "_") + "pt"
                         })
                         .style({
-                            fill: colCenter,
-                            stroke: colText,
+                            fill: col1,
+                            stroke: col2,
                             "stroke-width": 1
                         });
 
@@ -799,7 +840,7 @@ var overviewVis = function overviewVis() {
                                 .attr("id", refMovie.id + "text")
                                 .style("text-anchor", "middle")
                                 .style("font-size", 0.03 * height)
-                                .style("fill", colText)
+                                .style("fill", col2)
                                 .style("font-weight", "bold")
                                 .text(function(d, i) {
                                     return refMovie.ref.movie;
@@ -811,7 +852,7 @@ var overviewVis = function overviewVis() {
                                 .attr("id", refMovie.id + "text")
                                 .style("text-anchor", "middle")
                                 .style("font-size", 0.025 * height)
-                                .style("fill", colText)
+                                .style("fill", col2)
                                 .text(function(d, i) {
                                     return "IMDb Rating: " + refMovie.ref.data.rating.text;
                                 })
@@ -822,7 +863,7 @@ var overviewVis = function overviewVis() {
                                 .attr("id", refMovie.id + "text")
                                 .style("text-anchor", "middle")
                                 .style("font-size", 0.025 * height)
-                                .style("fill", colText)
+                                .style("fill", col2)
                                 .text(function(d, i) {
                                     return "Domestic Gross: " + d3.format("$,")(refMovie.ref.data.grossDom.text);
                                 });
@@ -833,7 +874,7 @@ var overviewVis = function overviewVis() {
                                 .attr("id", refMovie.id + "text")
                                 .style("text-anchor", "middle")
                                 .style("font-size", 0.025 * height)
-                                .style("fill", colText)
+                                .style("fill", col2)
                                 .text(function(d, i) {
                                     return "International Gross: " + d3.format("$,")(refMovie.ref.data.grossWorld.text);
                                 });
@@ -844,7 +885,7 @@ var overviewVis = function overviewVis() {
                                 .attr("id", refMovie.id + "text")
                                 .style("text-anchor", "middle")
                                 .style("font-size", 0.025 * height)
-                                .style("fill", colText)
+                                .style("fill", col2)
                                 .text(function(d, i) {
                                     return "Runtime: " + refMovie.ref.data.runtimes.text;
                                 });
@@ -855,7 +896,7 @@ var overviewVis = function overviewVis() {
                                 .attr("id", refMovie.id + "text")
                                 .style("text-anchor", "middle")
                                 .style("font-size", 0.025 * height)
-                                .style("fill", colText)
+                                .style("fill", col2)
                                 .text(function(d, i) {
                                     return "Rotten Tomatoes Score: " + refMovie.ref.data.rt.text;
                                 });
@@ -901,6 +942,10 @@ var overviewVis = function overviewVis() {
             yAxis.transition().style("opacity", 0);
             yAxis.remove();
 
+            var yLabel = d3.select("#scatterYLabel");
+            yLabel.transition().style("opacity",0);
+            yLabel.remove();
+
             //Reformat yScale based on new parameter
             var minY = Infinity,
                 maxY = null;
@@ -944,7 +989,21 @@ var overviewVis = function overviewVis() {
 
             yTicks.transition()
                 .duration(0.3 * stdDur)
-                .style("fill", colMovie)
+                .style("fill", col3)
+                .style("opacity", 1);
+
+            var yLabel = svg.append("text")
+                .style("text-anchor", "middle")
+                .style("opacity", 0)
+                .style("fill", col3)
+                .text(Object.keys(sortParamTitles)[idx])
+                .attr({
+                    transform: ("translate(" + ((selection == "rt" || selection == "runtimes") ? (xScatter(xLow) - 0.5*padding) : (xScatter(xLow) - 0.75*padding)) + ", " + yScatter((yLow+yHigh)/2) + ")rotate(-90)"),
+                    id: "scatterYLabel",
+                });
+                
+            yLabel.transition()
+                .duration(0.3 * stdDur)
                 .style("opacity", 1);
 
             //Reorganize scatter points and generate trendline
@@ -1016,7 +1075,7 @@ var overviewVis = function overviewVis() {
                         id: "trendline"
                     })
                     .style({
-                        "stroke": colMovie,
+                        "stroke": col3,
                         "stroke-width": 3.5,
                         "opacity": 0.5
                     });
