@@ -161,14 +161,6 @@ var comparativeVis = function comparativeVis(svgID) {
         .attr("transform", "translate(" + padding / 2 + ", " + yScale(minY + (maxY - minY) / 2) + ")rotate(-90)")
         .text("IMDb");
 
-    /*var yLabel_RT = svg.append("text")
-        .style("text-anchor", "middle")
-        .style("font-size", 20)
-        .style("opacity",0.5)
-        .attr("transform", "translate(" + padding / 2 + ", " + yScale(minY + 3*(maxY - minY) / 4) + ")rotate(-90)")
-        .text("RT");
-    */
-
     var explainTxt1 = svg.append("text")
         .style("text-anchor", "end")
         .style("font-size", 12)
@@ -218,7 +210,7 @@ var comparativeVis = function comparativeVis(svgID) {
                 .attr({
                     x: xScale(film[paramX]) + 10,
                     y: yScale(film[paramY]) - 35 + offset,
-                    height: 25,
+                    height: 40,
                     width: 75 * wScale,
                 })
                 .style({
@@ -318,7 +310,7 @@ var comparativeVis = function comparativeVis(svgID) {
                 .attr({
                     x: xScale(film[paramX]) + 10,
                     y: yScale(film[paramY]) - 35 + offset,
-                    height: 25,
+                    height: 40,
                     width: 75 * wScale,
                 })
                 .style({
@@ -397,7 +389,7 @@ var comparativeVis = function comparativeVis(svgID) {
                 .attr({
                     x: xScale(nominees[paramX]) + 10,
                     y: yScale(nominees[paramY]) - 35,
-                    height: 25,
+                    height: 40,
                     width: 75,
                 })
                 .style({
@@ -459,7 +451,7 @@ var comparativeVis = function comparativeVis(svgID) {
             y2: yScale(model.m * maxX + model.b)
         })
         .style("stroke", colAvg)
-        .style("stroke-width", 3)
+        .style("stroke-width", 6)
         .style("opacity", 0.33);
 
     //Create linear regression of just winners
@@ -477,8 +469,8 @@ var comparativeVis = function comparativeVis(svgID) {
             y2: yScale(winMean)
         })
         .style("stroke", colHighlight)
-        .style("stroke-width", 3)
-        .style("opacity", 0.75);
+        .style("stroke-width", 6)
+        .style("opacity", 0.45);
 
     trendline2.on("mouseover", function(){
         svg.append("text")

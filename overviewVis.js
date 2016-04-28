@@ -261,9 +261,9 @@ var overviewVis = function overviewVis() {
                                     .style({
                                         stroke: "yellow",
                                         "stroke-width": 3
-                                    })
-                            }
-                        })
+                                    });
+                            };
+                        });
                     };
 
                     };
@@ -787,6 +787,20 @@ var overviewVis = function overviewVis() {
                         .ease("exp")
                         .attr("r", 5)
                         .each('end', interactivityScatter(dataPtArray, dataPt.id));
+
+                    if (!!winners) {
+                        winners.forEach(function(winner) { //winner array in global scope
+                            if (dataPt.id == (winner.replace(/[^A-Z0-9]+/ig, "_") + "pt_data")) {
+                                svgPt.transition()
+                                    .delay(2*stdDur)
+                                    .duration(0.5*stdDur)
+                                    .style({
+                                        stroke: "#8b8e73",
+                                        "stroke-width": 3
+                                    });
+                            };
+                        });
+                    };
                 });
 
                 scatterPts = dataPtArray;
