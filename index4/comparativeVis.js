@@ -1,5 +1,5 @@
 var comparativeVis = function comparativeVis(svgID) {
-    /*Creates comparative visualization between each year's best picture nominees.
+    /*Creates comparative visualization between eahc year's best picture nominees.
       Dynamically displays trends between IMDb and RT ratings per year */
 
     //Svg parameters
