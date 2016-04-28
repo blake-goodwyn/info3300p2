@@ -1,4 +1,4 @@
-var README = {
+{
 	"name": "flare",
  "children": [
   {
@@ -27,4 +27,4 @@ var README = {
 			     ]}]
     }
     ]}]
-}]};
+}]}
