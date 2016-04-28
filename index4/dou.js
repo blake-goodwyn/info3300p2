@@ -4,7 +4,7 @@ var bleed = 100,
     width = 500,
     height = 500,
     height1=650,
-    width1=1500;
+    width1=1000;
 
 var matches = {};
 var csvData;
@@ -134,13 +134,13 @@ finalresult = [0,0,0,0,0,0,0,0];
 var movies = ["Room", "The Revenant", "Mad Max: Fury Road", "The Martian", "The Big Short", "Brooklyn", "Spotlight", "Bridge of Spies"]
 //Q1
 
-svg1.append("text").attr("class","q1").attr("x","50%").attr("y",30).style("fill","white").text("Question 1: Your life is");
-svg1.append("text").attr("class","q1").attr("x","50%").attr("y",50).style("fill","white").text("A: a constant struggle against a harsh world.");
-svg1.append("text").attr("class","q1").attr("x","50%").attr("y",65).style("fill","white").text("B: a gorgeous journey towards self-acceptance.");
-svg1.append("text").attr("class","q1").attr("x","50%").attr("y",80).style("fill","white").text("C: a quest to succeed against a system trying to tear you down.");
-svg1.append("text").attr("class","q1").attr("x","50%").attr("y",95).style("fill","white").text("D: real real small.");
+svg1.append("text").attr("class","q1").attr("x","65%").attr("y",30).style("fill","white").text("Question 1: Your life is");
+svg1.append("text").attr("class","q1").attr("x","65%").attr("y",50).style("fill","white").text("A: a constant struggle against a harsh world.");
+svg1.append("text").attr("class","q1").attr("x","65%").attr("y",65).style("fill","white").text("B: a gorgeous journey towards self-acceptance.");
+svg1.append("text").attr("class","q1").attr("x","65%").attr("y",80).style("fill","white").text("C: a quest to succeed against a system trying to tear you down.");
+svg1.append("text").attr("class","q1").attr("x","65%").attr("y",95).style("fill","white").text("D: real real small.");
 
-svg1.append("circle").attr("class","q1").attr("cx","70%").attr("cy",50).style("fill","white").attr("r",5)
+svg1.append("circle").attr("class","q1").attr("cx","95%").attr("cy",50).style("fill","white").attr("r",5)
   .on("click", function() { 
     var currSize = d3.selectAll(".q1a text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
@@ -164,7 +164,7 @@ svg1.append("circle").attr("class","q1").attr("cx","70%").attr("cy",50).style("f
     d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
 
-svg1.append("circle").attr("class","q1").attr("cx","70%").attr("cy",65).style("fill","white").attr("r",5).on("click", function() { 
+svg1.append("circle").attr("class","q1").attr("cx","95%").attr("cy",65).style("fill","white").attr("r",5).on("click", function() {
     var currSize = d3.selectAll(".q1b text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
     d3.selectAll(".q1b text").style("font-size", function() { return currSize + 10; });
@@ -178,7 +178,7 @@ svg1.append("circle").attr("class","q1").attr("cx","70%").attr("cy",65).style("f
     d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
 
-svg1.append("circle").attr("class","q1").attr("cx","70%").attr("cy",80).style("fill","white").attr("r",5)
+svg1.append("circle").attr("class","q1").attr("cx","95%").attr("cy",80).style("fill","white").attr("r",5)
   .on("click", function() { 
     var currSize = d3.selectAll(".q1c text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
@@ -195,7 +195,7 @@ svg1.append("circle").attr("class","q1").attr("cx","70%").attr("cy",80).style("f
     d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
 
-svg1.append("circle").attr("class","q1").attr("cx","70%").attr("cy",95).style("fill","white").attr("r",5).on("click", function() { 
+svg1.append("circle").attr("class","q1").attr("cx","95%").attr("cy",95).style("fill","white").attr("r",5).on("click", function() {
     var currSize = d3.selectAll(".q1d text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
     d3.selectAll(".q1d text").style("font-size", function() { return currSize + 10; });
