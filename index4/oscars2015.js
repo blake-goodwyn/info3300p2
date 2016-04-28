@@ -21,7 +21,6 @@ var oscars2015 = [
          },
          "director":{
             "text":{
-               "@id":"3227090",
                "name":"Damien Chazelle"
             }
          },
@@ -61,7 +60,6 @@ var oscars2015 = [
          },
          "director":{
             "text":{
-               "@id":"0000142",
                "name":"Clint Eastwood"
             }
          },
@@ -101,7 +99,6 @@ var oscars2015 = [
          },
          "director":{
             "text":{
-               "@id":"0327944",
                "name":"Alejandro G. I\u00f1\u00e1rritu"
             }
          },
@@ -141,7 +138,6 @@ var oscars2015 = [
          },
          "director":{
             "text":{
-               "@id":"0027572",
                "name":"Wes Anderson"
             }
          },
@@ -181,7 +177,6 @@ var oscars2015 = [
          },
          "director":{
             "text":{
-               "@id":"0878763",
                "name":"Morten Tyldum"
             }
          },
@@ -221,7 +216,6 @@ var oscars2015 = [
          },
          "director":{
             "text":{
-               "@id":"1148550",
                "name":"Ava DuVernay"
             }
          },
@@ -261,7 +255,6 @@ var oscars2015 = [
          },
          "director":{
             "text":{
-               "@id":"1016428",
                "name":"James Marsh"
             }
          },
@@ -301,7 +294,6 @@ var oscars2015 = [
          },
          "director":{
             "text":{
-               "@id":"0000500",
                "name":"Richard Linklater"
             }
          },
