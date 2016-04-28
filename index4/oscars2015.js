@@ -33,6 +33,9 @@ var oscars2015 = [
          },
          "rt":{
             "text":94
+         },
+         "rtAudience":{
+            "text":94
          }
       }
    },
@@ -70,6 +73,9 @@ var oscars2015 = [
          },
          "rt":{
             "text":72
+         },
+         "rtAudience":{
+            "text":85
          }
       }
    },
@@ -107,6 +113,9 @@ var oscars2015 = [
          },
          "rt":{
             "text":91
+         },
+         "rtAudience":{
+            "text":77
          }
       }
    },
@@ -144,6 +153,9 @@ var oscars2015 = [
          },
          "rt":{
             "text":92
+         },
+         "rtAudience":{
+            "text":86
          }
       }
    },
@@ -181,6 +193,9 @@ var oscars2015 = [
          },
          "rt":{
             "text":90
+         },
+         "rtAudience":{
+            "text":92
          }
       }
    },
@@ -218,6 +233,9 @@ var oscars2015 = [
          },
          "rt":{
             "text":99
+         },
+         "rtAudience":{
+            "text":86
          }
       }
    },
@@ -255,6 +273,9 @@ var oscars2015 = [
          },
          "rt":{
             "text":79
+         },
+         "rtAudience":{
+            "text":84
          }
       }
    },
@@ -292,6 +313,9 @@ var oscars2015 = [
          },
          "rt":{
             "text":98
+         },
+         "rtAudience":{
+            "text":81
          }
       }
    }
