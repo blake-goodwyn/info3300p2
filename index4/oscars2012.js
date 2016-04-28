@@ -33,6 +33,9 @@ var oscars2012 = [
          },
          "rt":{
             "text":89
+         },
+         "rtAudience":{
+            "text":79
          }
       }
    },
@@ -70,6 +73,9 @@ var oscars2012 = [
          },
          "rt":{
             "text":97
+         },
+         "rtAudience":{
+            "text":87
          }
       }
    },
@@ -107,6 +113,9 @@ var oscars2012 = [
          },
          "rt":{
             "text":46
+         },
+         "rtAudience":{
+            "text":61
          }
       }
    },
@@ -144,6 +153,9 @@ var oscars2012 = [
          },
          "rt":{
             "text":94
+         },
+         "rtAudience":{
+            "text":86
          }
       }
    },
@@ -181,6 +193,9 @@ var oscars2012 = [
          },
          "rt":{
             "text":93
+         },
+         "rtAudience":{
+            "text":83
          }
       }
    },
@@ -218,6 +233,9 @@ var oscars2012 = [
          },
          "rt":{
             "text":76
+         },
+         "rtAudience":{
+            "text":74
          }
       }
    },
@@ -255,6 +273,9 @@ var oscars2012 = [
          },
          "rt":{
             "text":84
+         },
+         "rtAudience":{
+            "text":60
          }
       }
    },
@@ -292,6 +313,9 @@ var oscars2012 = [
          },
          "rt":{
             "text":94
+         },
+         "rtAudience":{
+            "text":78
          }
       }
    },
@@ -329,6 +353,9 @@ var oscars2012 = [
          },
          "rt":{
             "text":75
+         },
+         "rtAudience":{
+            "text":89
          }
       }
    }
