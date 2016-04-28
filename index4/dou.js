@@ -140,7 +140,7 @@ svg1.append("text").attr("class","q1").attr("x","50%").attr("y",65).style("fill"
 svg1.append("text").attr("class","q1").attr("x","50%").attr("y",80).style("fill","white").text("C: a quest to succeed against a system trying to tear you down.");
 svg1.append("text").attr("class","q1").attr("x","50%").attr("y",95).style("fill","white").text("D: real real small.");
 
-svg1.append("circle").attr("class","q1").attr("cx","65%").attr("cy",50).style("fill","white").attr("r",5)
+svg1.append("circle").attr("class","q1").attr("cx","70%").attr("cy",50).style("fill","white").attr("r",5)
   .on("click", function() { 
     var currSize = d3.selectAll(".q1a text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
@@ -156,16 +156,29 @@ svg1.append("circle").attr("class","q1").attr("cx","65%").attr("cy",50).style("f
     finalresult[0]++;
     finalresult[1]++;
     finalresult[3]++;
+  })
+  .on("mouseover", function(d) {
+  d3.select(this).attr("r", 6).style("fill", "blue");
+  })                  
+  .on("mouseout", function(d) {
+    d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
-svg1.append("circle").attr("class","q1").attr("cx","65%").attr("cy",65).style("fill","white").attr("r",5).on("click", function() { 
+
+svg1.append("circle").attr("class","q1").attr("cx","70%").attr("cy",65).style("fill","white").attr("r",5).on("click", function() { 
     var currSize = d3.selectAll(".q1b text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
     d3.selectAll(".q1b text").style("font-size", function() { return currSize + 10; });
     d3.selectAll(".q1").remove();
     d3.selectAll(".q2").style("opacity",1);
     finalresult[5]++; 
+  }).on("mouseover", function(d) {
+  d3.select(this).attr("r", 6).style("fill", "blue");
+  })                  
+  .on("mouseout", function(d) {
+    d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
-svg1.append("circle").attr("class","q1").attr("cx","65%").attr("cy",80).style("fill","white").attr("r",5)
+
+svg1.append("circle").attr("class","q1").attr("cx","70%").attr("cy",80).style("fill","white").attr("r",5)
   .on("click", function() { 
     var currSize = d3.selectAll(".q1c text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
@@ -175,14 +188,25 @@ svg1.append("circle").attr("class","q1").attr("cx","65%").attr("cy",80).style("f
     finalresult[4]++;
     finalresult[7]++;
     finalresult[6]++;
+  }).on("mouseover", function(d) {
+  d3.select(this).attr("r", 6).style("fill", "blue");
+  })                  
+  .on("mouseout", function(d) {
+    d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
-svg1.append("circle").attr("class","q1").attr("cx","65%").attr("cy",95).style("fill","white").attr("r",5).on("click", function() { 
+
+svg1.append("circle").attr("class","q1").attr("cx","70%").attr("cy",95).style("fill","white").attr("r",5).on("click", function() { 
     var currSize = d3.selectAll(".q1d text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
     d3.selectAll(".q1d text").style("font-size", function() { return currSize + 10; });
     d3.selectAll(".q1").remove();
     d3.selectAll(".q2").style("opacity",1);
     finalresult[2]++;
+  }).on("mouseover", function(d) {
+  d3.select(this).attr("r", 6).style("fill", "blue");
+  })                  
+  .on("mouseout", function(d) {
+    d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
 
 //Q2
@@ -192,7 +216,7 @@ svg1.append("text").attr("class","q2").attr("x","50%").attr("y",165).style("fill
 svg1.append("text").attr("class","q2").attr("x","50%").attr("y",180).style("fill","white").text("C: the uniform expected of you.").style("opacity",0);
 svg1.append("text").attr("class","q2").attr("x","50%").attr("y",195).style("fill","white").text("D: not what you would have picked out for yourself.").style("opacity",0);
 
-svg1.append("circle").attr("class","q2").attr("cx","65%").attr("cy",150).style("fill","white").attr("r",5).style("opacity",0)
+svg1.append("circle").attr("class","q2").attr("cx","70%").attr("cy",150).style("fill","white").attr("r",5).style("opacity",0)
   .on("click", function() { 
     var currSize = d3.selectAll(".q2a text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
@@ -201,8 +225,14 @@ svg1.append("circle").attr("class","q2").attr("cx","65%").attr("cy",150).style("
     d3.selectAll(".q3").style("opacity",1);
     finalresult[6]++;
     finalresult[6]++; 
+  }).on("mouseover", function(d) {
+  d3.select(this).attr("r", 6).style("fill", "blue");
+  })                  
+  .on("mouseout", function(d) {
+    d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
-svg1.append("circle").attr("class","q2").attr("cx","65%").attr("cy",165).style("fill","white").attr("r",5).style("opacity",0).on("click", function() { 
+
+svg1.append("circle").attr("class","q2").attr("cx","70%").attr("cy",165).style("fill","white").attr("r",5).style("opacity",0).on("click", function() { 
     var currSize = d3.selectAll(".q2b text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
     d3.selectAll(".q2b text").style("font-size", function() { return currSize + 10; });
@@ -210,8 +240,14 @@ svg1.append("circle").attr("class","q2").attr("cx","65%").attr("cy",165).style("
     d3.selectAll(".q3").style("opacity",1);
     finalresult[2]++;
     finalresult[7]++;  
+  }).on("mouseover", function(d) {
+  d3.select(this).attr("r", 6).style("fill", "blue");
+  })                  
+  .on("mouseout", function(d) {
+    d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
-svg1.append("circle").attr("class","q2").attr("cx","65%").attr("cy",180).style("fill","white").attr("r",5).style("opacity",0)
+
+svg1.append("circle").attr("class","q2").attr("cx","70%").attr("cy",180).style("fill","white").attr("r",5).style("opacity",0)
   .on("click", function() { 
     var currSize = d3.selectAll(".q2c text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
@@ -219,8 +255,14 @@ svg1.append("circle").attr("class","q2").attr("cx","65%").attr("cy",180).style("
     d3.selectAll(".q2").remove();
     d3.selectAll(".q3").style("opacity",1);
     finalresult[5]++;  
+  }).on("mouseover", function(d) {
+  d3.select(this).attr("r", 6).style("fill", "blue");
+  })                  
+  .on("mouseout", function(d) {
+    d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
-svg1.append("circle").attr("class","q2").attr("cx","65%").attr("cy",195).style("fill","white").attr("r",5).style("opacity",0).on("click", function() { 
+
+svg1.append("circle").attr("class","q2").attr("cx","70%").attr("cy",195).style("fill","white").attr("r",5).style("opacity",0).on("click", function() { 
     var currSize = d3.selectAll(".q2d text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
     d3.selectAll(".q2d text").style("font-size", function() { return currSize + 10; });
@@ -229,6 +271,11 @@ svg1.append("circle").attr("class","q2").attr("cx","65%").attr("cy",195).style("
     finalresult[6]++;
     finalresult[3]++;
     finalresult[4]++;
+  }).on("mouseover", function(d) {
+  d3.select(this).attr("r", 6).style("fill", "blue");
+  })                  
+  .on("mouseout", function(d) {
+    d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
 
 //Q3
@@ -238,7 +285,7 @@ svg1.append("text").attr("x","50%").attr("y",265).style("fill","white").text("B:
 svg1.append("text").attr("x","50%").attr("y",280).style("fill","white").text("C: large, comforting stacks of money.").attr("class","q3").style("opacity",0);
 svg1.append("text").attr("x","50%").attr("y",295).style("fill","white").text("D: freedom.").attr("class","q3").style("opacity",0);
 
-svg1.append("circle").attr("class","q3").style("opacity",0).attr("cx","65%").attr("cy",250).style("fill","white").attr("r",5)
+svg1.append("circle").attr("class","q3").style("opacity",0).attr("cx","70%").attr("cy",250).style("fill","white").attr("r",5)
   .on("click", function() { 
     var currSize = d3.selectAll(".q3a text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
@@ -247,8 +294,14 @@ svg1.append("circle").attr("class","q3").style("opacity",0).attr("cx","65%").att
     d3.selectAll(".q4").style("opacity",1);
     finalresult[0]++;
     finalresult[3]++;  
+  }).on("mouseover", function(d) {
+  d3.select(this).attr("r", 6).style("fill", "blue");
+  })                  
+  .on("mouseout", function(d) {
+    d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
-svg1.append("circle").attr("class","q3").style("opacity",0).attr("cx","65%").attr("cy",265).style("fill","white").attr("r",5).on("click", function() { 
+
+svg1.append("circle").attr("class","q3").style("opacity",0).attr("cx","70%").attr("cy",265).style("fill","white").attr("r",5).on("click", function() { 
     var currSize = d3.selectAll(".q3b text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
     d3.selectAll(".q3b text").style("font-size", function() { return currSize + 10; });
@@ -256,8 +309,14 @@ svg1.append("circle").attr("class","q3").style("opacity",0).attr("cx","65%").att
     d3.selectAll(".q4").style("opacity",1);
     finalresult[1]++;
     finalresult[5]++;
+  }).on("mouseover", function(d) {
+  d3.select(this).attr("r", 6).style("fill", "blue");
+  })                  
+  .on("mouseout", function(d) {
+    d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
-svg1.append("circle").attr("class","q3").style("opacity",0).attr("cx","65%").attr("cy",280).style("fill","white").attr("r",5)
+
+svg1.append("circle").attr("class","q3").style("opacity",0).attr("cx","70%").attr("cy",280).style("fill","white").attr("r",5)
   .on("click", function() { 
     var currSize = d3.selectAll(".q3c text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
@@ -266,8 +325,14 @@ svg1.append("circle").attr("class","q3").style("opacity",0).attr("cx","65%").att
     d3.selectAll(".q4").style("opacity",1);
     finalresult[4]++;
     finalresult[7]++;
+  }).on("mouseover", function(d) {
+  d3.select(this).attr("r", 6).style("fill", "blue");
+  })                  
+  .on("mouseout", function(d) {
+    d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
-svg1.append("circle").attr("class","q3").style("opacity",0).attr("cx","65%").attr("cy",295).style("fill","white").attr("r",5).on("click", function() { 
+
+svg1.append("circle").attr("class","q3").style("opacity",0).attr("cx","70%").attr("cy",295).style("fill","white").attr("r",5).on("click", function() { 
     var currSize = d3.selectAll(".q3d text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
     d3.selectAll(".q3d text").style("font-size", function() { return currSize + 10; });
@@ -275,6 +340,11 @@ svg1.append("circle").attr("class","q3").style("opacity",0).attr("cx","65%").att
     d3.selectAll(".q4").style("opacity",1);
     finalresult[2]++;
     finalresult[6]++;
+  }).on("mouseover", function(d) {
+  d3.select(this).attr("r", 6).style("fill", "blue");
+  })                  
+  .on("mouseout", function(d) {
+    d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
 
 //Q4
@@ -284,7 +354,7 @@ svg1.append("text").attr("x","50%").attr("y",365).style("fill","white").text("B:
 svg1.append("text").attr("x","50%").attr("y",380).style("fill","white").text("C: math.").attr("class","q4").style("opacity",0);
 svg1.append("text").attr("x","50%").attr("y",395).style("fill","white").text("D: politics.").attr("class","q4").style("opacity",0);
 
-svg1.append("circle").attr("class","q4").style("opacity",0).attr("cx","65%").attr("cy",350).style("fill","white").attr("r",5)
+svg1.append("circle").attr("class","q4").style("opacity",0).attr("cx","70%").attr("cy",350).style("fill","white").attr("r",5)
   .on("click", function() { 
     var currSize = d3.selectAll(".q4a text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
@@ -294,8 +364,14 @@ svg1.append("circle").attr("class","q4").style("opacity",0).attr("cx","65%").att
     finalresult[0]++;
     finalresult[1]++;
     finalresult[3]++;  
+  }).on("mouseover", function(d) {
+  d3.select(this).attr("r", 6).style("fill", "blue");
+  })                  
+  .on("mouseout", function(d) {
+    d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
-svg1.append("circle").attr("class","q4").style("opacity",0).attr("cx","65%").attr("cy",365).style("fill","white").attr("r",5).on("click", function() { 
+
+svg1.append("circle").attr("class","q4").style("opacity",0).attr("cx","70%").attr("cy",365).style("fill","white").attr("r",5).on("click", function() { 
     var currSize = d3.selectAll(".q4b text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
     d3.selectAll(".q4b text").style("font-size", function() { return currSize + 10; });
@@ -304,8 +380,14 @@ svg1.append("circle").attr("class","q4").style("opacity",0).attr("cx","65%").att
     finalresult[2]++;
     finalresult[1]++;
     finalresult[5]++; 
+  }).on("mouseover", function(d) {
+  d3.select(this).attr("r", 6).style("fill", "blue");
+  })                  
+  .on("mouseout", function(d) {
+    d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
-svg1.append("circle").attr("class","q4").style("opacity",0).attr("cx","65%").attr("cy",380).style("fill","white").attr("r",5)
+
+svg1.append("circle").attr("class","q4").style("opacity",0).attr("cx","70%").attr("cy",380).style("fill","white").attr("r",5)
   .on("click", function() { 
     var currSize = d3.selectAll(".q4c text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
@@ -313,8 +395,14 @@ svg1.append("circle").attr("class","q4").style("opacity",0).attr("cx","65%").att
     d3.selectAll(".q4").remove();
     d3.selectAll(".q5").style("opacity",1);
     finalresult[4]++;
+  }).on("mouseover", function(d) {
+  d3.select(this).attr("r", 6).style("fill", "blue");
+  })                  
+  .on("mouseout", function(d) {
+    d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
-svg1.append("circle").attr("class","q4").style("opacity",0).attr("cx","65%").attr("cy",395).style("fill","white").attr("r",5).on("click", function() { 
+
+svg1.append("circle").attr("class","q4").style("opacity",0).attr("cx","70%").attr("cy",395).style("fill","white").attr("r",5).on("click", function() { 
     var currSize = d3.selectAll(".q4d text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
     d3.selectAll(".q4d text").style("font-size", function() { return currSize + 10; });
@@ -322,6 +410,11 @@ svg1.append("circle").attr("class","q4").style("opacity",0).attr("cx","65%").att
     d3.selectAll(".q5").style("opacity",1);
     finalresult[7]++;
     finalresult[6]++;
+  }).on("mouseover", function(d) {
+  d3.select(this).attr("r", 6).style("fill", "blue");
+  })                  
+  .on("mouseout", function(d) {
+    d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
 
 //Q5
@@ -331,7 +424,7 @@ svg1.append("text").attr("x","50%").attr("y",465).style("fill","white").text("B:
 svg1.append("text").attr("x","50%").attr("y",480).style("fill","white").text("C: vacations are for quitters.").attr("class","q5").style("opacity",0);
 svg1.append("text").attr("x","50%").attr("y",495).style("fill","white").text("D: Any fancy hotel would be enough.").attr("class","q5").style("opacity",0);
 
-svg1.append("circle").attr("class","q5").style("opacity",0).attr("cx","65%").attr("cy",450).style("fill","white").attr("r",5)
+svg1.append("circle").attr("class","q5").style("opacity",0).attr("cx","70%").attr("cy",450).style("fill","white").attr("r",5)
   .on("click", function() { 
     displayResult();
 
@@ -341,8 +434,14 @@ svg1.append("circle").attr("class","q5").style("opacity",0).attr("cx","65%").att
     d3.selectAll(".q5").remove();
     d3.selectAll(".q6").style("opacity",1);
     finalresult[2]++;  
+  }).on("mouseover", function(d) {
+  d3.select(this).attr("r", 6).style("fill", "blue");
+  })                  
+  .on("mouseout", function(d) {
+    d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
-svg1.append("circle").attr("class","q5").style("opacity",0).attr("cx","65%").attr("cy",465).style("fill","white").attr("r",5).on("click", function() { 
+
+svg1.append("circle").attr("class","q5").style("opacity",0).attr("cx","70%").attr("cy",465).style("fill","white").attr("r",5).on("click", function() { 
     displayResult();
 
     var currSize = d3.selectAll(".q5b text").style("font-size");
@@ -351,8 +450,14 @@ svg1.append("circle").attr("class","q5").style("opacity",0).attr("cx","65%").att
     d3.selectAll(".q5").remove();
     d3.selectAll(".q6").style("opacity",1);
     finalresult[5]++;  
+  }).on("mouseover", function(d) {
+  d3.select(this).attr("r", 6).style("fill", "blue");
+  })                  
+  .on("mouseout", function(d) {
+    d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
-svg1.append("circle").attr("class","q5").style("opacity",0).attr("cx","65%").attr("cy",480).style("fill","white").attr("r",5)
+
+svg1.append("circle").attr("class","q5").style("opacity",0).attr("cx","70%").attr("cy",480).style("fill","white").attr("r",5)
   .on("click", function() { 
     displayResult();
 
@@ -364,8 +469,14 @@ svg1.append("circle").attr("class","q5").style("opacity",0).attr("cx","65%").att
     finalresult[0]++;
     finalresult[1]++;
     finalresult[3]++;  
+  }).on("mouseover", function(d) {
+  d3.select(this).attr("r", 6).style("fill", "blue");
+  })                  
+  .on("mouseout", function(d) {
+    d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
-svg1.append("circle").attr("class","q5").style("opacity",0).attr("cx","65%").attr("cy",495).style("fill","white").attr("r",5).on("click", function() { 
+
+svg1.append("circle").attr("class","q5").style("opacity",0).attr("cx","70%").attr("cy",495).style("fill","white").attr("r",5).on("click", function() { 
     displayResult();
 
     var currSize = d3.selectAll(".q5d text").style("font-size");
@@ -376,6 +487,11 @@ svg1.append("circle").attr("class","q5").style("opacity",0).attr("cx","65%").att
     finalresult[4]++;
     finalresult[6]++;
     finalresult[7]++; 
+  }).on("mouseover", function(d) {
+  d3.select(this).attr("r", 6).style("fill", "blue");
+  })                  
+  .on("mouseout", function(d) {
+    d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
 //result
 svg1.append("text").attr("x","50%").attr("y",530).style("fill","blue").text("(Hover over bubbles to see the descriptions) Result:You got").attr("class","q6").style("opacity",0);
