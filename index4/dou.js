@@ -134,7 +134,7 @@ finalresult = [0,0,0,0,0,0,0,0];
 var movies = ["Room", "The Revenant", "Mad Max: Fury Road", "The Martian", "The Big Short", "Brooklyn", "Spotlight", "Bridge of Spies"]
 //Q1
 
-svg1.append("text").attr("class","q1").attr("x","50%").attr("y",30).style("fill","white").text("Question1: Your life is");
+svg1.append("text").attr("class","q1").attr("x","50%").attr("y",30).style("fill","white").text("Question 1: Your life is");
 svg1.append("text").attr("class","q1").attr("x","50%").attr("y",50).style("fill","white").text("A: a constant struggle against a harsh world.");
 svg1.append("text").attr("class","q1").attr("x","50%").attr("y",65).style("fill","white").text("B: a gorgeous journey towards self-acceptance.");
 svg1.append("text").attr("class","q1").attr("x","50%").attr("y",80).style("fill","white").text("C: a quest to succeed against a system trying to tear you down.");
@@ -210,7 +210,7 @@ svg1.append("circle").attr("class","q1").attr("cx","70%").attr("cy",95).style("f
   });
 
 //Q2
-svg1.append("text").attr("class","q2").attr("x","50%").attr("y",130).style("fill","white").text("Question2:Right now your outfit is").style("opacity",0);
+svg1.append("text").attr("class","q2").attr("x","50%").attr("y",130).style("fill","white").text("Question 2: Right now your outfit is").style("opacity",0);
 svg1.append("text").attr("class","q2").attr("x","50%").attr("y",150).style("fill","white").text("A: at least 50% blood and dirt.").style("opacity",0);
 svg1.append("text").attr("class","q2").attr("x","50%").attr("y",165).style("fill","white").text("B: one of the few means of self-expression available to you.").style("opacity",0);
 svg1.append("text").attr("class","q2").attr("x","50%").attr("y",180).style("fill","white").text("C: the uniform expected of you.").style("opacity",0);
@@ -279,7 +279,7 @@ svg1.append("circle").attr("class","q2").attr("cx","70%").attr("cy",195).style("
   });
 
 //Q3
-svg1.append("text").attr("x","50%").attr("y",230).style("fill","white").text("Question3:Happiness is").attr("class","q3").style("opacity",0);
+svg1.append("text").attr("x","50%").attr("y",230).style("fill","white").text("Question 3: Happiness is").attr("class","q3").style("opacity",0);
 svg1.append("text").attr("x","50%").attr("y",250).style("fill","white").text("A: a warm gun.").attr("class","q3").style("opacity",0);
 svg1.append("text").attr("x","50%").attr("y",265).style("fill","white").text("B: the arms of your beloved.").attr("class","q3").style("opacity",0);
 svg1.append("text").attr("x","50%").attr("y",280).style("fill","white").text("C: large, comforting stacks of money.").attr("class","q3").style("opacity",0);
@@ -348,7 +348,7 @@ svg1.append("circle").attr("class","q3").style("opacity",0).attr("cx","70%").att
   });
 
 //Q4
-svg1.append("text").attr("x","50%").attr("y",330).style("fill","white").text("Question4:Your favorite subject is").attr("class","q4").style("opacity",0);
+svg1.append("text").attr("x","50%").attr("y",330).style("fill","white").text("Question 4: Your favorite subject is").attr("class","q4").style("opacity",0);
 svg1.append("text").attr("x","50%").attr("y",350).style("fill","white").text("A: physics.").attr("class","q4").style("opacity",0);
 svg1.append("text").attr("x","50%").attr("y",365).style("fill","white").text("B: art.").attr("class","q4").style("opacity",0);
 svg1.append("text").attr("x","50%").attr("y",380).style("fill","white").text("C: math.").attr("class","q4").style("opacity",0);
@@ -418,7 +418,7 @@ svg1.append("circle").attr("class","q4").style("opacity",0).attr("cx","70%").att
   });
 
 //Q5
-svg1.append("text").attr("x","50%").attr("y",430).style("fill","white").text("Question5:Your ideal vacation would be").attr("class","q5").style("opacity",0);
+svg1.append("text").attr("x","50%").attr("y",430).style("fill","white").text("Question 5: Your ideal vacation would be").attr("class","q5").style("opacity",0);
 svg1.append("text").attr("x","50%").attr("y",450).style("fill","white").text("A: someplace safe. Like a cave, maybe.").attr("class","q5").style("opacity",0);
 svg1.append("text").attr("x","50%").attr("y",465).style("fill","white").text("B: Paris and only Paris.").attr("class","q5").style("opacity",0);
 svg1.append("text").attr("x","50%").attr("y",480).style("fill","white").text("C: vacations are for quitters.").attr("class","q5").style("opacity",0);
@@ -494,7 +494,7 @@ svg1.append("circle").attr("class","q5").style("opacity",0).attr("cx","70%").att
     d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
 //result
-svg1.append("text").attr("x","50%").attr("y",530).style("fill","blue").text("(Hover over bubbles to see the descriptions) Result:You got").attr("class","q6").style("opacity",0);
+svg1.append("text").attr("x","50%").attr("y",530).style("fill","blue").text("(Hover over bubbles to see the descriptions) Result : You got").attr("class","q6").style("opacity",0);
 // function drawCircles1(error, json, images) {
 //   var chars = {};
 //   images.forEach(function(d) {
