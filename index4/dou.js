@@ -5,7 +5,7 @@ var bleed = 100,
     width = 500,
     height = 500,
     height1=650,
-    width1=1500;
+    width1=1000;
 
 var matches = {};
 var csvData;
@@ -126,13 +126,13 @@ finalresult = [0,0,0,0,0,0,0,0];
 var movies = ["Room", "The Revenant", "Mad Max: Fury Road", "The Martian", "The Big Short", "Brooklyn", "Spotlight", "Bridge of Spies"]
 //Q1
 //the text part of Q1
-svg1.append("text").attr("class","q1").attr("x","50%").attr("y",30).style("fill","white").text("Question1: Your life is");
-svg1.append("text").attr("class","q1").attr("x","50%").attr("y",50).style("fill","white").text("A: a constant struggle against a harsh world.");
-svg1.append("text").attr("class","q1").attr("x","50%").attr("y",65).style("fill","white").text("B: a gorgeous journey towards self-acceptance.");
-svg1.append("text").attr("class","q1").attr("x","50%").attr("y",80).style("fill","white").text("C: a quest to succeed against a system trying to tear you down.");
-svg1.append("text").attr("class","q1").attr("x","50%").attr("y",95).style("fill","white").text("D: real real small.");
+svg1.append("text").attr("class","q1").attr("x","65%").attr("y",30).style("fill","white").text("Question 1: Your life is");
+svg1.append("text").attr("class","q1").attr("x","65%").attr("y",50).style("fill","white").text("A: a constant struggle against a harsh world.");
+svg1.append("text").attr("class","q1").attr("x","65%").attr("y",65).style("fill","white").text("B: a gorgeous journey towards self-acceptance.");
+svg1.append("text").attr("class","q1").attr("x","65%").attr("y",80).style("fill","white").text("C: a quest to succeed against a system trying to tear you down.");
+svg1.append("text").attr("class","q1").attr("x","65%").attr("y",95).style("fill","white").text("D: real real small.");
 // the options (a,b,c,d) part of Q1
-svg1.append("circle").attr("class","q1").attr("cx","70%").attr("cy",50).style("fill","white").attr("r",5)
+svg1.append("circle").attr("class","q1").attr("cx","95%").attr("cy",50).style("fill","white").attr("r",5)
   .on("click", function() { 
     var currSize = d3.selectAll(".q1a text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
@@ -151,7 +151,7 @@ svg1.append("circle").attr("class","q1").attr("cx","70%").attr("cy",50).style("f
     d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
 
-svg1.append("circle").attr("class","q1").attr("cx","70%").attr("cy",65).style("fill","white").attr("r",5).on("click", function() { 
+svg1.append("circle").attr("class","q1").attr("cx","95%").attr("cy",65).style("fill","white").attr("r",5).on("click", function() {
     var currSize = d3.selectAll(".q1b text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
     d3.selectAll(".q1b text").style("font-size", function() { return currSize + 10; });
@@ -165,7 +165,7 @@ svg1.append("circle").attr("class","q1").attr("cx","70%").attr("cy",65).style("f
     d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
 
-svg1.append("circle").attr("class","q1").attr("cx","70%").attr("cy",80).style("fill","white").attr("r",5)
+svg1.append("circle").attr("class","q1").attr("cx","95%").attr("cy",80).style("fill","white").attr("r",5)
   .on("click", function() { 
     var currSize = d3.selectAll(".q1c text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
@@ -182,7 +182,7 @@ svg1.append("circle").attr("class","q1").attr("cx","70%").attr("cy",80).style("f
     d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
 
-svg1.append("circle").attr("class","q1").attr("cx","70%").attr("cy",95).style("fill","white").attr("r",5).on("click", function() { 
+svg1.append("circle").attr("class","q1").attr("cx","95%").attr("cy",95).style("fill","white").attr("r",5).on("click", function() {
     var currSize = d3.selectAll(".q1d text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
     d3.selectAll(".q1d text").style("font-size", function() { return currSize + 10; });
@@ -197,13 +197,13 @@ svg1.append("circle").attr("class","q1").attr("cx","70%").attr("cy",95).style("f
   });
 
 //Q2
-svg1.append("text").attr("class","q2").attr("x","50%").attr("y",130).style("fill","white").text("Question2:Right now your outfit is").style("opacity",0);
-svg1.append("text").attr("class","q2").attr("x","50%").attr("y",150).style("fill","white").text("A: at least 50% blood and dirt.").style("opacity",0);
-svg1.append("text").attr("class","q2").attr("x","50%").attr("y",165).style("fill","white").text("B: one of the few means of self-expression available to you.").style("opacity",0);
-svg1.append("text").attr("class","q2").attr("x","50%").attr("y",180).style("fill","white").text("C: the uniform expected of you.").style("opacity",0);
-svg1.append("text").attr("class","q2").attr("x","50%").attr("y",195).style("fill","white").text("D: not what you would have picked out for yourself.").style("opacity",0);
+svg1.append("text").attr("class","q2").attr("x","65%").attr("y",130).style("fill","white").text("Question 2: Right now your outfit is").style("opacity",0);
+svg1.append("text").attr("class","q2").attr("x","65%").attr("y",150).style("fill","white").text("A: at least 50% blood and dirt.").style("opacity",0);
+svg1.append("text").attr("class","q2").attr("x","65%").attr("y",165).style("fill","white").text("B: one of the few means of self-expression available to you.").style("opacity",0);
+svg1.append("text").attr("class","q2").attr("x","65%").attr("y",180).style("fill","white").text("C: the uniform expected of you.").style("opacity",0);
+svg1.append("text").attr("class","q2").attr("x","65%").attr("y",195).style("fill","white").text("D: not what you would have picked out for yourself.").style("opacity",0);
 
-svg1.append("circle").attr("class","q2").attr("cx","70%").attr("cy",150).style("fill","white").attr("r",5).style("opacity",0)
+svg1.append("circle").attr("class","q2").attr("cx","95%").attr("cy",150).style("fill","white").attr("r",5).style("opacity",0)
   .on("click", function() { 
     var currSize = d3.selectAll(".q2a text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
@@ -219,7 +219,7 @@ svg1.append("circle").attr("class","q2").attr("cx","70%").attr("cy",150).style("
     d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
 
-svg1.append("circle").attr("class","q2").attr("cx","70%").attr("cy",165).style("fill","white").attr("r",5).style("opacity",0).on("click", function() { 
+svg1.append("circle").attr("class","q2").attr("cx","95%").attr("cy",165).style("fill","white").attr("r",5).style("opacity",0).on("click", function() {
     var currSize = d3.selectAll(".q2b text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
     d3.selectAll(".q2b text").style("font-size", function() { return currSize + 10; });
@@ -234,7 +234,7 @@ svg1.append("circle").attr("class","q2").attr("cx","70%").attr("cy",165).style("
     d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
 
-svg1.append("circle").attr("class","q2").attr("cx","70%").attr("cy",180).style("fill","white").attr("r",5).style("opacity",0)
+svg1.append("circle").attr("class","q2").attr("cx","95%").attr("cy",180).style("fill","white").attr("r",5).style("opacity",0)
   .on("click", function() { 
     var currSize = d3.selectAll(".q2c text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
@@ -249,7 +249,7 @@ svg1.append("circle").attr("class","q2").attr("cx","70%").attr("cy",180).style("
     d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
 
-svg1.append("circle").attr("class","q2").attr("cx","70%").attr("cy",195).style("fill","white").attr("r",5).style("opacity",0).on("click", function() { 
+svg1.append("circle").attr("class","q2").attr("cx","95%").attr("cy",195).style("fill","white").attr("r",5).style("opacity",0).on("click", function() {
     var currSize = d3.selectAll(".q2d text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
     d3.selectAll(".q2d text").style("font-size", function() { return currSize + 10; });
@@ -266,13 +266,13 @@ svg1.append("circle").attr("class","q2").attr("cx","70%").attr("cy",195).style("
   });
 
 //Q3
-svg1.append("text").attr("x","50%").attr("y",230).style("fill","white").text("Question3:Happiness is").attr("class","q3").style("opacity",0);
-svg1.append("text").attr("x","50%").attr("y",250).style("fill","white").text("A: a warm gun.").attr("class","q3").style("opacity",0);
-svg1.append("text").attr("x","50%").attr("y",265).style("fill","white").text("B: the arms of your beloved.").attr("class","q3").style("opacity",0);
-svg1.append("text").attr("x","50%").attr("y",280).style("fill","white").text("C: large, comforting stacks of money.").attr("class","q3").style("opacity",0);
-svg1.append("text").attr("x","50%").attr("y",295).style("fill","white").text("D: freedom.").attr("class","q3").style("opacity",0);
+svg1.append("text").attr("x","65%").attr("y",230).style("fill","white").text("Question 3 :Happiness is").attr("class","q3").style("opacity",0);
+svg1.append("text").attr("x","65%").attr("y",250).style("fill","white").text("A: a warm gun.").attr("class","q3").style("opacity",0);
+svg1.append("text").attr("x","65%").attr("y",265).style("fill","white").text("B: the arms of your beloved.").attr("class","q3").style("opacity",0);
+svg1.append("text").attr("x","65%").attr("y",280).style("fill","white").text("C: large, comforting stacks of money.").attr("class","q3").style("opacity",0);
+svg1.append("text").attr("x","65%").attr("y",295).style("fill","white").text("D: freedom.").attr("class","q3").style("opacity",0);
 
-svg1.append("circle").attr("class","q3").style("opacity",0).attr("cx","70%").attr("cy",250).style("fill","white").attr("r",5)
+svg1.append("circle").attr("class","q3").style("opacity",0).attr("cx","95%").attr("cy",250).style("fill","white").attr("r",5)
   .on("click", function() { 
     var currSize = d3.selectAll(".q3a text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
@@ -288,7 +288,7 @@ svg1.append("circle").attr("class","q3").style("opacity",0).attr("cx","70%").att
     d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
 
-svg1.append("circle").attr("class","q3").style("opacity",0).attr("cx","70%").attr("cy",265).style("fill","white").attr("r",5).on("click", function() { 
+svg1.append("circle").attr("class","q3").style("opacity",0).attr("cx","95%").attr("cy",265).style("fill","white").attr("r",5).on("click", function() {
     var currSize = d3.selectAll(".q3b text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
     d3.selectAll(".q3b text").style("font-size", function() { return currSize + 10; });
@@ -303,7 +303,7 @@ svg1.append("circle").attr("class","q3").style("opacity",0).attr("cx","70%").att
     d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
 
-svg1.append("circle").attr("class","q3").style("opacity",0).attr("cx","70%").attr("cy",280).style("fill","white").attr("r",5)
+svg1.append("circle").attr("class","q3").style("opacity",0).attr("cx","95%").attr("cy",280).style("fill","white").attr("r",5)
   .on("click", function() { 
     var currSize = d3.selectAll(".q3c text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
@@ -319,7 +319,7 @@ svg1.append("circle").attr("class","q3").style("opacity",0).attr("cx","70%").att
     d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
 
-svg1.append("circle").attr("class","q3").style("opacity",0).attr("cx","70%").attr("cy",295).style("fill","white").attr("r",5).on("click", function() { 
+svg1.append("circle").attr("class","q3").style("opacity",0).attr("cx","95%").attr("cy",295).style("fill","white").attr("r",5).on("click", function() {
     var currSize = d3.selectAll(".q3d text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
     d3.selectAll(".q3d text").style("font-size", function() { return currSize + 10; });
@@ -335,13 +335,13 @@ svg1.append("circle").attr("class","q3").style("opacity",0).attr("cx","70%").att
   });
 
 //Q4
-svg1.append("text").attr("x","50%").attr("y",330).style("fill","white").text("Question4:Your favorite subject is").attr("class","q4").style("opacity",0);
-svg1.append("text").attr("x","50%").attr("y",350).style("fill","white").text("A: physics.").attr("class","q4").style("opacity",0);
-svg1.append("text").attr("x","50%").attr("y",365).style("fill","white").text("B: art.").attr("class","q4").style("opacity",0);
-svg1.append("text").attr("x","50%").attr("y",380).style("fill","white").text("C: math.").attr("class","q4").style("opacity",0);
-svg1.append("text").attr("x","50%").attr("y",395).style("fill","white").text("D: politics.").attr("class","q4").style("opacity",0);
+svg1.append("text").attr("x","65%").attr("y",330).style("fill","white").text("Question 4: Your favorite subject is").attr("class","q4").style("opacity",0);
+svg1.append("text").attr("x","65%").attr("y",350).style("fill","white").text("A: physics.").attr("class","q4").style("opacity",0);
+svg1.append("text").attr("x","65%").attr("y",365).style("fill","white").text("B: art.").attr("class","q4").style("opacity",0);
+svg1.append("text").attr("x","65%").attr("y",380).style("fill","white").text("C: math.").attr("class","q4").style("opacity",0);
+svg1.append("text").attr("x","65%").attr("y",395).style("fill","white").text("D: politics.").attr("class","q4").style("opacity",0);
 
-svg1.append("circle").attr("class","q4").style("opacity",0).attr("cx","70%").attr("cy",350).style("fill","white").attr("r",5)
+svg1.append("circle").attr("class","q4").style("opacity",0).attr("cx","95%").attr("cy",350).style("fill","white").attr("r",5)
   .on("click", function() { 
     var currSize = d3.selectAll(".q4a text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
@@ -358,7 +358,7 @@ svg1.append("circle").attr("class","q4").style("opacity",0).attr("cx","70%").att
     d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
 
-svg1.append("circle").attr("class","q4").style("opacity",0).attr("cx","70%").attr("cy",365).style("fill","white").attr("r",5).on("click", function() { 
+svg1.append("circle").attr("class","q4").style("opacity",0).attr("cx","95%").attr("cy",365).style("fill","white").attr("r",5).on("click", function() {
     var currSize = d3.selectAll(".q4b text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
     d3.selectAll(".q4b text").style("font-size", function() { return currSize + 10; });
@@ -374,7 +374,7 @@ svg1.append("circle").attr("class","q4").style("opacity",0).attr("cx","70%").att
     d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
 
-svg1.append("circle").attr("class","q4").style("opacity",0).attr("cx","70%").attr("cy",380).style("fill","white").attr("r",5)
+svg1.append("circle").attr("class","q4").style("opacity",0).attr("cx","95%").attr("cy",380).style("fill","white").attr("r",5)
   .on("click", function() { 
     var currSize = d3.selectAll(".q4c text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
@@ -389,7 +389,7 @@ svg1.append("circle").attr("class","q4").style("opacity",0).attr("cx","70%").att
     d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
 
-svg1.append("circle").attr("class","q4").style("opacity",0).attr("cx","70%").attr("cy",395).style("fill","white").attr("r",5).on("click", function() { 
+svg1.append("circle").attr("class","q4").style("opacity",0).attr("cx","95%").attr("cy",395).style("fill","white").attr("r",5).on("click", function() {
     var currSize = d3.selectAll(".q4d text").style("font-size");
     currSize = parseInt(currSize.substring(0,currSize.length-2));
     d3.selectAll(".q4d text").style("font-size", function() { return currSize + 10; });
@@ -405,13 +405,13 @@ svg1.append("circle").attr("class","q4").style("opacity",0).attr("cx","70%").att
   });
 
 //Q5
-svg1.append("text").attr("x","50%").attr("y",430).style("fill","white").text("Question5:Your ideal vacation would be").attr("class","q5").style("opacity",0);
-svg1.append("text").attr("x","50%").attr("y",450).style("fill","white").text("A: someplace safe. Like a cave, maybe.").attr("class","q5").style("opacity",0);
-svg1.append("text").attr("x","50%").attr("y",465).style("fill","white").text("B: Paris and only Paris.").attr("class","q5").style("opacity",0);
-svg1.append("text").attr("x","50%").attr("y",480).style("fill","white").text("C: vacations are for quitters.").attr("class","q5").style("opacity",0);
-svg1.append("text").attr("x","50%").attr("y",495).style("fill","white").text("D: Any fancy hotel would be enough.").attr("class","q5").style("opacity",0);
+svg1.append("text").attr("x","65%").attr("y",430).style("fill","white").text("Question 5: Your ideal vacation would be").attr("class","q5").style("opacity",0);
+svg1.append("text").attr("x","65%").attr("y",450).style("fill","white").text("A: someplace safe. Like a cave, maybe.").attr("class","q5").style("opacity",0);
+svg1.append("text").attr("x","65%").attr("y",465).style("fill","white").text("B: Paris and only Paris.").attr("class","q5").style("opacity",0);
+svg1.append("text").attr("x","65%").attr("y",480).style("fill","white").text("C: vacations are for quitters.").attr("class","q5").style("opacity",0);
+svg1.append("text").attr("x","65%").attr("y",495).style("fill","white").text("D: Any fancy hotel would be enough.").attr("class","q5").style("opacity",0);
 
-svg1.append("circle").attr("class","q5").style("opacity",0).attr("cx","70%").attr("cy",450).style("fill","white").attr("r",5)
+svg1.append("circle").attr("class","q5").style("opacity",0).attr("cx","95%").attr("cy",450).style("fill","white").attr("r",5)
   .on("click", function() { 
     displayResult();
 
@@ -428,7 +428,7 @@ svg1.append("circle").attr("class","q5").style("opacity",0).attr("cx","70%").att
     d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
 
-svg1.append("circle").attr("class","q5").style("opacity",0).attr("cx","70%").attr("cy",465).style("fill","white").attr("r",5).on("click", function() { 
+svg1.append("circle").attr("class","q5").style("opacity",0).attr("cx","95%").attr("cy",465).style("fill","white").attr("r",5).on("click", function() {
     displayResult();
 
     var currSize = d3.selectAll(".q5b text").style("font-size");
@@ -444,7 +444,7 @@ svg1.append("circle").attr("class","q5").style("opacity",0).attr("cx","70%").att
     d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
 
-svg1.append("circle").attr("class","q5").style("opacity",0).attr("cx","70%").attr("cy",480).style("fill","white").attr("r",5)
+svg1.append("circle").attr("class","q5").style("opacity",0).attr("cx","95%").attr("cy",480).style("fill","white").attr("r",5)
   .on("click", function() { 
     displayResult();
 
@@ -463,7 +463,7 @@ svg1.append("circle").attr("class","q5").style("opacity",0).attr("cx","70%").att
     d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
 
-svg1.append("circle").attr("class","q5").style("opacity",0).attr("cx","70%").attr("cy",495).style("fill","white").attr("r",5).on("click", function() { 
+svg1.append("circle").attr("class","q5").style("opacity",0).attr("cx","95%").attr("cy",495).style("fill","white").attr("r",5).on("click", function() {
     displayResult();
 
     var currSize = d3.selectAll(".q5d text").style("font-size");
@@ -481,7 +481,7 @@ svg1.append("circle").attr("class","q5").style("opacity",0).attr("cx","70%").att
     d3.select(this).attr("r", 5.5).style("fill", "#fff8ee");
   });
 //display the result
-svg1.append("text").attr("x","50%").attr("y",530).style("fill","blue").text("(Hover over bubbles to see the descriptions) Result:You got").attr("class","q6").style("opacity",0);
+svg1.append("text").attr("x","50%").attr("y",530).style("fill","white").text("(Hover over bubbles to see the descriptions) Result:You got").attr("class","q6").style("opacity",0);
 
   function displayResult() {
     //console.log(finalresult);
@@ -501,7 +501,7 @@ svg1.append("text").attr("x","50%").attr("y",530).style("fill","blue").text("(Ho
       svg1.append("text").attr("x","50%")
         .attr("y", 550)
         .attr("dy", i * 20)
-        .style("fill","blue").text(d.name).attr("class","q6").style("opacity",0);  
+        .style("fill","white").text(d.name).attr("class","q6").style("opacity",0);
     })
   }
 }
