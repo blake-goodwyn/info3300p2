@@ -69,7 +69,7 @@ var dou = function() {
                     return "q1c q2d q3d q4d q5d font";
                 } else if (["Bridge of Spies"].indexOf(d.name) != -1) {
                     return "q1c q2b q3c q4d q5d font";
-                };
+                }
 
             })
 
@@ -535,7 +535,7 @@ var dou = function() {
         });
 
     //display the result of the quiz
-    svg1.append("text").attr("x", "65%").attr("y", 530).style("fill", "white").text("(Hover over bubbles to see the descriptions) Result:You got").attr("class", "q6").style("opacity", 0);
+    svg1.append("text").attr("x", "65%").attr("y", 530).style("fill", "white").text("(Hover over bubbles to see the descriptions) Result: You got").attr("class", "q6").style("opacity", 0);
 
     function displayResult() {
         var winCount = d3.max(finalresult);
@@ -555,7 +555,7 @@ var dou = function() {
             svg1.append("text").attr("x", "65%")
                 .attr("y", 550)
                 .attr("dy", i * 20)
-                .style("fill", "white").text(d.name).attr("class", "q6").style("opacity", 0);
+                .style("fill", "white").text(d.name).attr("class", "q6");
         })
     }
 }
