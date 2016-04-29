@@ -1,11 +1,11 @@
 //credit to http://bl.ocks.org/mbostock/1846692
 var dou = function() {
 
-var bleed = 100,
+var bleed = 50,
     width = 500,
     height = 500,
-    height1=650,
-    width1=1000;
+    height1 = 600,
+    width1 = 1000;
 
 var matches = {};
 var csvData;
@@ -92,7 +92,8 @@ function drawCircles(error, json, images) {
 
 
   node.append("circle")
-      .attr("r", function(d) { return d.r; }).style("opacity",0.5).style("fill","#173E43")
+      .attr("r", function(d) { return d.r; })
+      .style("fill","#4d0000")
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide);
 
@@ -100,7 +101,7 @@ function drawCircles(error, json, images) {
       .text(function(d) { return d.name; })
       //.style("font-size", function(d) { return Math.min(2 * d.r, (2 * d.r - 8) / this.getComputedTextLength() * 14); })
       .attr("dy", ".35em")
-      .attr("fill","white");
+      .attr("fill","#dddfd4");
 
 };  
    
