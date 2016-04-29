@@ -17,7 +17,7 @@ var pack = d3.layout.pack()
 
 //read two data files
 queue()
-  .defer(d3.json, 'README.json')
+  .defer(d3.json, 'quiz.json')
   .defer(d3.csv, 'images.csv')
   .await(drawCircles);
 
