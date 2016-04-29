@@ -21,7 +21,6 @@ var oscars2013 = [
          },
          "director":{
             "text":{
-               "@id":"0751102",
                "name":"David O. Russell"
             }
          },
@@ -61,7 +60,6 @@ var oscars2013 = [
          },
          "director":{
             "text":{
-               "@id":"0359734",
                "name":"Michael Haneke"
             }
          },
@@ -101,7 +99,6 @@ var oscars2013 = [
          },
          "director":{
             "text":{
-               "@id":"0000233",
                "name":"Quentin Tarantino"
             }
          },
@@ -141,7 +138,6 @@ var oscars2013 = [
          },
          "director":{
             "text":{
-               "@id":"0000941",
                "name":"Kathryn Bigelow"
             }
          },
@@ -181,7 +177,6 @@ var oscars2013 = [
          },
          "director":{
             "text":{
-               "@id":"0000229",
                "name":"Steven Spielberg"
             }
          },
@@ -221,7 +216,6 @@ var oscars2013 = [
          },
          "director":{
             "text":{
-               "@id":"0000487",
                "name":"Ang Lee"
             }
          },
@@ -261,7 +255,6 @@ var oscars2013 = [
          },
          "director":{
             "text":{
-               "@id":"0000255",
                "name":"Ben Affleck"
             }
          },
@@ -301,7 +294,6 @@ var oscars2013 = [
          },
          "director":{
             "text":{
-               "@id":"0393799",
                "name":"Tom Hooper"
             }
          },
@@ -341,7 +333,6 @@ var oscars2013 = [
          },
          "director":{
             "text":{
-               "@id":"1022455",
                "name":"Benh Zeitlin"
             }
          },
@@ -359,4 +350,4 @@ var oscars2013 = [
          }
       }
    }
-]
+];

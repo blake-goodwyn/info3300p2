@@ -21,7 +21,6 @@ var oscars2012 = [
          },
          "director":{
             "text":{
-               "@id":"0668247",
                "name":"Alexander Payne"
             }
          },
@@ -61,7 +60,6 @@ var oscars2012 = [
          },
          "director":{
             "text":{
-               "@id":"0371890",
                "name":"Michel Hazanavicius"
             }
          },
@@ -101,7 +99,6 @@ var oscars2012 = [
          },
          "director":{
             "text":{
-               "@id":"0197636",
                "name":"Stephen Daldry"
             }
          },
@@ -141,7 +138,6 @@ var oscars2012 = [
          },
          "director":{
             "text":{
-               "@id":"0587955",
                "name":"Bennett Miller"
             }
          },
@@ -181,7 +177,6 @@ var oscars2012 = [
         },
          "director":{
             "text":{
-               "@id":"0000095",
                "name":"Woody Allen"
             }
          },
@@ -221,7 +216,6 @@ var oscars2012 = [
          },
          "director":{
             "text":{
-               "@id":"0000229",
                "name":"Steven Spielberg"
             }
          },
@@ -261,7 +255,6 @@ var oscars2012 = [
          },
          "director":{
             "text":{
-               "@id":"0000517",
                "name":"Terrence Malick"
             }
          },
@@ -301,7 +294,6 @@ var oscars2012 = [
          },
          "director":{
             "text":{
-               "@id":"0000217",
                "name":"Martin Scorsese"
             }
          },
@@ -341,7 +333,6 @@ var oscars2012 = [
          },
          "director":{
             "text":{
-               "@id":"0853238",
                "name":"Tate Taylor"
             }
          },
