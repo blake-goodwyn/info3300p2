@@ -3,7 +3,8 @@ var comparativeVis = function comparativeVis(svgID) {
       Dynamically displays trends between IMDb and RT ratings per year */
 
     //Svg parameters
-    var width = 2 * height,
+    var height = 650,
+        width = 1.5 * height,
         padding = 75;
 
     //Color Scheme
@@ -55,7 +56,7 @@ var comparativeVis = function comparativeVis(svgID) {
                 } else {
                     movieArray.push({
                         "title": film.movie,
-                        "year": +film.data.year.text,
+                        "year": +film.data.year.text + 1, //Year of Nomination = Year of Release + 1
                         "RT": +film.data.rt.text,
                         "runtime": +film.data.runtimes.text,
                         "IMDb": +film.data.rating.text,
@@ -134,7 +135,7 @@ var comparativeVis = function comparativeVis(svgID) {
             x:xScale((minX+maxX)/2),
             y:padding*1.05
         })
-        .text("IMDB Rating v. Year of Release");
+        .text("IMDB Rating v. Year of Nomination");
 
     var xTicks = svg.append("g")
         .attr("class", "x axis")
@@ -155,11 +156,11 @@ var comparativeVis = function comparativeVis(svgID) {
         .attr("y", height - padding / 2)
         .text(paramX);
 
-    var yLabel_IMDb = svg.append("text")
+    var yLabel = svg.append("text")
         .style("text-anchor", "middle")
         .style("font-size", 20)
         .attr("transform", "translate(" + padding / 2 + ", " + yScale(minY + (maxY - minY) / 2) + ")rotate(-90)")
-        .text("IMDb");
+        .text("IMDb Rating");
 
     var explainTxt1 = svg.append("text")
         .style("text-anchor", "end")
@@ -210,7 +211,7 @@ var comparativeVis = function comparativeVis(svgID) {
                 .attr({
                     x: xScale(film[paramX]) + 10,
                     y: yScale(film[paramY]) - 35 + offset,
-                    height: 40,
+                    height: 25,
                     width: 75 * wScale,
                 })
                 .style({
@@ -310,7 +311,7 @@ var comparativeVis = function comparativeVis(svgID) {
                 .attr({
                     x: xScale(film[paramX]) + 10,
                     y: yScale(film[paramY]) - 35 + offset,
-                    height: 40,
+                    height: 25,
                     width: 75 * wScale,
                 })
                 .style({
@@ -388,8 +389,8 @@ var comparativeVis = function comparativeVis(svgID) {
             group.append("rect")
                 .attr({
                     x: xScale(nominees[paramX]) + 10,
-                    y: yScale(nominees[paramY]) - 35,
-                    height: 40,
+                    y: yScale(nominees[paramY]) - 15,
+                    height: 20,
                     width: 75,
                 })
                 .style({
@@ -451,12 +452,13 @@ var comparativeVis = function comparativeVis(svgID) {
             y2: yScale(model.m * maxX + model.b)
         })
         .style("stroke", colAvg)
-        .style("stroke-width", 6)
+        .style("stroke-width", 3)
         .style("opacity", 0.33);
 
     //Create linear regression of just winners
     var winMean = 0;
     winnerArray.forEach(function(winner){
+        console.log(winner)
         winMean += +winner[paramY];
     });
     winMean /= winnerArray.length;
@@ -469,8 +471,8 @@ var comparativeVis = function comparativeVis(svgID) {
             y2: yScale(winMean)
         })
         .style("stroke", colHighlight)
-        .style("stroke-width", 6)
-        .style("opacity", 0.45);
+        .style("stroke-width", 3)
+        .style("opacity", 0.75);
 
     trendline2.on("mouseover", function(){
         svg.append("text")

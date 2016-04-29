@@ -21,7 +21,6 @@ var oscars2014 = [
          },
          "director":{
             "text":{
-               "@id":"0001241",
                "name":"Stephen Frears"
             }
          },
@@ -33,6 +32,9 @@ var oscars2014 = [
          },
          "rt":{
             "text":92
+         },
+         "rtAudience":{
+            "text":89
          }
       }
    },
@@ -58,7 +60,6 @@ var oscars2014 = [
          },
          "director":{
             "text":{
-               "@id":"0668247",
                "name":"Alexander Payne"
             }
          },
@@ -70,6 +71,9 @@ var oscars2014 = [
          },
          "rt":{
             "text":91
+         },
+         "rtAudience":{
+            "text":83
          }
       }
    },
@@ -95,7 +99,6 @@ var oscars2014 = [
          },
          "director":{
             "text":{
-               "@id":"0339030",
                "name":"Paul Greengrass"
             }
          },
@@ -107,6 +110,9 @@ var oscars2014 = [
          },
          "rt":{
             "text":93
+         },
+         "rtAudience":{
+            "text":89
          }
       }
    },
@@ -132,7 +138,6 @@ var oscars2014 = [
          },
          "director":{
             "text":{
-               "@id":"0000217",
                "name":"Martin Scorsese"
             }
          },
@@ -144,6 +149,9 @@ var oscars2014 = [
          },
          "rt":{
             "text":77
+         },
+         "rtAudience":{
+            "text":82
          }
       }
    },
@@ -169,7 +177,6 @@ var oscars2014 = [
          },
          "director":{
             "text":{
-               "@id":"2588606",
                "name":"Steve McQueen"
             }
          },
@@ -181,6 +188,9 @@ var oscars2014 = [
          },
          "rt":{
             "text":96
+         },
+         "rtAudience":{
+            "text":90
          }
       }
    },
@@ -206,7 +216,6 @@ var oscars2014 = [
          },
          "director":{
             "text":{
-               "@id":"0005069",
                "name":"Spike Jonze"
             }
          },
@@ -218,6 +227,9 @@ var oscars2014 = [
          },
          "rt":{
             "text":94
+         },
+         "rtAudience":{
+            "text":82
          }
       }
    },
@@ -243,7 +255,6 @@ var oscars2014 = [
          },
          "director":{
             "text":{
-               "@id":"0190859",
                "name":"Alfonso Cuar\u00f3n"
             }
          },
@@ -255,6 +266,9 @@ var oscars2014 = [
          },
          "rt":{
             "text":96
+         },
+         "rtAudience":{
+            "text":80
          }
       }
    },
@@ -280,7 +294,6 @@ var oscars2014 = [
          },
          "director":{
             "text":{
-               "@id":"0751102",
                "name":"David O. Russell"
             }
          },
@@ -292,6 +305,9 @@ var oscars2014 = [
          },
          "rt":{
             "text":93
+         },
+         "rtAudience":{
+            "text":74
          }
       }
    },
@@ -317,7 +333,6 @@ var oscars2014 = [
          },
          "director":{
             "text":{
-               "@id":"0885249",
                "name":"Jean-Marc Vall\u00e9e"
             }
          },
@@ -329,6 +344,9 @@ var oscars2014 = [
          },
          "rt":{
             "text":94
+         },
+         "rtAudience":{
+            "text":91
          }
       }
    }

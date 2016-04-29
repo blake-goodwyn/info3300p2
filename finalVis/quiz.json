@@ -1,0 +1,30 @@
+{
+	"name": "flare",
+ "children": [
+  {
+   "name": "analytics",
+   "children": [
+    {
+    "name": "analytics",
+	"children": [
+		    {
+     "name": "cluster",
+     "children": [
+      {"name": "The Big Short", "size": 800},
+      {"name": "The Revenant", "size": 800}]
+    },
+    {
+     "name": "graph",
+     "children": [{
+		     "name": "graph",
+		     "children": [
+			      {"name": "Mad Max: Fury Road", "size": 800},
+			      {"name": "The Martian", "size": 800},
+			      {"name": "Spotlight", "size": 800},
+			      {"name": "Bridge of Spies", "size": 800},
+			      {"name": "Brooklyn", "size": 800},
+			      {"name": "Room", "size": 800}
+			     ]}]
+    }
+    ]}]
+}]}

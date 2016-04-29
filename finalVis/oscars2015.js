@@ -21,7 +21,6 @@ var oscars2015 = [
          },
          "director":{
             "text":{
-               "@id":"3227090",
                "name":"Damien Chazelle"
             }
          },
@@ -32,6 +31,9 @@ var oscars2015 = [
             "text":"2014"
          },
          "rt":{
+            "text":94
+         },
+         "rtAudience":{
             "text":94
          }
       }
@@ -58,7 +60,6 @@ var oscars2015 = [
          },
          "director":{
             "text":{
-               "@id":"0000142",
                "name":"Clint Eastwood"
             }
          },
@@ -70,6 +71,9 @@ var oscars2015 = [
          },
          "rt":{
             "text":72
+         },
+         "rtAudience":{
+            "text":85
          }
       }
    },
@@ -95,7 +99,6 @@ var oscars2015 = [
          },
          "director":{
             "text":{
-               "@id":"0327944",
                "name":"Alejandro G. I\u00f1\u00e1rritu"
             }
          },
@@ -107,6 +110,9 @@ var oscars2015 = [
          },
          "rt":{
             "text":91
+         },
+         "rtAudience":{
+            "text":77
          }
       }
    },
@@ -132,7 +138,6 @@ var oscars2015 = [
          },
          "director":{
             "text":{
-               "@id":"0027572",
                "name":"Wes Anderson"
             }
          },
@@ -144,6 +149,9 @@ var oscars2015 = [
          },
          "rt":{
             "text":92
+         },
+         "rtAudience":{
+            "text":86
          }
       }
    },
@@ -169,7 +177,6 @@ var oscars2015 = [
          },
          "director":{
             "text":{
-               "@id":"0878763",
                "name":"Morten Tyldum"
             }
          },
@@ -181,6 +188,9 @@ var oscars2015 = [
          },
          "rt":{
             "text":90
+         },
+         "rtAudience":{
+            "text":92
          }
       }
    },
@@ -206,7 +216,6 @@ var oscars2015 = [
          },
          "director":{
             "text":{
-               "@id":"1148550",
                "name":"Ava DuVernay"
             }
          },
@@ -218,6 +227,9 @@ var oscars2015 = [
          },
          "rt":{
             "text":99
+         },
+         "rtAudience":{
+            "text":86
          }
       }
    },
@@ -243,7 +255,6 @@ var oscars2015 = [
          },
          "director":{
             "text":{
-               "@id":"1016428",
                "name":"James Marsh"
             }
          },
@@ -255,6 +266,9 @@ var oscars2015 = [
          },
          "rt":{
             "text":79
+         },
+         "rtAudience":{
+            "text":84
          }
       }
    },
@@ -280,7 +294,6 @@ var oscars2015 = [
          },
          "director":{
             "text":{
-               "@id":"0000500",
                "name":"Richard Linklater"
             }
          },
@@ -292,6 +305,9 @@ var oscars2015 = [
          },
          "rt":{
             "text":98
+         },
+         "rtAudience":{
+            "text":81
          }
       }
    }

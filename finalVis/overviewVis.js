@@ -42,10 +42,11 @@ var overviewVis = function overviewVis() {
         "Runtimes (min)": "runtimes",
         "Domestic Gross ($)": "grossDom",
         "International Gross ($)": "grossWorld",
-        "Rotten Tomatoes Score": "rt",
+        "Rotten Tomatoes Critic Score": "rt",
         "Number of IMDb Votes" : "votes",
+        "Rotten Tomatoes Audience Score" : "rtAudience"
     };
-    var sortParams = ["runtimes", "grossDom", "grossWorld", "rt", "votes"];
+    var sortParams = ["runtimes", "grossDom", "grossWorld", "rt", "votes","rtAudience"];
 
     // Intialize visualization;
     init(curData);
