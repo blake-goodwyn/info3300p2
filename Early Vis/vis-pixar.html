@@ -1,0 +1,686 @@
+<html>
+<head>
+	<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+	<style>
+	rect.bar { 
+		fill: #4169e1; 
+	}
+	path{
+		fill: none;
+		stroke: #000000;
+		stroke-width: 2;
+	}
+	.axis {
+		font-size: 14;
+	}
+	line{
+		stroke: #888;
+		stroke-width: 1;
+	}
+	body{
+		font-size: 14;
+		font-family: 'Lato', sans-serif;
+		background: #f2f2f2;
+	}
+	</style>
+<script>
+	//Reference Data
+	var pixarData = [  
+		   {"movie":"Toy Story",
+		   "data":{  
+		      "votes":{
+		         "text":"601406"
+		      },
+		      "rating":{
+		         "text":"8.3"
+		      },
+		      "runtimes":{
+		         "item":[  
+		            "81",
+		            {  
+		               "notes":"(TV version)",
+		               "text":"Turkey:74"
+		            }
+		         ]
+		      },
+		      "year":{
+		         "text":"1995"
+		      },
+		      "director":{
+		         "person":{
+		            "name":"John Lasseter"
+		         }
+		      }
+		   }},
+
+		   {"movie":"A Bug's Life",
+		   "data":{  
+		      "votes":{
+		         "text":"205852"
+		      },
+		      "rating":{
+		         "text":"7.2"
+		      },
+		      "runtimes":{
+		         "item":"95"
+		      },
+		      "year":{
+		         "text":"1998"
+		      },
+		      "director":{
+		         "person":[  
+		            {
+		               "name":"John Lasseter"
+		            },
+		            {
+		               "name":"Andrew Stanton",
+		               "notes":"(co-director)"
+		            }
+		         ]
+		      }
+		   }},
+
+		   {"movie":"Toy Story 2",
+		   "data":{  
+		         "votes":{
+		            "text":"374050"
+		         },
+		         "rating":{
+		            "text":"7.9"
+		         },
+		         "runtimes":{
+		            "item":[  
+		               "92",
+		               {  
+		                  "notes":"(TV version)",
+		                  "text":"Turkey:82"
+		               }
+		            ]
+		         },
+		         "year":{
+		            "text":"1999"
+		         },
+		         "director":{
+		            "person":[  
+		               {
+		                  "name":"John Lasseter"
+		               },
+		               {
+		                  "name":"Ash Brannon",
+		                  "notes":"(co-director)"
+		               },
+		               {
+		                  "name":"Lee Unkrich",
+		                  "notes":"(co-director)"
+		               }
+		            ]
+		         }
+		      }},
+
+		      {"movie":"Monsters, Inc.",
+		  		"data":{
+		  			"votes": {
+		  				"text": "563876"
+		  			},
+		  			"rating": { 
+		  				"text": "8.1"
+		  			},
+		  			"runtimes": {
+		  				"item": "92"
+		  			},
+		  			"year": {
+		  				"text": "2001"
+		  			},
+		  			"director": { 
+		  				"person": [
+		  					{ 
+		  						"name": "Pete Docter"
+		  					}, 
+		  					{ 
+		  						"name": "David Silverman", 
+		  						"notes": "(co-director)"
+		  					}, 
+		  					{
+		  						"name": "Lee Unkrich", 
+		  						"notes": "(co-director)"
+		  					}
+		  				]
+		  			}
+		  		}},
+
+				{"movie":"Finding Nemo",
+				 "data":{
+				 	"votes": { 
+				 		"text": "663881"
+				 	},
+				 	"rating": { 
+				 		"text": "8.1"
+				 	},
+				 	"runtimes": {
+				 		"item": "100"
+				 	},
+				 	"year": {
+				 		"text": "2003"
+				 	},
+				 	"director": { 
+				 		"person": [
+				 			{
+				 				"name": "Andrew Stanton"
+				 			}, 
+				 			{
+				 				"name": "Lee Unkrich", 
+				 				"notes": "(co-director)"
+				 			}
+				 		]
+				 	}
+				 }},
+
+				 {"movie":"The Incredibles",
+				 "data":{
+				 	"votes": {
+				 		"text": "464419"
+				 	},
+					"rating": {
+						"text": "8.0"
+					},
+					"runtimes": {
+						"item": "115"
+					},
+					"year": {
+						"text": "2004"
+					},
+					"director": {
+						"person": {
+							"name": "Brad Bird"
+						}
+					}
+				 }},
+
+				 {"movie":"Cars",
+				 "data":{
+				 	"votes": {
+				 		"text": "253912"
+				 	},
+					"rating": {
+						"text": "7.2"
+					},
+					"runtimes": {
+						"item": "117"
+					},
+					"year": {
+						"text": "2006"
+					},
+					"director": { 
+						"person": [
+							{
+								"name": "John Lasseter"
+							}, 
+							{
+								"name": "Joe Ranft", 
+								"notes": "(co-director)"
+							}
+						]
+					}
+				 }},
+
+				 {"movie":"Ratatouille",
+				 "data":{
+				 	"votes": {
+				 		"text": "459217"
+				 	},
+					"rating": { 
+						"text": "8.0"
+					},
+					"runtimes": { 
+						"item": "111"
+					},
+					"year": {
+						"text": "2007"
+					},
+					"director": {
+						"person": [
+							{
+								"name": "Brad Bird"
+							}, 
+							{
+								"name": "Jan Pinkava", 
+								"notes": "(co-director)"
+							}
+						]
+					}
+				 }},
+
+				 {"movie":"WALL-E",
+				 "data":{
+				 	"votes": {
+				 		"text": "693522"
+				 	},
+					"rating": {
+						"text": "8.4"
+					},
+					"runtimes": { 
+						"item": "98"
+					},
+					"year": {
+						"text": "2008"
+					},
+					"director": {
+						"person": { 
+							"name": "Andrew Stanton"
+						}
+					}
+				 }},
+
+				 {"movie":"Up",
+				 "data":{
+				 	"votes": {
+				 		"text": "640595"
+				 	},
+					"rating": {
+						"text": "8.3"
+					},
+					"runtimes": {
+						"item": "96"
+					},
+					"year": {
+						"text": "2009"
+					},
+					"director": {
+						"person": [
+							{
+								"name": "Pete Docter"
+							}, 
+							{
+								"name": "Bob Peterson", 
+								"notes": "(co-director)"
+							}
+						]
+					}
+				 }},
+
+				 {"movie":"Toy Story 3",
+				 "data":{
+				 	"votes": {
+				 		"text": "526019"
+				 	},
+					"rating": {
+						"text": "8.3"
+					},
+					"runtimes": {
+						"item": "103"
+					},
+					"year": {
+						"text": "2010"
+					},
+					"director": {
+						"person": {
+							"name": "Lee Unkrich"
+						}
+					}
+				 }},
+
+				{"movie":"Cars 2",
+				 "data":{
+				 	"votes": {
+				 		"text": "97797"
+				 	},
+					"rating": {
+						"text": "6.3"
+					},
+					"runtimes": {
+						"item": "USA:106"
+					},
+					"year": { 
+						"text": "2011"
+					},
+					"director": {
+						"person": [
+							{ 
+								"name": "John Lasseter"
+							}, 
+							{ 
+								"name": "Brad Lewis", 
+								"notes": "(co-director)"
+							}
+						]
+					}
+				 }},
+
+				{"movie":"Brave",
+				 "data":{
+				 	"votes": {
+				 		"text": "266304"
+				 	},
+					"rating": {
+						"text": "7.2"
+					},
+					"runtimes": { 
+						"item": "93"
+					},
+					"year": {
+						"text": "2012"
+					},
+					"director": { 
+						"person": [
+							{ 
+								"name": "Mark Andrews"
+							}, 
+							{
+								"name": "Brenda Chapman"
+							}, 
+							{
+								"name": "Steve Purcell", 
+								"notes": "(co-director)"
+							}
+						]
+					}
+				 }},
+
+				 {"movie":"Monsters University",
+				 "data":{
+				 	"votes": {
+				 		"text": "226373"
+				 	},
+					"rating": {
+						"text": "7.4"
+					},
+					"runtimes": {
+						"item": "104"
+					},
+					"year": {
+						"text": "2013"
+					},
+					"director": { 
+						"person": { 
+							"name": "Dan Scanlon"
+						}
+					}
+				 }}					 				 
+
+		   ]
+</script>
+<script src="//d3js.org/d3.v3.min.js"></script>
+</head>
+<body>
+	<div id="test" align="center"\>
+	<div id="test2" align="center" \>
+		<h4>Test Visualization</h4>
+		<p>Pixar Movies and IMDb Vote Counts for Ratings</p>
+	<script>
+		var height = 500,
+			width = 750,
+			padding = 50;
+
+		var svg = d3.select("#test").append("svg")
+		.attr("height", height)
+		.attr("width", width);
+
+		var voteVals = [],
+			voteArray = [],
+			movies = [];
+		pixarData.forEach(function(movie){
+			voteVals.push({"title":movie.movie, "votes":movie.data.votes.text, 'rating':movie.data.rating.text});
+		});
+
+		function compare(a,b){
+			if (a.rating < b.rating) { return -1 }
+			else if (a.rating > b.rating) { return 1 }
+			else {return 0};
+		}
+
+		voteVals.sort(compare)
+
+		voteVals.forEach(function(obj){
+			voteArray.push(obj.votes);
+			movies.push(obj.title);
+		})
+
+		var minVal = voteArray[0],
+			maxVal = voteArray[voteArray.length-1];
+
+
+		//Scales and max counts
+		var xPoints = d3.scale.ordinal()
+		.domain(movies)
+		.rangePoints([2*padding,width-2*padding]);
+
+		var xBands = d3.scale.ordinal() //column width bands
+			.domain(movies)
+			.rangeBands([2*padding, width-2*padding], 0.2, 0.5);
+
+		var xAxis = d3.svg.axis().scale(xPoints).orient("bottom");
+
+		var yScale = d3.scale.linear() //y-axis
+		.domain([0,maxVal])
+		.range([height-2.5*padding,padding])
+
+		var yAxis = d3.svg.axis().orient("left").scale(yScale).ticks(4).tickFormat(d3.format(".1ef"));
+
+		svg.append("g")
+			.attr("class", "x class")
+			.attr("transform", "translate(0," + (height-2.35*padding) + ")")
+			.call(xAxis)
+			.selectAll("text")
+			.style("text-anchor","end")
+			.attr("transform", function(d) {
+             return "translate(" + this.getBBox().height*-0.5 + "," + 0.2*this.getBBox().height + ")rotate(-45)";
+         });
+
+		svg.append("g")
+			.attr("class", "y axis")
+			.attr("transform", "translate(" + 1.05*padding + ", 0)")
+			.call(yAxis);
+
+		voteVals.forEach(function(obj){
+			svg.append("rect").attr("class", "bar")
+				.attr("x", xPoints(obj.title)-xBands.rangeBand()/2)
+				.attr("y", yScale(0))
+				.attr("width", xBands.rangeBand())
+				.attr("height", 0)
+				.style("fill","blue")
+				.on("mouseover", function(d,i){
+					//Bar Opacity
+					d3.select(this).style({opacity:'0.5',})
+					//Rating Data
+					svg.append("text").attr({
+						x: xPoints(obj.title)-0.5*xBands.rangeBand(),
+						y: yScale(obj.votes) - 5,
+						id: "detaildata"
+					})
+					.text(obj.rating);
+					//Vote Data
+					svg.selectAll(".axis text").style({opacity:'0.25'});
+					svg.append("text").attr({
+						x: 0,
+						y: yScale(obj.votes),
+						id: "votedata"
+					})
+					.text(d3.format(".1ef")(obj.votes));
+				})
+				.on("mouseleave", function(d){
+					d3.select(this).style({opacity:'1.0',});
+					svg.selectAll(".axis text").style({opacity:'1.0'});
+					d3.select("#detaildata").remove();
+					d3.select("#votedata").remove();
+				})
+				.transition()
+				.delay(250)
+				.duration(750)
+				.attr("y", yScale(obj.votes))
+				.attr("height", yScale(0)- yScale(obj.votes))
+		});
+
+		////////////////
+
+		var svg2 = d3.select("#test2").append("svg")
+			.attr("height", height)
+			.attr("width", width);
+
+		var xScale = d3.scale.linear()
+		.domain([0,1.15*maxVal])
+		.range([padding,width-padding]);
+
+		var xAxis = d3.svg.axis().scale(xScale).orient("bottom").ticks(4).tickFormat(d3.format(".1ef"));
+
+		var yScale2 = d3.scale.linear() //y-axis
+		.domain([0,10])
+		.range([height-padding,padding])
+
+		var yAxis = d3.svg.axis().orient("left").scale(yScale2);
+
+		voteVals.forEach(function(obj){
+			svg2.append("circle").attr("class", "point")
+				.attr("cx", xScale(obj.votes))
+				.attr("cy", yScale2(obj.rating))
+				.attr("r", 5)
+				.style("fill","blue")
+				.on("mouseover", function(d,i){
+					d3.select(this).style({opacity:'0.5',})
+					svg2.append("text").attr({
+						x: xScale(0) + 10,
+						y: yScale2(0),
+						id: "detaildata"
+					})
+					.text(function(){
+						return obj.title
+					});
+				})
+				.on("mouseleave", function(d){
+					d3.select(this).style({opacity:'1.0',})
+					d3.select("#detaildata").remove()
+				})
+		})
+
+		svg2.append("g")
+			.attr("class", "x class")
+			.call(xAxis)
+			.attr("transform", "translate(0," + (height-0.85*padding) + ")");
+
+		svg2.append("g")
+			.attr("class", "y axis")
+			.attr("transform", "translate(" + 1.05*padding + ", 0)")
+			.call(yAxis);
+		</script>
+		<div id="circleTest" />
+
+		<script>
+		//////////////////////////
+		//Circle Animation Trial//
+		//////////////////////////
+
+		var l = 750,
+			padding = 50,
+			speed = 850;
+			radius = l/3.5;
+			cirR = 35;
+
+		var svg3 = d3.select("#circleTest").append("svg")
+			.attr("height", l)
+			.attr("width", l);
+
+		function circlePath(radius){
+			var points = [],
+				n = 1000;
+			for (var i = 0; i<n; i++){
+				var x = l/2 + radius*Math.cos(i*Math.PI/(n/2)),
+					y = l/2 - radius*Math.sin(i*Math.PI/(n/2));
+				points.push([x,y]);
+			};
+
+			return points
+		};
+
+		pathPoints = circlePath(radius);
+		var specPoints = [],
+			step = pathPoints.length/voteVals.length;
+		for (var i = 0; i<voteVals.length; i++){
+			specPoints.push(pathPoints[Math.floor(i*step)]);
+		};
+
+		specPoints.shift();
+
+		var path = svg3.append("path")
+			.data([pathPoints])
+			.attr("d", d3.svg.line()
+			.tension(0) //Catmull-Rom
+			.interpolate("cardinal-closed"))
+			.style("opacity",0);
+
+		svg3.selectAll(".point")
+			.data(pathPoints)
+			.enter().append("circle")
+			.attr("r",4)
+			.style("opacity",0)
+			.attr("transform", function(d) {return "translate(" + d + ")"});
+
+		var circle = svg3.append("circle")
+			.attr("r", 0)
+			.attr("id", "dataCircle")
+			.style("fill","blue")
+			.attr("transform", "translate(" + pathPoints[0] + ")")
+			.transition()
+			.duration(0.5*speed)
+			.attr("r",cirR);
+
+		//Transitions		
+		console.log("start transition")
+		circleTransition(circle);
+
+		function fillChange(array){  //Transition 2
+		var centerCircle = svg3.append("circle")
+				.attr("r", 0)
+				.attr("cx", l/2)
+				.attr("cy", l/2)
+				.style("fill", "grey")
+				.transition()  //Initialize 2
+				.ease("elastic")
+				.duration(1.5*speed)
+				.attr("r", 0.5*radius)
+				.each('end', function(){  //Transition 3
+					d3.selectAll("#dataCircle")
+					.transition()  //Initialize 3 
+					.duration(speed)
+					.style("fill","red")
+				});
+		};
+
+		function circleTransition(circle) {  //Transition 1
+			circle.transition() //Initialized #1
+			.duration(2.0*speed)
+			.attrTween("transform", translateAlong(path.node()))
+			.each('end', function(){fillChange()});
+		}
+
+		function translateAlong(path) {
+		  var l = path.getTotalLength();
+		  return function(d, i, a) {
+		    return function(t) {
+		      var p = path.getPointAtLength(t * l);
+		      if ((specPoints.length != 0) &&
+				((Math.abs(p.x - specPoints[0][0]) < 0.05*l) && (Math.abs(p.y - specPoints[0][1]) < 0.05*l))) {
+		      			console.log("circle")
+						var circle = svg3.append("circle")
+						.attr({
+							r: 0,
+							cx: specPoints[0][0],
+							cy: specPoints[0][1],
+							id: "dataCircle"
+						})
+						.style("fill","blue");
+
+						specPoints.shift();
+
+						circle.transition()
+						.attr("r",cirR)
+						.delay(0.1*speed)
+						.duration(0.5*speed);
+				};
+
+		      return "translate(" + p.x + "," + p.y + ")";
+		    };
+		  };
+		};
+
+	</script>
+</body>
+</html>

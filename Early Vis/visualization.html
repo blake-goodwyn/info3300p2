@@ -1,0 +1,92 @@
+<html>
+
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
+    <style>
+        path {
+            fill: none;
+            stroke: #000000;
+            stroke-width: 0;
+        }
+        body {
+            font-size: 20;
+            font-family: 'Dosis', sans-serif;
+        }
+        circle {
+            stroke-width: 1;
+        }
+        #spacer {
+            padding-right: 17.5%;
+            display: block;
+            height: 25px;
+            padding-top: 10px;
+        }
+        #header {
+            height: 60px;
+            margin-top: -1.5%;
+            width: 100%;
+            display: table;
+            overflow: scroll;
+        }
+        #headerText {
+            display: table-cell;
+            vertical-align: middle;
+        }
+    </style>
+    <script src="oscars2016.js"></script>  <!--Data Sources-->
+    <script src="oscars2015.js"></script>
+    <script src="oscars2014.js"></script>
+    <script src="oscars2013.js"></script>
+    <script src="oscars2012.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="comparativeVis.js"></script>
+    <script src="overviewVis.js"></script>
+</head>
+
+<body>
+    <div align="center">
+        <div id="header" data-position="fixed">
+            <h1 align="center" id="headerText">The Reel Comparison of Oscar Best Picture Nominees</h1>
+        </div>
+    </div>
+    <div id="struct" align="center">
+        <div id="spacer" align="right">
+        </div>
+        <div id="container" float="center" />
+    </div>
+    <div id="comparative" float="center" />
+    <script>
+        var allOscars = [{
+            "name": "Oscars 2016",
+            "data": oscars2016,
+        }, {
+            "name": "Oscars 2015",
+            "data": oscars2015,
+        }, {
+            "name": "Oscars 2014",
+            "data": oscars2014,
+        }, {
+            "name": "Oscars 2013",
+            "data": oscars2013,
+        }, {
+            "name": "Oscars 2012",
+            "data": oscars2012,
+        }, ];
+
+        var winners = ["Spotlight",
+            "Birdman",
+            "Twelve Years a Slave",
+            "Argo",
+            "The Artist"
+        ];
+
+        var height = 500;
+        var openSpeed = 350,
+            resetSpeed = openSpeed/2;
+
+        overviewVis()
+        comparativeVis("#comparative");
+    </script>
+</body>
+
+</html>
