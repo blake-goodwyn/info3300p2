@@ -15,11 +15,12 @@ var pack = d3.layout.pack()
     .size([width, height + bleed * 2])
     .padding(2);
 
-var svg1 = d3.select("#dou").append("svg")
+/*var svg1 = d3.select("#dou").append("svg")
     .attr("width", width)
     .attr("height", height)
   .append("g")
     .attr("transform", "translate(0," + -bleed + ")");
+    */
 
 //read two data files
 queue()
