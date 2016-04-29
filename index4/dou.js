@@ -7,6 +7,7 @@ var dou = function() {
         height1 = 600,
         width1 = 1000;
 
+    //stores information about which movie describes you based on quiz answers
     var matches = {};
     var csvData;
 
